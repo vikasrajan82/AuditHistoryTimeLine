@@ -1,0 +1,2416 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivatingAdjunctEligibilityForParticipant" xml:space="preserve">
+    <value>Activating Adjunct Eligibility For Participant {0} of type {1}. Parent Adjunct Eligibility is set to {2}</value>
+  </data>
+  <data name="ActualDeliveryDateNotAvailable" xml:space="preserve">
+    <value>Actual Delivery Date for this participant is not available. This participant cannot be certified.</value>
+  </data>
+  <data name="AddBreakRule" xml:space="preserve">
+    <value>Adding Break Rule</value>
+  </data>
+  <data name="AddendumRecordExistOnCreate" xml:space="preserve">
+    <value>There cannot be more than one record for a given fiscal year, please enter these values in the correct Fiscal Year record or update the Fiscal Year to a new value.</value>
+  </data>
+  <data name="AddendumRecordExistOnUpdate" xml:space="preserve">
+    <value>There cannot be more than one record for a given fiscal year, please enter these values in the correct Fiscal Year record or update the Fiscal Year to a new value.</value>
+  </data>
+  <data name="AdditionalEndorser" xml:space="preserve">
+    <value>additional endorser</value>
+  </data>
+  <data name="AddSerializedOrderLines" xml:space="preserve">
+    <value>Creating Serialized Order Lines and Updating Serialized Inventory</value>
+  </data>
+  <data name="AddWorkHourRule" xml:space="preserve">
+    <value>Adding Work Hour Rule</value>
+  </data>
+  <data name="AdjunctEligibilityMedicaidMessage" xml:space="preserve">
+    <value>Adjunct Eligibility {0} is of type Medicaid</value>
+  </data>
+  <data name="AdjunctEligibilityName" xml:space="preserve">
+    <value>{0} eligible by {1}</value>
+  </data>
+  <data name="AdjunctEligibilityProgramInactiveMessage" xml:space="preserve">
+    <value>Adjunct Eligibility {0} has been made inactive</value>
+  </data>
+  <data name="AdjunctEligibilityRecordInactiveMessage" xml:space="preserve">
+    <value>Adjunct Eligibility {0} record is inactive. Existing the plugin</value>
+  </data>
+  <data name="AdjustRedemptionMethodCall" xml:space="preserve">
+    <value>Adjust Redemption Details</value>
+  </data>
+  <data name="AdministrativeLock" xml:space="preserve">
+    <value>ADMINISTRATIVE LOCK</value>
+  </data>
+  <data name="AdultParticipantInFamily" xml:space="preserve">
+    <value>Each family should only have one adult Participant.</value>
+  </data>
+  <data name="AfterDelete" xml:space="preserve">
+    <value>After deleting {0}</value>
+  </data>
+  <data name="AggregateAllBenefits" xml:space="preserve">
+    <value>Aggregated all the benefits records</value>
+  </data>
+  <data name="AlertDescription" xml:space="preserve">
+    <value>Certification is expiring</value>
+  </data>
+  <data name="AlertDescriptionAdminLock" xml:space="preserve">
+    <value>There is an Admin Lock on {0} card. Benefits will need to be re-issued after {1}</value>
+  </data>
+  <data name="AlertDescriptionDropship" xml:space="preserve">
+    <value>A Drop Ship for {0} will be available at {1}  on {2}</value>
+  </data>
+  <data name="AlertVisibleDaysForTransitionStandardFoodPackage" xml:space="preserve">
+    <value>AlertVisibleDaysForTransitionStandardFoodPackage</value>
+  </data>
+  <data name="AllColumnsError" xml:space="preserve">
+    <value>Cannot Retrieve All Columns</value>
+  </data>
+  <data name="AltitudeElevationRiskCodes" xml:space="preserve">
+    <value>AltitudeElevationRiskCodes</value>
+  </data>
+  <data name="AM" xml:space="preserve">
+    <value>AM</value>
+  </data>
+  <data name="AnswerRecordNameNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="AnswerRecordNameYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="AnthropometricCreationForOtherFormMessage" xml:space="preserve">
+    <value>Anthropometric can only be created from the participant form. Please navigate to the participant screen.</value>
+  </data>
+  <data name="ApplicantAgeBetween" xml:space="preserve">
+    <value>Applicant's age is 14 to 16 years of age. Please navigate to More Commands &gt; Start Dialog &gt; and complete the 'Daily Rider Report' dialog as part of the certification.</value>
+  </data>
+  <data name="ApplicantUnderAge" xml:space="preserve">
+    <value>Underage Report has been automatically submitted and can be confirmed on the 'Daily Rider Summary Report'.</value>
+  </data>
+  <data name="AppointmentNotFound" xml:space="preserve">
+    <value>An appointment does not exist for the Family at this time. Please create an appointment record to capture the details of this session</value>
+  </data>
+  <data name="ApprovedPrescriptionNoRxFoodPackageFound" xml:space="preserve">
+    <value>{0} has an Approved Medical Prescription, but no verified Rx food package found {1}</value>
+  </data>
+  <data name="ArgumentANDValuesNotMatching" xml:space="preserve">
+    <value>Number of attribute names is not the same as number of attribute values</value>
+  </data>
+  <data name="AssignOwnerCompleted" xml:space="preserve">
+    <value>AssignOwnerCompleted</value>
+  </data>
+  <data name="AssignOwnerOfParentToChildRecord" xml:space="preserve">
+    <value>AssignOwnerOfParentToChildRecord</value>
+  </data>
+  <data name="AssignParticipantProfile" xml:space="preserve">
+    <value>Unable To Assign Participant Profile to Participant</value>
+  </data>
+  <data name="AssignParticipantProfileGenericError" xml:space="preserve">
+    <value>Error Occurred</value>
+  </data>
+  <data name="AssignRecordsBasedOnClinicPostCreateUpdate" xml:space="preserve">
+    <value>AssignRecordsBasedOnClinicPostCreateUpdate</value>
+  </data>
+  <data name="AssignSameRiskCodeIssue" xml:space="preserve">
+    <value>Two same risk codes cannot be assigned to a participant</value>
+  </data>
+  <data name="AssignStandardFoodPackage" xml:space="preserve">
+    <value>Unable To Assign StandardFoodPackage To Participant</value>
+  </data>
+  <data name="AssociateRoles" xml:space="preserve">
+    <value>Associating roles to user</value>
+  </data>
+  <data name="AssociateRolesCompleted" xml:space="preserve">
+    <value>Associating roles to user completed</value>
+  </data>
+  <data name="BeforeCreatingPFPLines" xml:space="preserve">
+    <value>Before creating PFP Line items</value>
+  </data>
+  <data name="BeforeDelete" xml:space="preserve">
+    <value>Before deleting {0}</value>
+  </data>
+  <data name="BeforeUpdating" xml:space="preserve">
+    <value>Before updating</value>
+  </data>
+  <data name="BeforeVoiding" xml:space="preserve">
+    <value>Expiring order line voided</value>
+  </data>
+  <data name="BlockerRiskCodeAssignmentRestriction" xml:space="preserve">
+    <value>Risk Code {0} cannot be added while other Risk Codes are active on this Participant.  All other Risk Codes must be manually removed prior to adding this Risk Code.</value>
+  </data>
+  <data name="BloodWorkAlertMessage" xml:space="preserve">
+    <value>This Participant requires BloodWork. Close this alert once Blood Work has been taken.</value>
+  </data>
+  <data name="BloodWorkCreationForOtherFormMessage" xml:space="preserve">
+    <value>Blood work can only be created from the participant form. Please navigate to the participant screen.</value>
+  </data>
+  <data name="BreakHourDuration" xml:space="preserve">
+    <value>BreakHourDuration</value>
+  </data>
+  <data name="BreakHourOffset" xml:space="preserve">
+    <value>BreakHourOffset</value>
+  </data>
+  <data name="BreakHourRule" xml:space="preserve">
+    <value>BreakHourRule</value>
+  </data>
+  <data name="BreastPumpFollowUpDays" xml:space="preserve">
+    <value>BreastPumpFollowUpDays</value>
+  </data>
+  <data name="BreastPumpFollowUpSubject" xml:space="preserve">
+    <value>Breast Pump Follow Up</value>
+  </data>
+  <data name="BroadbandFoodCategory" xml:space="preserve">
+    <value>You already have another item with same category in the food package. Both items cannot be issued in same food package</value>
+  </data>
+  <data name="BusinessUnitHierarchy" xml:space="preserve">
+    <value>A {0} cannot be placed under {1}. \n Please change the Parent Business Unit or\n change the Business Type for the current record.</value>
+  </data>
+  <data name="CalculateFamilyDeltaAmount" xml:space="preserve">
+    <value>Calculate Delta Amount for family benefit issuance records</value>
+  </data>
+  <data name="CalculateParticipantDeltaAmount" xml:space="preserve">
+    <value>Calculate Delta Amount for Participant benefit issuance records</value>
+  </data>
+  <data name="CallingRedemptionLogic" xml:space="preserve">
+    <value>Calling RedeemDropShip method</value>
+  </data>
+  <data name="CallingReserveProcess" xml:space="preserve">
+    <value>Calling Reserve Process</value>
+  </data>
+  <data name="CallingValidateDropShipRedemptions" xml:space="preserve">
+    <value>Calling ValidateDropShipRedemptions</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CancelAsDamaged" xml:space="preserve">
+    <value>Cancel As Damaged</value>
+  </data>
+  <data name="CancelAsLost" xml:space="preserve">
+    <value>Cancel As Lost</value>
+  </data>
+  <data name="CancelCertification" xml:space="preserve">
+    <value>The Certification Start Date is greater than the allowed Participant Eligibility Date. This participant cannot be certified.</value>
+  </data>
+  <data name="CancelDropShipActiveOrderValidation" xml:space="preserve">
+    <value>Only Active Drop Ship Order can be cancelled.</value>
+  </data>
+  <data name="CancelDropShipOrderValidation" xml:space="preserve">
+    <value>Only Active Drop Ship Order with Status Reason (New, Release Drop Ship, Placed) can be cancelled.</value>
+  </data>
+  <data name="CancelEBTOrderSubject" xml:space="preserve">
+    <value>Cancel Ship EBT Card Order</value>
+  </data>
+  <data name="CancelPartial" xml:space="preserve">
+    <value>CancelPartial</value>
+  </data>
+  <data name="CancelShipTransferInventoryEmailSubject" xml:space="preserve">
+    <value>Cancel Ship Transfer </value>
+  </data>
+  <data name="CannotTransferAdultParticipantToAnotherFamily" xml:space="preserve">
+    <value>Each family should only have one adult Participant. The Gaining Family already has an adult participant.</value>
+  </data>
+  <data name="CannotUpdateCid" xml:space="preserve">
+    <value>Error occurred while updating the CID for this participant. Please try again.</value>
+  </data>
+  <data name="CannotUpdateFid" xml:space="preserve">
+    <value>Error occurred while updating the FID for this family. Please try again.</value>
+  </data>
+  <data name="CardTransactionLogParentClinicValidation" xml:space="preserve">
+    <value>Clinic must be associated with local agency / state program</value>
+  </data>
+  <data name="CaseloadValidation" xml:space="preserve">
+    <value>The ‘Maximum Case Load’ and ‘Waiting List Activated’\n can only be modified by a user with ‘Caseload Management’ role.</value>
+  </data>
+  <data name="CertificationCreateSnapshot" xml:space="preserve">
+    <value>Snapshot Creation for the participant {0}</value>
+  </data>
+  <data name="CertificationPreCreateCertificationStatus" xml:space="preserve">
+    <value>Setting the Certification with status {0} and status reason {1}</value>
+  </data>
+  <data name="CertificationPreCreateParticipantStatus" xml:space="preserve">
+    <value>Setting the Participant with status {0} and status reason {1}</value>
+  </data>
+  <data name="CertificationPreCreateRetrieveParticipant" xml:space="preserve">
+    <value>Retrieving the participant details for the participant {0}</value>
+  </data>
+  <data name="CertificationPreCreateSetEndDate" xml:space="preserve">
+    <value>Setting the certification End date and CEED</value>
+  </data>
+  <data name="CertificationPreCreateUpdateParticipant" xml:space="preserve">
+    <value>Updating the participant status</value>
+  </data>
+  <data name="CertificationPreCreateValidateCertification" xml:space="preserve">
+    <value>Validating the existence of any active certifications for the participant {0}</value>
+  </data>
+  <data name="CertificationPreCreateValidateParticipantEligibility" xml:space="preserve">
+    <value>Checking the eligibility for the participant</value>
+  </data>
+  <data name="CertificationStatusMessage" xml:space="preserve">
+    <value>Participant couldn't be re-instated. Either residency/identity/income eligibility status  is not set properly Or active certification record is not present.</value>
+  </data>
+  <data name="CertificationsUpdated" xml:space="preserve">
+    <value>Certification Status is Updated</value>
+  </data>
+  <data name="CheckSubstitutionUOMCompatiblity" xml:space="preserve">
+    <value>Food Item’s substitution UOM value is not compatible with UOM value of related substitution rule – {0}. Please select an appropriate food item to proceed further</value>
+  </data>
+  <data name="CheckValidBenefitIssuanceRedeemDropship" xml:space="preserve">
+    <value>No valid benefit issuance exists for the given order</value>
+  </data>
+  <data name="CleanAndInspectBreastPumpSubject" xml:space="preserve">
+    <value>Clean and Inspect Breast Pump</value>
+  </data>
+  <data name="CleanedAndReadyForIssuance" xml:space="preserve">
+    <value>Cleaned and Ready for Issuance</value>
+  </data>
+  <data name="ClinicAppointmentTypeDuplicateMessage" xml:space="preserve">
+    <value>Clinic cannot have more than one 'Clinic Appointment Type' record with same Appointment Type</value>
+  </data>
+  <data name="ClinicIdRequired" xml:space="preserve">
+    <value>ClinicId needs to be a non-empty GUID formatted string</value>
+  </data>
+  <data name="ClinicNull" xml:space="preserve">
+    <value>Clinic not available</value>
+  </data>
+  <data name="ClinicSupervisor" xml:space="preserve">
+    <value>Clinic Supervisor</value>
+  </data>
+  <data name="ClinicToNull" xml:space="preserve">
+    <value>Clinic to not available</value>
+  </data>
+  <data name="ClinToInventoryValidation" xml:space="preserve">
+    <value>The inventory for this part number {0} and for the current clinic does not exist </value>
+  </data>
+  <data name="CollectedInputParameters" xml:space="preserve">
+    <value>collected Input Parameters</value>
+  </data>
+  <data name="CollectingInputParameters" xml:space="preserve">
+    <value>Collecting Input Parameters</value>
+  </data>
+  <data name="ConfigurationRecordMissingForOrderAutoNumber" xml:space="preserve">
+    <value>AutoNumberConfiguration record is missing for order auto number</value>
+  </data>
+  <data name="ConfigurationRecordMissingForOrderPrefix" xml:space="preserve">
+    <value>Configuration record is missing for order prefix.</value>
+  </data>
+  <data name="ConfigurationValueNotAvailableForRequestHeader" xml:space="preserve">
+    <value>Please verify these values are available in configuration or not?  WIC_State_Agency_ID, WIC_EBT_System_ID, WIC_MIS_System_ID</value>
+  </data>
+  <data name="ContactAdminError" xml:space="preserve">
+    <value>Error occurred please contact your system administrator with reference number {0}</value>
+  </data>
+  <data name="ContactRecordNullError" xml:space="preserve">
+    <value>Contact record passed to {0} cannot be null</value>
+  </data>
+  <data name="ContradictoryRiskCodeIssue" xml:space="preserve">
+    <value>Two contradictory risk codes cannot be assigned on the same participant</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CreateCardTransactionLogEntered" xml:space="preserve">
+    <value>CreateCardTransactionLogEntered</value>
+  </data>
+  <data name="CreatedAppointmentSlotLogPart" xml:space="preserve">
+    <value>Created Appointment Slot Log Part</value>
+  </data>
+  <data name="CreatedByRecordGuid" xml:space="preserve">
+    <value>The CreatedBy record guid is {0}</value>
+  </data>
+  <data name="CreateEmail" xml:space="preserve">
+    <value>Email Created</value>
+  </data>
+  <data name="CreateFMNPRecordForParticipant" xml:space="preserve">
+    <value>Creating FMNP record for participant</value>
+  </data>
+  <data name="CreateNewRule" xml:space="preserve">
+    <value>Entered Creating New Rule</value>
+  </data>
+  <data name="CreateSerializedOrderLines" xml:space="preserve">
+    <value>Creating serialized order lines for unmatched serial number sequences.</value>
+  </data>
+  <data name="CreateSFPPFPLinesMethod" xml:space="preserve">
+    <value>Entered create SFP and PFP Lines method</value>
+  </data>
+  <data name="CreateSFPRetrievePFPLines" xml:space="preserve">
+    <value>Create SFP and Retrieved related PFP Line items</value>
+  </data>
+  <data name="CreateUpdateIssuanceRecords" xml:space="preserve">
+    <value>Create and update issuance  records</value>
+  </data>
+  <data name="CreatingAdjunctEligibilityForParticipant" xml:space="preserve">
+    <value>Creating Adjunct Eligibility For Participant {0} of type {1}. Parent Adjunct Eligibility is set to {2}</value>
+  </data>
+  <data name="CreatingEmailActivity" xml:space="preserve">
+    <value>Creating Email Activity</value>
+  </data>
+  <data name="CreatingHighRiskReferralsAlertMessage" xml:space="preserve">
+    <value>Creating High Risk Referrals Alert for Family {0}</value>
+  </data>
+  <data name="CreatingInnerCalendar" xml:space="preserve">
+    <value>CreatingInnerCalendar</value>
+  </data>
+  <data name="CreatingInventory" xml:space="preserve">
+    <value>Creating Inventory</value>
+  </data>
+  <data name="CreatingMail" xml:space="preserve">
+    <value>Creating Mail</value>
+  </data>
+  <data name="CreatingOrder" xml:space="preserve">
+    <value>Creating order for EBT Transfer Process</value>
+  </data>
+  <data name="CreatingOrderLine" xml:space="preserve">
+    <value>Creating Order Line for EBT Transfer Process</value>
+  </data>
+  <data name="CreatingPhoneCallActivity" xml:space="preserve">
+    <value>Creating Phone Cal lActivity</value>
+  </data>
+  <data name="CurrentRecordUrlNotFound" xml:space="preserve">
+    <value>Unable to find record url in email</value>
+  </data>
+  <data name="DailyRiderReport" xml:space="preserve">
+    <value>Daily Rider Report</value>
+  </data>
+  <data name="Damaged" xml:space="preserve">
+    <value>Damaged</value>
+  </data>
+  <data name="DateOnlyFormat" xml:space="preserve">
+    <value>MM/dd/yyyy</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>DAYS</value>
+  </data>
+  <data name="DeactivateOrderLineAndRelatedEntitiesRecord" xml:space="preserve">
+    <value>Deactivate Order Line And Related Entities Record</value>
+  </data>
+  <data name="DefaultRoleName" xml:space="preserve">
+    <value>DefaultRoleName</value>
+  </data>
+  <data name="DetailsXmlRequired" xml:space="preserve">
+    <value>DetailsXml needs to be a non-empty string</value>
+  </data>
+  <data name="DietaryRiskCodeDescription" xml:space="preserve">
+    <value>Food Allergy has been identified. Please take a look at package.</value>
+  </data>
+  <data name="DisasterClinics" xml:space="preserve">
+    <value>Retrieving Clinics</value>
+  </data>
+  <data name="DisposedDamagedFormulaQuantityGreaterThanAvailable" xml:space="preserve">
+    <value>The Ordered Quantity is greater than Available Quantity for this Inventory.</value>
+  </data>
+  <data name="DisposeExpiringFormulaInventoryProcess" xml:space="preserve">
+    <value>Calling DisposeExpiringFormulaInventoryProcess</value>
+  </data>
+  <data name="DisposeExpiringFormulaInventoryProcessEnd" xml:space="preserve">
+    <value>Dispose Expiring Formula Inventory Process End</value>
+  </data>
+  <data name="DisposeInvalidClinic" xml:space="preserve">
+    <value>Invalid Operation: Expiring inventory does not belongs to your clinic</value>
+  </data>
+  <data name="DisposeProcessClinicViolation" xml:space="preserve">
+    <value>Please select expiring inventory from same clinic.</value>
+  </data>
+  <data name="DisposeQuantityInteger" xml:space="preserve">
+    <value>Disposed Quantity must be integer value</value>
+  </data>
+  <data name="DisposeQuantityZero" xml:space="preserve">
+    <value>Disposed Quantity must be greater than 0</value>
+  </data>
+  <data name="DropShipCancellationAlertDescription" xml:space="preserve">
+    <value>Drop Ship Order is cancelled for {0} . Please click on Modify Benefits of mentioned month before Write to Card</value>
+  </data>
+  <data name="DropShipCheckMaxAllowableQuantity" xml:space="preserve">
+    <value>The Drop Ship quantity will exceed the allowable quantity.  Issuance is not permitted. Please adjust the quantity and try again</value>
+  </data>
+  <data name="DropShipEligibleToReceiveParticipantFoodPackage" xml:space="preserve">
+    <value>{0} is not eligible to receive this item as this item is not part of the participant’s food package.</value>
+  </data>
+  <data name="DropShipEmailDescription" xml:space="preserve">
+    <value>Your Drop Ship Order will be available at {0} on {1}</value>
+  </data>
+  <data name="DropshipEmailSubject" xml:space="preserve">
+    <value>Drop Ship Order will be ready for pickup on {0}</value>
+  </data>
+  <data name="DropShipFoodRuleViolation" xml:space="preserve">
+    <value>Order validation has failed and is in violation of Food Rules</value>
+  </data>
+  <data name="DropShipFormulaVendor" xml:space="preserve">
+    <value>The drop ship formula {0} does not have a vendor selected</value>
+  </data>
+  <data name="DropShipIntegrationFamilyBenefitIssuanceNull" xml:space="preserve">
+    <value>Family Benefit Issuance is required on order</value>
+  </data>
+  <data name="DropShipIntegrationRetrieveOrderDetails" xml:space="preserve">
+    <value>Retrieve Order Details</value>
+  </data>
+  <data name="DropShipIssuanceAndRedemptionInventory" xml:space="preserve">
+    <value>Drop Ship Issuance And Redemption Inventory Initiated</value>
+  </data>
+  <data name="DropshipParticipantChanged" xml:space="preserve">
+    <value>The following fields on the Participant have changed: {0} </value>
+  </data>
+  <data name="DropShipRedemptionProcessNotes" xml:space="preserve">
+    <value>Total {0} quantity has been unreserved as per food rule violation for participant {1}</value>
+  </data>
+  <data name="DropShipReleaseWindow" xml:space="preserve">
+    <value>DropShipReleaseWindow</value>
+  </data>
+  <data name="DropShipReleaseWindowNotAvailable" xml:space="preserve">
+    <value>Drop Ship Release Window is not available in configuration</value>
+  </data>
+  <data name="DropShipStatusCheck" xml:space="preserve">
+    <value>Drop Ship Status is null.</value>
+  </data>
+  <data name="DropShipStatusCodeFUL" xml:space="preserve">
+    <value>FUL</value>
+  </data>
+  <data name="DropShipStatusCodePAR" xml:space="preserve">
+    <value>PAR</value>
+  </data>
+  <data name="DropShipStatusFUL" xml:space="preserve">
+    <value>Fulfilled</value>
+  </data>
+  <data name="DropShipStatusNEW" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="DropShipStatusPAR" xml:space="preserve">
+    <value>Partially Fulfilled</value>
+  </data>
+  <data name="DuplicateAnswerOption" xml:space="preserve">
+    <value>An option with the same label exists for this question. Please change the label and try again.</value>
+  </data>
+  <data name="DuplicateOrderLine" xml:space="preserve">
+    <value>Duplicate order line  for this inventory and order has been found</value>
+  </data>
+  <data name="EBTCardOrderNotesDescription" xml:space="preserve">
+    <value>This EBT Card Inventory is duplicated with Serial Number. This Serial Number {0} has already allotted to existing inventory into MIS System</value>
+  </data>
+  <data name="EBTCardOrderNotesSubject" xml:space="preserve">
+    <value>Receive EBT Card Stock Order</value>
+  </data>
+  <data name="EBTCardStockDueDays" xml:space="preserve">
+    <value>EBTCardStockDueDays</value>
+  </data>
+  <data name="EBTCardStockDueDaysNotAvailable" xml:space="preserve">
+    <value>EBT Card Stock Due Days is not available in configuration</value>
+  </data>
+  <data name="EBTCardStockOrderDays" xml:space="preserve">
+    <value>EBTCardStockOrderDays</value>
+  </data>
+  <data name="EBTCardStockOrderDaysNotAvailable" xml:space="preserve">
+    <value>EBT Card Stock Order Days is zero or not defined in configuration</value>
+  </data>
+  <data name="EBTParticipantTransfer" xml:space="preserve">
+    <value>Participant has been transferred to new Family, a lock has been placed on the Participant's existing card. Please reissue a new card to continue benefits.</value>
+  </data>
+  <data name="EBTSerializedOrderlineCreationWithSerialNumber" xml:space="preserve">
+    <value>EBT Serialized Order line Creation With Serial Number</value>
+  </data>
+  <data name="EBTSerializedOrderLineCreationWithSerialNumberMethod" xml:space="preserve">
+    <value>EBTSerializedOrderLineCreationWithSerialNumberMethod</value>
+  </data>
+  <data name="EBTSystemAddCode" xml:space="preserve">
+    <value>001</value>
+  </data>
+  <data name="EBTSystemVoidCode" xml:space="preserve">
+    <value>003</value>
+  </data>
+  <data name="EconomicUnitCreation" xml:space="preserve">
+    <value>Economic unit cannot be created directly. There are auto generated by the system.</value>
+  </data>
+  <data name="EffectiveDateNullError" xml:space="preserve">
+    <value>Effective Date on the certification record passed to {0} cannot be null</value>
+  </data>
+  <data name="EligibleForDestructionOn" xml:space="preserve">
+    <value>EligibleForDestructionOn</value>
+  </data>
+  <data name="EmailSent" xml:space="preserve">
+    <value>Email has created and Sent</value>
+  </data>
+  <data name="EmailTemplateNotFound" xml:space="preserve">
+    <value>There are no email templates found to send email</value>
+  </data>
+  <data name="EmptyTransitionFoodPackage" xml:space="preserve">
+    <value>No food item found in transition food package {0}</value>
+  </data>
+  <data name="EndDateViolation" xml:space="preserve">
+    <value>End Date should be greater than current date</value>
+  </data>
+  <data name="Endorser" xml:space="preserve">
+    <value>Primary Endorser</value>
+  </data>
+  <data name="EndorserEmailTemplateName" xml:space="preserve">
+    <value>Daily Rider Template For Endorser</value>
+  </data>
+  <data name="EndorserNull" xml:space="preserve">
+    <value>Endorser for this Family is not available</value>
+  </data>
+  <data name="EndorserPreCreateUpdateException" xml:space="preserve">
+    <value>Family or member type cannot be empty.</value>
+  </data>
+  <data name="EndorserUnderAgeReport" xml:space="preserve">
+    <value>This user is flagged for Underage Reporting. Please navigate to Dialogs and run the 'Daily Rider Dialog' to answer questions and submit to DSHS.</value>
+  </data>
+  <data name="EnteredBulkCreate" xml:space="preserve">
+    <value>Entered BulkCreate</value>
+  </data>
+  <data name="EnteredCompareWithLastDateOfMonth" xml:space="preserve">
+    <value>Entered CompareWithLastDateOfMonth</value>
+  </data>
+  <data name="EnteredCreateAppointmentSlots" xml:space="preserve">
+    <value>Entered CreateAppointmentSlots</value>
+  </data>
+  <data name="EnteredEBTOrderLineCreation" xml:space="preserve">
+    <value>EnteredEBTOrderLineCreation</value>
+  </data>
+  <data name="EnteredGetNewFoodItemsAndCreateSFPAndPFP" xml:space="preserve">
+    <value>Entered GetNewFoodItemsAndCreateSFPAndPFP</value>
+  </data>
+  <data name="EnteredMonthlyParsingAndAddToCollection" xml:space="preserve">
+    <value>Entered Monthly Parsing And Add To Collection</value>
+  </data>
+  <data name="EnteredMonthlyParsingForLastrecurrencePattern" xml:space="preserve">
+    <value>Entered Monthly Parsing For Last recurrence Pattern</value>
+  </data>
+  <data name="EnteredParseTemplateMethod" xml:space="preserve">
+    <value>Entered WorkHour Validation Verified Part
+Entered Parse Template Method</value>
+  </data>
+  <data name="EnteredValidateTemplateDetailsMethod" xml:space="preserve">
+    <value>Entered ValidateTemplateDetailsExistMethod</value>
+  </data>
+  <data name="EnteredValidateWorkHours" xml:space="preserve">
+    <value>Entered Validate Work Hours</value>
+  </data>
+  <data name="EnteredWeeklyRecurrencePattern" xml:space="preserve">
+    <value>Entered the loop when recurrence pattern is weekly</value>
+  </data>
+  <data name="EnteredWorkHourValidationNotVerifiedPart" xml:space="preserve">
+    <value>Entered WorkHour Validation Not Verified Part</value>
+  </data>
+  <data name="EntityIdRequired" xml:space="preserve">
+    <value>EntityId needs to be a non-empty string</value>
+  </data>
+  <data name="EntityNameRequired" xml:space="preserve">
+    <value>EntityName needs to be a non-empty string</value>
+  </data>
+  <data name="EntityNull" xml:space="preserve">
+    <value>Either StandardFoodPackageLineItem or  FoodItem Entity is null. </value>
+  </data>
+  <data name="ErrorGeneratingSerialNumberSeqOrSerialNumberEndSeq" xml:space="preserve">
+    <value>Serial Number Sequence or Serial Number End Sequence cannot be generated. Hence Serialized Order Line cannot be created.</value>
+  </data>
+  <data name="ErrorWhileAddExistingMsg" xml:space="preserve">
+    <value>Error : {0}</value>
+  </data>
+  <data name="ErrorWhileAddExistingSub" xml:space="preserve">
+    <value>Error While Add Existing Process</value>
+  </data>
+  <data name="ExceedsIncomeStandard" xml:space="preserve">
+    <value>Exceeds Income Standards</value>
+  </data>
+  <data name="ExistingCertificationError" xml:space="preserve">
+    <value>There is already an active certification associated with the participant {0}. A new certification cannot be created</value>
+  </data>
+  <data name="ExistingPendingActivationCertificateError" xml:space="preserve">
+    <value>A certification with status 'Pending Activation' already exists for this participant {0}. A new certification cannot be created</value>
+  </data>
+  <data name="ExitingValidateTemplateDetailExistMethod" xml:space="preserve">
+    <value>Exiting ValidateTemplateDetailsExistMethod</value>
+  </data>
+  <data name="ExpectedDeliveryDateNotAvailable" xml:space="preserve">
+    <value>Expected Delivery Date for this participant is not available. This participant cannot be certified.</value>
+  </data>
+  <data name="ExpirationDateNull" xml:space="preserve">
+    <value>Expiration Date in not available</value>
+  </data>
+  <data name="ExpirationWindow" xml:space="preserve">
+    <value>ExpirationWindow</value>
+  </data>
+  <data name="ExpiredCertificationEndDate" xml:space="preserve">
+    <value>The Certification End Date cannot be blank or expired. Please enter a valid end date on the Participant Form</value>
+  </data>
+  <data name="ExpiringInventoryForDateNull" xml:space="preserve">
+    <value>Expiring Inventory for given expiration Date and inventory  does not exist</value>
+  </data>
+  <data name="ExpiringInventoryNull" xml:space="preserve">
+    <value>The selected expiration inventory is not available</value>
+  </data>
+  <data name="ExpiringInventoryUpdate" xml:space="preserve">
+    <value>Updating Expiring Inventory</value>
+  </data>
+  <data name="ExpiringOrderLineCreate" xml:space="preserve">
+    <value>Expiring Order Line Creating</value>
+  </data>
+  <data name="FacilityPostCreate" xml:space="preserve">
+    <value>Entered Facility Post Create Method</value>
+  </data>
+  <data name="FactorNull" xml:space="preserve">
+    <value>Factor in unit of conversion {0} cannot be zero or negative</value>
+  </data>
+  <data name="Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="FamilyAlert" xml:space="preserve">
+    <value>This Family is flagged as an Investigator record.</value>
+  </data>
+  <data name="FamilyBenefitIssuanceDetailsNull" xml:space="preserve">
+    <value>Family Benefit Issuance Details is not available</value>
+  </data>
+  <data name="FamilyBenefitIssuanceDuplicate" xml:space="preserve">
+    <value>Family benefit Issuance cannot be created. An issuance record already exists for the given period.</value>
+  </data>
+  <data name="FamilyBenefitIssuanceEconomicUnitMandatory" xml:space="preserve">
+    <value>Economic unit cannot be empty.</value>
+  </data>
+  <data name="FamilyBenefitIssuanceFamilyMandatory" xml:space="preserve">
+    <value>Family cannot be empty</value>
+  </data>
+  <data name="FamilyBenefitIssuanceIssuanceEndDateMandatory" xml:space="preserve">
+    <value>Issuance end date cannot be empty</value>
+  </data>
+  <data name="FamilyBenefitIssuanceIssuanceStartDateMandatory" xml:space="preserve">
+    <value>Issuance start date cannot be empty</value>
+  </data>
+  <data name="FamilyBenefitIssuanceNoParticipantsFound" xml:space="preserve">
+    <value>No Active Participants found.</value>
+  </data>
+  <data name="FamilyBenefitIssuanceNull" xml:space="preserve">
+    <value>Family Issuance is not Available</value>
+  </data>
+  <data name="FamilyBenefitNoteDescription" xml:space="preserve">
+    <value>Reason for refusing the formula issuance from inventory :</value>
+  </data>
+  <data name="FamilyBenefitNoteSubject" xml:space="preserve">
+    <value>Refusal Reason</value>
+  </data>
+  <data name="FamilyGainingClinicNull" xml:space="preserve">
+    <value>Gaining Clinic is required if the Transfer Type is Family</value>
+  </data>
+  <data name="FamilyIdRequired" xml:space="preserve">
+    <value>FamilyId needs to be a non-empty GUID formatted string</value>
+  </data>
+  <data name="FamilyIssuanceProratedCutOffDate" xml:space="preserve">
+    <value>FamilyIssuanceProratedCutOffDate</value>
+  </data>
+  <data name="FamilyNotAvailable" xml:space="preserve">
+    <value>Family is not available</value>
+  </data>
+  <data name="FamilyNull" xml:space="preserve">
+    <value>Family is not available for this order's participant</value>
+  </data>
+  <data name="FamilyNullForReceiveDropship" xml:space="preserve">
+    <value>Family is required for receive process. Please provide family and then initiate receive process</value>
+  </data>
+  <data name="FBIDetailId" xml:space="preserve">
+    <value>FBI Detail Id should not be null</value>
+  </data>
+  <data name="FetchContactRXStandardFoodPackage" xml:space="preserve">
+    <value>Retrieving Contact RX Standard Food Package</value>
+  </data>
+  <data name="FetchingMedicalPrescriptionStart" xml:space="preserve">
+    <value>Fetching medical Prescription Start</value>
+  </data>
+  <data name="FetchMedicalPrescription" xml:space="preserve">
+    <value>Retrieving Medical Prescription Lines</value>
+  </data>
+  <data name="FetchMedicalPrescriptionLineItems" xml:space="preserve">
+    <value>Updating Medical Prescription Line Status</value>
+  </data>
+  <data name="FMNPCategoryCodeName" xml:space="preserve">
+    <value>FMNPCategoryCode</value>
+  </data>
+  <data name="FMNPLockDuration" xml:space="preserve">
+    <value>FMNPLockDuration</value>
+  </data>
+  <data name="FMNPSubCategoryCodeName" xml:space="preserve">
+    <value>FMNPSubCategoryCode</value>
+  </data>
+  <data name="FollowUpAlertDescription" xml:space="preserve">
+    <value>High Risk Referral follow up is Pending for {0}</value>
+  </data>
+  <data name="FoodCategoryWICFormulaKey" xml:space="preserve">
+    <value>WICFormulaKey</value>
+  </data>
+  <data name="FoodItemFoodCategoryMandatory" xml:space="preserve">
+    <value>Food category cannot be empty</value>
+  </data>
+  <data name="FoodItemFoodSubCategoryMandatory" xml:space="preserve">
+    <value>Food sub category cannot be empty</value>
+  </data>
+  <data name="FoodItemIdRequired" xml:space="preserve">
+    <value>FoodItemId needs to be a non-empty string</value>
+  </data>
+  <data name="FoodItemNull" xml:space="preserve">
+    <value>The Expiring Inventory must have Food Item in order to proceed further.</value>
+  </data>
+  <data name="FoodItemOverlapMessage" xml:space="preserve">
+    <value>Food items needs to be unique. A food item already exists with these values</value>
+  </data>
+  <data name="FoodItemSubstitutionUOMValidation" xml:space="preserve">
+    <value>One or more of food items of selected substitution group {0} has a different substitution UOM. All the food item’s substitution UOM of selected substitution group should be same as UOM of substitution rule. Please check food items and perform appropriate correction and try again</value>
+  </data>
+  <data name="FoodRuleEndDateViolation" xml:space="preserve">
+    <value>Food Rule expires for {0} on {1}, Please update the end date to less than or equal to food rule end date.</value>
+  </data>
+  <data name="FoodRuleMaxEligibleQuantity" xml:space="preserve">
+    <value>The food item cannot be verified,The Maximum allowable quantity is {0}</value>
+  </data>
+  <data name="FoodRuleNullViolation" xml:space="preserve">
+    <value>The selected food item cannot be validated as it does not have an associated food rule for tailored package line item {0}.</value>
+  </data>
+  <data name="FoodRulesCanNotBeDuplicate" xml:space="preserve">
+    <value>Food rules needs to be unique. A food rule already exists with these values.</value>
+  </data>
+  <data name="FormedAppointmentSlotCollection" xml:space="preserve">
+    <value>Formed AppointmentSlot Collection</value>
+  </data>
+  <data name="FormulaExchangeDetailsLength" xml:space="preserve">
+    <value>Formula Return Details Found {0}</value>
+  </data>
+  <data name="FormulaExchangeNewOrderLine" xml:space="preserve">
+    <value>New Order Line Created with Id {0}</value>
+  </data>
+  <data name="FormulaExchangeOrderCreate" xml:space="preserve">
+    <value>Order Creation Started</value>
+  </data>
+  <data name="FormulaExchangeOrderCreatedId" xml:space="preserve">
+    <value>Order Created with Id {0}</value>
+  </data>
+  <data name="FormulaExchangeOrderLineCreated" xml:space="preserve">
+    <value>Expiring OrderLine Created</value>
+  </data>
+  <data name="FormulaExchangeOrderLineFound" xml:space="preserve">
+    <value>Order Line Found and Updating</value>
+  </data>
+  <data name="FormulaExpirationWindow" xml:space="preserve">
+    <value>FormulaExpirationWindow</value>
+  </data>
+  <data name="FrequencyError" xml:space="preserve">
+    <value>Either one or more schedule templates doesn't have frequency selected on them.</value>
+  </data>
+  <data name="GainingAndFamilyClinicAreNotEqual" xml:space="preserve">
+    <value>The Gaining family do not belong to the selected gaining clinic. Please change the family and try again.</value>
+  </data>
+  <data name="GainingAndLosingClinicAreEqual" xml:space="preserve">
+    <value>Gaining Clinic and Losing Clinic cannot be the same. Please change the "Gaining Clinic" and try again.</value>
+  </data>
+  <data name="GainingAndLosingFamilyAreEqual" xml:space="preserve">
+    <value>Gaining Family and Losing Family cannot be the same. Please change the "Gaining Family" and try again.</value>
+  </data>
+  <data name="GeneralizedEBTSerialNumberAlgorithm" xml:space="preserve">
+    <value>GeneralizedEBTSerialNumberAlgorithm</value>
+  </data>
+  <data name="GenerateSerialNumberSequences" xml:space="preserve">
+    <value>GenerateSerialNumberSequences</value>
+  </data>
+  <data name="GetActiveAndAggregatedIssuanceDetails" xml:space="preserve">
+    <value>Get old records participant benefit issuance, family benefit issuance and GetAggregatedBenefits records</value>
+  </data>
+  <data name="GetAggregatedBenefitIssuance" xml:space="preserve">
+    <value>Get Aggregated benefit issuance</value>
+  </data>
+  <data name="GetCurrentOrgConfigKey" xml:space="preserve">
+    <value>GetCurrentOrgUrl</value>
+  </data>
+  <data name="GettingInventory" xml:space="preserve">
+    <value>Getting Inventory</value>
+  </data>
+  <data name="GetUnitOfMeasurementConversionRecord" xml:space="preserve">
+    <value>Getting Unit of Measurement Conversion Record</value>
+  </data>
+  <data name="GetUsersListForSpecificClinic" xml:space="preserve">
+    <value>Getting Users List For Specific Clinic</value>
+  </data>
+  <data name="HighRiskAppointment" xml:space="preserve">
+    <value>HighRiskAppointment</value>
+  </data>
+  <data name="HighRiskParticipantAlertDescription" xml:space="preserve">
+    <value>missed high risk appointment</value>
+  </data>
+  <data name="HighRiskReferralAlertDescription" xml:space="preserve">
+    <value>High Risk Referral is Pending for {0}.</value>
+  </data>
+  <data name="HighRiskReferralFollowUp" xml:space="preserve">
+    <value>High Risk Referral Follow up is Pending</value>
+  </data>
+  <data name="HighRiskReferralIsPending" xml:space="preserve">
+    <value>High Risk Referral To is Pending for {0}</value>
+  </data>
+  <data name="HighRiskReferralNameDescription" xml:space="preserve">
+    <value>High Risk Referral To {0} for {1}</value>
+  </data>
+  <data name="HighRiskReferralPending" xml:space="preserve">
+    <value>High Risk ({0}) Referral To is Pending for</value>
+  </data>
+  <data name="HighRiskReferralToPending" xml:space="preserve">
+    <value>High Risk Referral To for {0}</value>
+  </data>
+  <data name="Hot" xml:space="preserve">
+    <value>HOT</value>
+  </data>
+  <data name="HotCardShipmentForUOM" xml:space="preserve">
+    <value>Hot Card a Shipment has been executed.</value>
+  </data>
+  <data name="HotCardShipmentMessage" xml:space="preserve">
+    <value>Hot Card a Shipment has been executed. You will need to manually Box Break in order to send Hot Card info to EBT System.</value>
+  </data>
+  <data name="HotCardShipmentSubject" xml:space="preserve">
+    <value>Hot Card a Shipment has been executed successfully.</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>HOURS</value>
+  </data>
+  <data name="IgnoreHolidays" xml:space="preserve">
+    <value>IgnoreHolidays</value>
+  </data>
+  <data name="IgnoreWeekends" xml:space="preserve">
+    <value>IgnoreWeekends</value>
+  </data>
+  <data name="ImpersonatingUser" xml:space="preserve">
+    <value>WIC_IMPERSONATING_USER</value>
+  </data>
+  <data name="IncomeEndDateNull" xml:space="preserve">
+    <value>The End date can be left as blank only for the latest Income Guideline. There is another Income guideline with Start Date greater than the current record.</value>
+  </data>
+  <data name="IncomeGuidelinesOverlap" xml:space="preserve">
+    <value>The Range Selected overlaps another income guideline created in the system</value>
+  </data>
+  <data name="IncomeRecordAssociationDissociation" xml:space="preserve">
+    <value>Income record can only Associate/Dissociate during certification.</value>
+  </data>
+  <data name="InCompatibleUoM" xml:space="preserve">
+    <value>Unit of measurement in food rule {0} is incompatible with Unit of measurement in food Item {1} in food package line item {2} . Please remove/update accordingly.</value>
+  </data>
+  <data name="InfantFormulaQuantityValidation" xml:space="preserve">
+    <value>Month {0} Quantity cannot exceed {1}</value>
+  </data>
+  <data name="InfantProfileTransitionalPackageIsEmpty" xml:space="preserve">
+    <value>This package cannot be verified as there is no transition package selected for an infant. Please select a transition package and try again.</value>
+  </data>
+  <data name="InitiatingUserIdValue" xml:space="preserve">
+    <value>Initiating user id = {0}</value>
+  </data>
+  <data name="InputParametersNotSet" xml:space="preserve">
+    <value>Input parameters are not set properly.</value>
+  </data>
+  <data name="IntegerMinValueCheck" xml:space="preserve">
+    <value>Factor must be greater than Integer Minimum Value</value>
+  </data>
+  <data name="IntegrationLogEndoserActionCode" xml:space="preserve">
+    <value>002</value>
+  </data>
+  <data name="IntegrationLogEndoserCardHolderType" xml:space="preserve">
+    <value>P</value>
+  </data>
+  <data name="IntegrationLogEndoserReasonCode" xml:space="preserve">
+    <value>C011</value>
+  </data>
+  <data name="InvalidFoodItemTransfer" xml:space="preserve">
+    <value>The selected inventory’s food item is not transferable</value>
+  </data>
+  <data name="InvalidInventory" xml:space="preserve">
+    <value>Invalid Inventory to transfer</value>
+  </data>
+  <data name="InvalidOrderType" xml:space="preserve">
+    <value>Invalid Order Type</value>
+  </data>
+  <data name="InvalidParticipantCategoryError" xml:space="preserve">
+    <value>Invalid Participant Category: {0}</value>
+  </data>
+  <data name="InvalidQuantityToTransfer" xml:space="preserve">
+    <value>Only {0} available. Please change the transfer quantity and try again</value>
+  </data>
+  <data name="InvalidTransferRequest" xml:space="preserve">
+    <value>Invalid Transfer Request. Inventory cannot be transferred between same clinic</value>
+  </data>
+  <data name="InventoryLocationDefaultName" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="InventoryLocationException" xml:space="preserve">
+    <value>Only one default active Inventory Location per clinic can exist.</value>
+  </data>
+  <data name="InventoryNegativeQuantityReserveCheck" xml:space="preserve">
+    <value>The Ordered Quantity is greater than Available Quantity for this Inventory.</value>
+  </data>
+  <data name="InventoryNull" xml:space="preserve">
+    <value>The selected inventory is not available</value>
+  </data>
+  <data name="InventoryTransferRequestProcessMailSubject" xml:space="preserve">
+    <value>Transfer Request</value>
+  </data>
+  <data name="IsAltitudeElevationOn" xml:space="preserve">
+    <value>IsAltitudeElevationOn</value>
+  </data>
+  <data name="IssuanceCutOffDate" xml:space="preserve">
+    <value>Cut off date: {0}</value>
+  </data>
+  <data name="IssuanceMonthValidationDropShip" xml:space="preserve">
+    <value>Order validation has failed. Today's date does not fall within Participant's Issuance Month</value>
+  </data>
+  <data name="IssuanceReplacementPeriod" xml:space="preserve">
+    <value>IssuanceReplacementPeriod</value>
+  </data>
+  <data name="IssueBreastPumpNoteSubject" xml:space="preserve">
+    <value>Issue Breast Pump</value>
+  </data>
+  <data name="IssueBreastPumpOrder" xml:space="preserve">
+    <value>|{0}|</value>
+  </data>
+  <data name="IsValidFiscalYear" xml:space="preserve">
+    <value>The Fiscal Year field should contain a valid year. Please re-enter and try again.</value>
+  </data>
+  <data name="JsonDataCreated" xml:space="preserve">
+    <value>Json DataCreated</value>
+  </data>
+  <data name="JsonHeaderCreated" xml:space="preserve">
+    <value>Json Header Created</value>
+  </data>
+  <data name="LocalAgencyDirector" xml:space="preserve">
+    <value>Local Agency Director</value>
+  </data>
+  <data name="LocalAgencyStateBlank" xml:space="preserve">
+    <value>The Local Agency/State can be blank only for 'Clinic/Local Agency' of type 'Program'.</value>
+  </data>
+  <data name="LocalDateTime" xml:space="preserve">
+    <value>Current Local Date Time</value>
+  </data>
+  <data name="LockEBTCardAdminProcess" xml:space="preserve">
+    <value>Lock EBT Card inside Admin Process</value>
+  </data>
+  <data name="LockEBTCardHotProcess" xml:space="preserve">
+    <value>Lock EBT Card inside Hot Process</value>
+  </data>
+  <data name="LockStatusReasonAdministrativeLock" xml:space="preserve">
+    <value>Administrative Lock</value>
+  </data>
+  <data name="LockStatusReasonCardholderDataUpdate" xml:space="preserve">
+    <value>Cardholder Data Update</value>
+  </data>
+  <data name="LockStatusReasonChangeinFamilyStatus" xml:space="preserve">
+    <value>Change in Family Status</value>
+  </data>
+  <data name="LockStatusReasonCounterfeitCardPANConfirmed" xml:space="preserve">
+    <value>Counterfeit Card - PAN Confirmed</value>
+  </data>
+  <data name="LockStatusReasonDamagedAfterIssuance" xml:space="preserve">
+    <value>Damaged After Issuance</value>
+  </data>
+  <data name="LockStatusReasonDamagedBeforeIssuance" xml:space="preserve">
+    <value>Damaged Before Issuance</value>
+  </data>
+  <data name="LockStatusReasonDualParticipation" xml:space="preserve">
+    <value>Dual Participation</value>
+  </data>
+  <data name="LockStatusReasonFailedtoFunctionAfterIssuance" xml:space="preserve">
+    <value>Failed to Function After Issuance</value>
+  </data>
+  <data name="LockStatusReasonFailedToFunctionBeforeIssuance" xml:space="preserve">
+    <value>Failed to Function Before Issuance</value>
+  </data>
+  <data name="LockStatusReasonFound" xml:space="preserve">
+    <value>Found</value>
+  </data>
+  <data name="LockStatusReasonHotCard" xml:space="preserve">
+    <value>Hot Card</value>
+  </data>
+  <data name="LockStatusReasonIssued" xml:space="preserve">
+    <value>Issued</value>
+  </data>
+  <data name="LockStatusReasonLockReleased" xml:space="preserve">
+    <value>Lock Released</value>
+  </data>
+  <data name="LockStatusReasonLost" xml:space="preserve">
+    <value>Lost</value>
+  </data>
+  <data name="LockStatusReasonMissingBeforeIssuance" xml:space="preserve">
+    <value>Missing Before Issuance</value>
+  </data>
+  <data name="LockStatusReasonOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="LockStatusReasonOutOfStateTransfer" xml:space="preserve">
+    <value>OutOfStateTransfer</value>
+  </data>
+  <data name="LockStatusReasonParticipantTransfer" xml:space="preserve">
+    <value>Participant Transfer</value>
+  </data>
+  <data name="LockStatusReasonReturned" xml:space="preserve">
+    <value>Returned</value>
+  </data>
+  <data name="LockStatusReasonStolen" xml:space="preserve">
+    <value>Stolen</value>
+  </data>
+  <data name="LockStatusReasonUndeliverable" xml:space="preserve">
+    <value>Undelivered</value>
+  </data>
+  <data name="LockStatusReasonViolation" xml:space="preserve">
+    <value>violation</value>
+  </data>
+  <data name="Malfunctioning" xml:space="preserve">
+    <value>Malfunctioning</value>
+  </data>
+  <data name="ManufacturerShipperNull" xml:space="preserve">
+    <value>Manufacturer/Shipper is not available for the current inventory</value>
+  </data>
+  <data name="MaxCaseloadMessage" xml:space="preserve">
+    <value>The sum of individual caseloads at the LA level cannot be greater than the maximum
+caseload specified at the Program level. Please try again</value>
+  </data>
+  <data name="MaximumRetryCountExceeded" xml:space="preserve">
+    <value>The maximum number of retries to update the local agency has exceeded. Please try after some time to certify this participant.</value>
+  </data>
+  <data name="MaxIssuancePeriodForNewParticipant" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="MedicalPrescriptionApproveStatus" xml:space="preserve">
+    <value>Updating medical prescription status {0}</value>
+  </data>
+  <data name="MedicalPrescriptionemailsubject" xml:space="preserve">
+    <value>Medical Prescription Request for {0} in {1}: {2} Sent for Approval</value>
+  </data>
+  <data name="MedicalPrescriptionEmailTemplate" xml:space="preserve">
+    <value>Medical Prescription Request Approval Template</value>
+  </data>
+  <data name="MedicalPrescriptionGracePeriodKey" xml:space="preserve">
+    <value>MedicalPrescriptionGracePeriod</value>
+  </data>
+  <data name="MedicalPrescriptionLineItemDeleteWarningMessage" xml:space="preserve">
+    <value>Deleting Medical Prescription line item is not allowed when the Prescription is Sent for Approval</value>
+  </data>
+  <data name="MedicalPrescriptionLineUpdating" xml:space="preserve">
+    <value>Updating attribute status {0}</value>
+  </data>
+  <data name="MedicalPrescriptionTeamId" xml:space="preserve">
+    <value>team member id before mail send {0}</value>
+  </data>
+  <data name="MedicalPrescriptionTeamIds" xml:space="preserve">
+    <value>team member ids retrieved {0}</value>
+  </data>
+  <data name="MedicalPrescriptionTemplateMessage" xml:space="preserve">
+    <value>Medical Prescription Request Approval Templates are missing</value>
+  </data>
+  <data name="MedicalRequestLink" xml:space="preserve">
+    <value>Medical Request Form Link</value>
+  </data>
+  <data name="MemberTypeLimitMessageForAdditionalEndorser" xml:space="preserve">
+    <value>Only {0} {1} is allowed for a given family</value>
+  </data>
+  <data name="MemberTypeLimitMessageForPrimaryEndorser" xml:space="preserve">
+    <value>Only {0} {1} is allowed for a given family. If you wish to make this person the {1}, please change the Member Type of the current {1}.</value>
+  </data>
+  <data name="MemberTypeLimitMessageForProxy" xml:space="preserve">
+    <value>Only {0} {1} are allowed for a given family</value>
+  </data>
+  <data name="MergeFunctionalityErrorMessage" xml:space="preserve">
+    <value>You are not allowed to merge the following attributes. Please exclude them and try again. \n {0}</value>
+  </data>
+  <data name="Message_FBICountRetrieved" xml:space="preserve">
+    <value>{0} FBI record(s) retrieved</value>
+  </data>
+  <data name="Message_UpdatingIsuuanceStatusForFBI" xml:space="preserve">
+    <value>Updating Issuance status {0} for the FBI {1}</value>
+  </data>
+  <data name="MidReviewParticipantBlank" xml:space="preserve">
+    <value>The Participant lookup cannot be blank. Please navigate to the Participant form and click on the “Mid-Certification Review” button.</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>MINUTES</value>
+  </data>
+  <data name="MissingClinicTo" xml:space="preserve">
+    <value>Clinic To Field Should Contain Data</value>
+  </data>
+  <data name="MissingParticipantReference" xml:space="preserve">
+    <value>Missing Participant reference: The certification record should always be associated with a participant</value>
+  </data>
+  <data name="MissingTeamOwnership" xml:space="preserve">
+    <value>The Clinic's Default Team doesn't have sufficient privileges. Please contact administrator.</value>
+  </data>
+  <data name="MissingTeamOwnerToFamily" xml:space="preserve">
+    <value>Family doesn't have owner as team</value>
+  </data>
+  <data name="ModificationDetailsRequired" xml:space="preserve">
+    <value>ModificationDetails needs to be a non-empty XML formatted string</value>
+  </data>
+  <data name="ModifiedByRecordGuid" xml:space="preserve">
+    <value>The ModifiedBy record guid is {0}</value>
+  </data>
+  <data name="ModifyDropShipMessage" xml:space="preserve">
+    <value>Modify Benefits action has been performed on associated Family Benefit Issuance with quantity change on {0} by {1}</value>
+  </data>
+  <data name="ModifyDropShipSubject" xml:space="preserve">
+    <value>Modify Drop Ship Performed</value>
+  </data>
+  <data name="MoneyFieldMaximumValue" xml:space="preserve">
+    <value>922337203685477</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>MONTHS</value>
+  </data>
+  <data name="MultipleEntities" xml:space="preserve">
+    <value>This Entity has multiple parents</value>
+  </data>
+  <data name="MultipleNewFoodItemVersionMessage" xml:space="preserve">
+    <value>{0} new version of Food Items found and hence cannot be associated to a single Inventory.</value>
+  </data>
+  <data name="NoActiveCertificationError" xml:space="preserve">
+    <value>There is no active certification associated with the participant {0}. A certification with status 'Pending Activation' cannot be created</value>
+  </data>
+  <data name="NoActiveStandardFoodPackage" xml:space="preserve">
+    <value>No Active SFP assigned to {0}. Please Change the package.</value>
+  </data>
+  <data name="NoCurrentPanFound" xml:space="preserve">
+    <value>Current PAN is not found for the Economic Unit.</value>
+  </data>
+  <data name="NoDefaultLocation" xml:space="preserve">
+    <value>No default Location for the current Clinic</value>
+  </data>
+  <data name="NoEligibleParticipantForIssuance" xml:space="preserve">
+    <value>No Participants are eligible for Benefit Issuance in this period.</value>
+  </data>
+  <data name="NoInventory" xml:space="preserve">
+    <value>one or more serialized/expiring inventories don't have inventory set</value>
+  </data>
+  <data name="NoInventoryForFoodItem" xml:space="preserve">
+    <value>No Inventory exist for this food item</value>
+  </data>
+  <data name="NoLineItemPresentStandard" xml:space="preserve">
+    <value>A package must contain at least one food item.</value>
+  </data>
+  <data name="NoLineItemPresentTailored" xml:space="preserve">
+    <value>A package must contain at least one food item.</value>
+  </data>
+  <data name="NoMatchingUOMRecords" xml:space="preserve">
+    <value>No Matching unit of conversion record found</value>
+  </data>
+  <data name="NonFormulaFoodCategoryVerificationMessage" xml:space="preserve">
+    <value>You already have another item with same category in the food package. Both items cannot be issued in same food package.</value>
+  </data>
+  <data name="NoNutritionMessage" xml:space="preserve">
+    <value>No Nutrition Risk Parameter record found.</value>
+  </data>
+  <data name="NoOwnerExists" xml:space="preserve">
+    <value>NoOwnerExists</value>
+  </data>
+  <data name="NoParticipantProfile" xml:space="preserve">
+    <value>There is no participant profile present for the participant in tailored food package {0}.</value>
+  </data>
+  <data name="NoRecordsFound" xml:space="preserve">
+    <value>No {0} records found.</value>
+  </data>
+  <data name="NoRuleVerificationMessage" xml:space="preserve">
+    <value>The food category {0} in this line item {1} cannot be verified. Please remove the item from the package.</value>
+  </data>
+  <data name="NoSerializedInventory" xml:space="preserve">
+    <value>Inventory type should be Serialized.</value>
+  </data>
+  <data name="NoSFPLineItem" xml:space="preserve">
+    <value>There is no standard food package line item.</value>
+  </data>
+  <data name="NoteCommentsLocationAndClinicCombination" xml:space="preserve">
+    <value>Location Clinic : {0} and Current Clinic : {1} . Correct the record and attempt Approval process again.</value>
+  </data>
+  <data name="NoteCommentsPartNumberAndClinicCombination" xml:space="preserve">
+    <value>PartNumber Clinic : {0} and Current Clinic : {1} . Correct the record and attempt Approval process again.</value>
+  </data>
+  <data name="NoteOnTunaFail" xml:space="preserve">
+    <value>System can not issue "{0}" as family has redeemed full or partial quantities for current month issued benefits from "{1}"</value>
+  </data>
+  <data name="NotesCreation" xml:space="preserve">
+    <value>Creating Notes</value>
+  </data>
+  <data name="NotValidCertificationDates" xml:space="preserve">
+    <value>One or more Participant(s) do not have valid Certification Period.</value>
+  </data>
+  <data name="NoVendorForInventory" xml:space="preserve">
+    <value>Inventory with the given food item doesn’t contain vendor details</value>
+  </data>
+  <data name="NoVerifiedFoodPackage" xml:space="preserve">
+    <value>No verified food package found for {0} in {1}</value>
+  </data>
+  <data name="NoVerifiedTransitionFoodPackage" xml:space="preserve">
+    <value>No verified transition food package found for {0} in {1}</value>
+  </data>
+  <data name="NullArgumentExceptionMessage" xml:space="preserve">
+    <value>One of the passed parameters to the method are Null</value>
+  </data>
+  <data name="OptimisticConcurrency" xml:space="preserve">
+    <value>Optimistic Concurrency Issue</value>
+  </data>
+  <data name="OrderAlertDescription" xml:space="preserve">
+    <value>The Participant information has been changed.  Please verify the impact on this Drop Ship Order.</value>
+  </data>
+  <data name="OrderAutoNumberKey" xml:space="preserve">
+    <value>OrderAutoNumber</value>
+  </data>
+  <data name="OrderAutoNumberPrefix" xml:space="preserve">
+    <value>OrderAutoNumberPrefix</value>
+  </data>
+  <data name="OrderCreation" xml:space="preserve">
+    <value>Order Creation</value>
+  </data>
+  <data name="OrderDateValidation" xml:space="preserve">
+    <value>Previous months Issuance is not allowed</value>
+  </data>
+  <data name="OrderDueDays" xml:space="preserve">
+    <value>OrderDueDays</value>
+  </data>
+  <data name="OrderId" xml:space="preserve">
+    <value>Order Id = {0}</value>
+  </data>
+  <data name="OrderIdActionCodeNull" xml:space="preserve">
+    <value>Order and Action code cannot be null</value>
+  </data>
+  <data name="OrderLineCreated" xml:space="preserve">
+    <value>Order Line Created</value>
+  </data>
+  <data name="OrderLineId" xml:space="preserve">
+    <value>Order Line Id = {0}</value>
+  </data>
+  <data name="OrderLineNull" xml:space="preserve">
+    <value>No matching order line found for the combination of provided inventory and order</value>
+  </data>
+  <data name="OrderlineParticipant" xml:space="preserve">
+    <value>Order Line does not contain Participant</value>
+  </data>
+  <data name="OrderLineQuantityOrdered" xml:space="preserve">
+    <value>Order Line Quantity Ordered</value>
+  </data>
+  <data name="OrderLineUpdate" xml:space="preserve">
+    <value>Updating Order Line</value>
+  </data>
+  <data name="OrderShortageFamilyBenefitIssuanceRequired" xml:space="preserve">
+    <value>Family Benefit Issuance is mandatory on order</value>
+  </data>
+  <data name="OrderShortageFamilyRequired" xml:space="preserve">
+    <value>Family is mandatory on order</value>
+  </data>
+  <data name="OrganizationServiceNullError" xml:space="preserve">
+    <value>Organization service passed to {0} cannot be null</value>
+  </data>
+  <data name="OrgServiceRequired" xml:space="preserve">
+    <value>Organization service not instantiated</value>
+  </data>
+  <data name="Overage" xml:space="preserve">
+    <value>Inside Overage</value>
+  </data>
+  <data name="OverlapAgeRange" xml:space="preserve">
+    <value>System already has a given age range record</value>
+  </data>
+  <data name="OverlapingFoodItemInPackage" xml:space="preserve">
+    <value>The food item {0} is already available in the food package. Please add an other food item.</value>
+  </data>
+  <data name="OverlappedStandardFoodItem" xml:space="preserve">
+    <value>Same food item is already added, please add a different food item</value>
+  </data>
+  <data name="OverrideCreatedByRecordGuid" xml:space="preserve">
+    <value>The Override CreatedBy record guid is {0}</value>
+  </data>
+  <data name="OverrideModifiedByRecordGuid" xml:space="preserve">
+    <value>The Override ModifiedBy record guid is {0}</value>
+  </data>
+  <data name="OwnerTypeNotTeam" xml:space="preserve">
+    <value>Owner type is not Team.</value>
+  </data>
+  <data name="PANBIN" xml:space="preserve">
+    <value>PANBIN</value>
+  </data>
+  <data name="PANChecksumFiller" xml:space="preserve">
+    <value>PANChecksumFiller</value>
+  </data>
+  <data name="PanNotAvailableMessage" xml:space="preserve">
+    <value>Pan is not available on family</value>
+  </data>
+  <data name="PANPreChecksumAppendingDigits" xml:space="preserve">
+    <value>PANPreChecksumAppendingDigits</value>
+  </data>
+  <data name="PANProd" xml:space="preserve">
+    <value>PANProd</value>
+  </data>
+  <data name="PANSeqSkipDigit" xml:space="preserve">
+    <value>PANSeqSkipDigit</value>
+  </data>
+  <data name="PANSkipDigit" xml:space="preserve">
+    <value>PANSkipDigit</value>
+  </data>
+  <data name="PANTraining" xml:space="preserve">
+    <value>PANTraining</value>
+  </data>
+  <data name="ParentAdjunctProgramdeactivatedMessage" xml:space="preserve">
+    <value>Parent Adjunct Program has been deactivated. Adjunct Eligibility {0}</value>
+  </data>
+  <data name="PartcipantMessage" xml:space="preserve">
+    <value> is not eligible to receive this item as this item is not part of the participant’s food package</value>
+  </data>
+  <data name="ParticipantAlert" xml:space="preserve">
+    <value>This Participant is flagged as an Investigator record.</value>
+  </data>
+  <data name="ParticipantCannotBeReinstated" xml:space="preserve">
+    <value>This participant cannot be reinstated as family is found to be income ineligible</value>
+  </data>
+  <data name="ParticipantCreationForOtherFormMessage" xml:space="preserve">
+    <value>Participants can only be created from the Family form. Please navigate to the Family screen. </value>
+  </data>
+  <data name="ParticipantDailyRiderAlert" xml:space="preserve">
+    <value>This user is flagged for Underage Reporting. Please navigate to Dialogs and run the ‘Daily Rider Dialog’ to answer questions and submit to DSHS.</value>
+  </data>
+  <data name="ParticipantEmailTemplateName" xml:space="preserve">
+    <value>Daily Rider Template For Participant</value>
+  </data>
+  <data name="ParticipantFoodPackageIdRequired" xml:space="preserve">
+    <value>ParticipantFoodPackageId needs to be a non-empty string</value>
+  </data>
+  <data name="ParticipantIneligibleForCertification" xml:space="preserve">
+    <value>This participant is currently not eligible for certification. Please check if the participant has completed the Income, Residence or Identity information.</value>
+  </data>
+  <data name="ParticipantPanClinicValidationRoleFailure" xml:space="preserve">
+    <value>You do not have a permission/role to execute this process. Please contact System Administrator.</value>
+  </data>
+  <data name="ParticipantPanClinicValidationSecurityRolesCheck" xml:space="preserve">
+    <value>ParticipantPanClinicValidationSecurityRoles</value>
+  </data>
+  <data name="ParticipantPriorPregnancyMessage" xml:space="preserve">
+    <value>This Participant Prior Pregnancy form has no Participant attached</value>
+  </data>
+  <data name="ParticipantUpdated" xml:space="preserve">
+    <value>Participant Status is Updated</value>
+  </data>
+  <data name="Pass" xml:space="preserve">
+    <value>Pass</value>
+  </data>
+  <data name="PlaceholderValidation" xml:space="preserve">
+    <value>Please select formula food item in placeholder to verify food package</value>
+  </data>
+  <data name="PleaseTryAgain" xml:space="preserve">
+    <value>Please try again.</value>
+  </data>
+  <data name="PluginEnd" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="PluginExecutionContextNullError" xml:space="preserve">
+    <value>PluginExecution Context passed to {0} cannot be null</value>
+  </data>
+  <data name="PluginStart" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="PM" xml:space="preserve">
+    <value>PM</value>
+  </data>
+  <data name="PostFamiliBenefitIssuanceCertificationExpired" xml:space="preserve">
+    <value>Certification expired for issuance month: {0}, for participant: {1}</value>
+  </data>
+  <data name="PostFamilyBenefitIssuanceInfantCategoryNotFound" xml:space="preserve">
+    <value>Infant/child category not found on participant profile</value>
+  </data>
+  <data name="PostOpenIssuanceActionValidation" xml:space="preserve">
+    <value>This process is applicable only for post and void.</value>
+  </data>
+  <data name="PostOrder" xml:space="preserve">
+    <value>Posting order</value>
+  </data>
+  <data name="PregnancyName" xml:space="preserve">
+    <value>Pregnancy</value>
+  </data>
+  <data name="PreparingAssignOwner" xml:space="preserve">
+    <value>PreparingAssignOwner</value>
+  </data>
+  <data name="PreparingEmail" xml:space="preserve">
+    <value>Preparing Email Activity for the Family</value>
+  </data>
+  <data name="PrescriptionApprovalTemplateMessage" xml:space="preserve">
+    <value>Unable to find the email template Prescription Approval Status Notification</value>
+  </data>
+  <data name="PrescriptionApprovalTemplateName" xml:space="preserve">
+    <value>Prescription Approval Status Notification</value>
+  </data>
+  <data name="PreValidateTailoredFoodPackageLineItemMessageException" xml:space="preserve">
+    <value>Tailored Food Package cannot be empty</value>
+  </data>
+  <data name="PreValidateTailoredFoodPackageLineItemParticipantMessageException" xml:space="preserve">
+    <value>Participant cannot be empty</value>
+  </data>
+  <data name="PriorPregnancyException" xml:space="preserve">
+    <value>Pregnancy Number should be numeric</value>
+  </data>
+  <data name="ProcessedScheduleTemplateDetailCollection" xml:space="preserve">
+    <value>Processed Schedule Template Detail Collection</value>
+  </data>
+  <data name="ProcessExpiringOrderLinesForReceiveDropShip" xml:space="preserve">
+    <value>Process expiring order lines for receive dropShip completed</value>
+  </data>
+  <data name="ProcessIssuanceEnded" xml:space="preserve">
+    <value>Ended process issuance</value>
+  </data>
+  <data name="ProcessIssuanceStarted" xml:space="preserve">
+    <value>Started process issuance</value>
+  </data>
+  <data name="ProcessNotFound" xml:space="preserve">
+    <value>Workflow not found with name {0}</value>
+  </data>
+  <data name="ProcessQADetailsCompleted" xml:space="preserve">
+    <value>ProcessQADetailsCompleted</value>
+  </data>
+  <data name="ProcessQADetailsEntered" xml:space="preserve">
+    <value>ProcessQADetailsEntered</value>
+  </data>
+  <data name="ProgramOfficeStaffEBT" xml:space="preserve">
+    <value>Program Office Staff - EBT</value>
+  </data>
+  <data name="ProgramOfficeStaffNEBF" xml:space="preserve">
+    <value>Program Office Staff - NEBF</value>
+  </data>
+  <data name="ProgramOfficeValidation" xml:space="preserve">
+    <value>There can only be one 'Clinic/Local Agency' of type 'Program'.</value>
+  </data>
+  <data name="Proxies" xml:space="preserve">
+    <value>proxies</value>
+  </data>
+  <data name="QuantityNull" xml:space="preserve">
+    <value>The ordered quantity is not available</value>
+  </data>
+  <data name="QuantityTransferNull" xml:space="preserve">
+    <value>Please provide a valid quantity</value>
+  </data>
+  <data name="QuantityValue" xml:space="preserve">
+    <value>QuantityValue</value>
+  </data>
+  <data name="QuantityVoilation" xml:space="preserve">
+    <value>Quantity cannot exceed {0} </value>
+  </data>
+  <data name="QuestionAndFollowUpCanNotSame" xml:space="preserve">
+    <value>Follow up question or skip level question cannot be the same as the parent question.</value>
+  </data>
+  <data name="QuestionnaireLinkedToParticipantCategory" xml:space="preserve">
+    <value>This questionnaire is linked to a participant category as an 'Health History; Questionnaire. Please update the participant category record, before updating the Questionnaire Type.</value>
+  </data>
+  <data name="ReadingClincs" xml:space="preserve">
+    <value>Reading Clinics </value>
+  </data>
+  <data name="ReadyToSetCidSequenceNumber" xml:space="preserve">
+    <value>ReadyToSetCidSequenceNumber</value>
+  </data>
+  <data name="ReadyToSetEligibilityStatus" xml:space="preserve">
+    <value>ReadyToSetEligibilityStatus</value>
+  </data>
+  <data name="ReadyToSetFidAndPanIdFields" xml:space="preserve">
+    <value>ReadyToSetFidAndPanIdFields</value>
+  </data>
+  <data name="ReadyToSetIneligibilityDate" xml:space="preserve">
+    <value>ReadyToSetIneligibilityDate</value>
+  </data>
+  <data name="ReadyToSetInfantBreastfeedingfrequency" xml:space="preserve">
+    <value>Ready to set the mother breastfeeding frequency to infant.</value>
+  </data>
+  <data name="ReadyToSetInfantMother" xml:space="preserve">
+    <value>ReadyToSetInfantMother</value>
+  </data>
+  <data name="ReadyToSetInfantMotherOnFamilyChange" xml:space="preserve">
+    <value>ReadyToSetInfantMotherOnFamilyChange</value>
+  </data>
+  <data name="ReadyToSetParticipantPriorityForDyad" xml:space="preserve">
+    <value>ReadyToSetParticipantPriorityForDyad</value>
+  </data>
+  <data name="ReadyToSetResidencyStatus" xml:space="preserve">
+    <value>ReadyToSetResidencyStatus</value>
+  </data>
+  <data name="ReadyToSetSeparateEconomicUnit" xml:space="preserve">
+    <value>Ready To Set Separate EconomicUnit</value>
+  </data>
+  <data name="ReadyToSetTerminationDate" xml:space="preserve">
+    <value>ReadyToSetTerminationDate</value>
+  </data>
+  <data name="ReadyToSetTrimesterEnteredWIC" xml:space="preserve">
+    <value>Ready to Set Trimester Entered WIC Value</value>
+  </data>
+  <data name="ReadyToSetValues" xml:space="preserve">
+    <value>ReadyToSetValues</value>
+  </data>
+  <data name="ReadyToShip" xml:space="preserve">
+    <value>Ready to Ship</value>
+  </data>
+  <data name="ReadyToUpdateBusinessProcessStage" xml:space="preserve">
+    <value>ReadyToUpdateBusinessProcessStage</value>
+  </data>
+  <data name="ReadyToUpdateDisasterMode" xml:space="preserve">
+    <value>ReadyToUpdateDisasterMode</value>
+  </data>
+  <data name="ReadyToUpdateParticipantDailyRider" xml:space="preserve">
+    <value>ReadyToUpdateParticipantDailyRider</value>
+  </data>
+  <data name="ReadyToUpdateParticipantDailyRiderReportedDate" xml:space="preserve">
+    <value>ReadyToUpdateParticipantDailyRiderReportedDate</value>
+  </data>
+  <data name="ReadyToUpdateParticipantEligibility" xml:space="preserve">
+    <value>ReadyToUpdateParticipantEligibility</value>
+  </data>
+  <data name="ReadyToUpdateParticipantIneligibilityReason" xml:space="preserve">
+    <value>ReadyToUpdateParticipantIneligibilityReason</value>
+  </data>
+  <data name="ReadyToUpdateParticipantReportedRace" xml:space="preserve">
+    <value>ReadyToUpdateParticipantReportedRace</value>
+  </data>
+  <data name="ReasonCodeAdministrativeLock" xml:space="preserve">
+    <value>C017</value>
+  </data>
+  <data name="ReasonCodeCardholderDataUpdate" xml:space="preserve">
+    <value>C011</value>
+  </data>
+  <data name="ReasonCodeChangeInFamilyStatus" xml:space="preserve">
+    <value>C017</value>
+  </data>
+  <data name="ReasonCodeCounterfeit" xml:space="preserve">
+    <value>C009</value>
+  </data>
+  <data name="ReasonCodeDamagedAfterIssuance" xml:space="preserve">
+    <value>C003</value>
+  </data>
+  <data name="ReasonCodeDamagedBeforeIssuance" xml:space="preserve">
+    <value>C006</value>
+  </data>
+  <data name="ReasonCodeDualParticipation" xml:space="preserve">
+    <value>C015</value>
+  </data>
+  <data name="ReasonCodeFailedToFunctionAfterIssuance" xml:space="preserve">
+    <value>C014</value>
+  </data>
+  <data name="ReasonCodeFailedToFunctionBeforeIssuance" xml:space="preserve">
+    <value>C012</value>
+  </data>
+  <data name="ReasonCodeIssued" xml:space="preserve">
+    <value>C007</value>
+  </data>
+  <data name="ReasonCodeLockReleased" xml:space="preserve">
+    <value>C008</value>
+  </data>
+  <data name="ReasonCodeLost" xml:space="preserve">
+    <value>C001</value>
+  </data>
+  <data name="ReasonCodeMissingBeforeIssuance" xml:space="preserve">
+    <value>C013</value>
+  </data>
+  <data name="ReasonCodeOther" xml:space="preserve">
+    <value>C099</value>
+  </data>
+  <data name="ReasonCodeOutOfStateTransfer" xml:space="preserve">
+    <value>C016</value>
+  </data>
+  <data name="ReasonCodeReturned" xml:space="preserve">
+    <value>C004</value>
+  </data>
+  <data name="ReasonCodeStolen" xml:space="preserve">
+    <value>C002</value>
+  </data>
+  <data name="ReasonCodeUndelivered" xml:space="preserve">
+    <value>C005</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>Received</value>
+  </data>
+  <data name="ReceivedAsBackOrder" xml:space="preserve">
+    <value>Received as Back Order</value>
+  </data>
+  <data name="ReceiveEBTCardOrderSerializedInventoryOrderLineCreation" xml:space="preserve">
+    <value>Receive EBT Card Order Serialized Inventory Order Line Creation</value>
+  </data>
+  <data name="ReceiveEBTCardOrderUpdateOrderLines" xml:space="preserve">
+    <value>Receive EBT Card Order Update Order Lines</value>
+  </data>
+  <data name="ReceiveVendorOrderLineCheck" xml:space="preserve">
+    <value>Receive Vendor Order Line Check</value>
+  </data>
+  <data name="ReceiveVendorSerializedInventoryOrderLineCreation" xml:space="preserve">
+    <value>Receive Vendor Serialized Inventory Order Line Creation</value>
+  </data>
+  <data name="ReceiveVendorUpdateOrder" xml:space="preserve">
+    <value>Receive Vendor Update Order</value>
+  </data>
+  <data name="RecipientListDuplicateMessage" xml:space="preserve">
+    <value>This user exists in the recipient list for this questionnaire. A duplicate record cannot be inserted</value>
+  </data>
+  <data name="RecurrencePatternDaily" xml:space="preserve">
+    <value>Entered the loop when recurrence pattern is daily</value>
+  </data>
+  <data name="RecurrencePatternMonthly" xml:space="preserve">
+    <value>Entered the loop when recurrence pattern is monthly</value>
+  </data>
+  <data name="RedeemedFromCard" xml:space="preserve">
+    <value>Redeemed From Card is less than Zero</value>
+  </data>
+  <data name="ReferralPendingHighRisk" xml:space="preserve">
+    <value>High Risk Referral is Pending</value>
+  </data>
+  <data name="ReferralTo" xml:space="preserve">
+    <value>Referral To {0} for {1}</value>
+  </data>
+  <data name="ReferralToFollowUp" xml:space="preserve">
+    <value>Follow-up on Referral To</value>
+  </data>
+  <data name="RefusedHighRiskReferralNameDescription" xml:space="preserve">
+    <value>Refused High Risk Referral To {0} for {1}</value>
+  </data>
+  <data name="ReinstateReasonValidation" xml:space="preserve">
+    <value>Reinstate Reason cannot be more than 50 characters</value>
+  </data>
+  <data name="Relationship" xml:space="preserve">
+    <value>Relationship</value>
+  </data>
+  <data name="ReleaseDropShipOrderValidation" xml:space="preserve">
+    <value>Only Active Drop Ship Order with Status Reason (New, Release Drop Ship, Placed) can be released.</value>
+  </data>
+  <data name="RequestNotSent" xml:space="preserve">
+    <value>Request Not Sent</value>
+  </data>
+  <data name="RequestReceivedIntegrationLayer" xml:space="preserve">
+    <value>Request Received - Integration Layer</value>
+  </data>
+  <data name="RequestReceivedIntegrationLayerError" xml:space="preserve">
+    <value>Request Received - Integration Layer - Error</value>
+  </data>
+  <data name="RequestSentfromCRM" xml:space="preserve">
+    <value>Request Sent from CRM</value>
+  </data>
+  <data name="ReserveQuantityDosenotExits" xml:space="preserve">
+    <value>Currently {0} cannot accommodate your request due to any of following reason:
+
+  - Not enough valid quantities are available in the clinic
+
+  - Quantities are available but not valid as the expiring date is near or already expired.</value>
+  </data>
+  <data name="ResettingEligibilityStatusForFamilyToEligible" xml:space="preserve">
+    <value>Resetting the 'Eligibility Status' to Eligible for Family {0}</value>
+  </data>
+  <data name="ResettingEligibilityStatusForFamilyToPendingVerification" xml:space="preserve">
+    <value>Resetting the 'Eligibility Status' to Pending Verification for Family {0}</value>
+  </data>
+  <data name="ResettingEligibilityStatusForParticipantToPendingVerification" xml:space="preserve">
+    <value>Updating Participant {0} Eligibility status to Pending Verification when Participant does not have Adjunct Eligibility Records</value>
+  </data>
+  <data name="ResponseReceivedError" xml:space="preserve">
+    <value>Response Received - Error</value>
+  </data>
+  <data name="ResponseReceivedSuccess" xml:space="preserve">
+    <value>Response Received - Success</value>
+  </data>
+  <data name="ResponseReceivedValidationError" xml:space="preserve">
+    <value>Response Received - Validation Error</value>
+  </data>
+  <data name="RestrictDuplicateSubstitutionGroupName" xml:space="preserve">
+    <value>A Substitution Group with the given name already exists</value>
+  </data>
+  <data name="RestrictDuplicateSubstitutionRule" xml:space="preserve">
+    <value>A substitution rule already exists for the substitution group and the participant profile</value>
+  </data>
+  <data name="RestrictDuplicateVerbiageConfiguration" xml:space="preserve">
+    <value>Verbiage configuration with the same selected type and language already exists in the system. Please change the values and try again</value>
+  </data>
+  <data name="RetrieveCalendarRules" xml:space="preserve">
+    <value>Retrieved Calendar Rules</value>
+  </data>
+  <data name="RetrieveCertifications" xml:space="preserve">
+    <value>Retrieved Certification Records</value>
+  </data>
+  <data name="RetrieveClinicDetails" xml:space="preserve">
+    <value>Retrieving Clinic Details</value>
+  </data>
+  <data name="RetrieveConfigurationValue" xml:space="preserve">
+    <value>Retrieving  Configuration Values</value>
+  </data>
+  <data name="RetrievedFacilities" xml:space="preserve">
+    <value>Retrieved Facilities</value>
+  </data>
+  <data name="RetrievedFoodItems" xml:space="preserve">
+    <value>Retrieved newly added food items</value>
+  </data>
+  <data name="RetrievedInnerCalendarRules" xml:space="preserve">
+    <value>Retrieved Inner Calendar Rules</value>
+  </data>
+  <data name="RetrievedTemplateDetailCollection" xml:space="preserve">
+    <value>Retrieved Schedule Template Detail Collection</value>
+  </data>
+  <data name="RetrievedWorkHourCollection" xml:space="preserve">
+    <value>Retrieved WorkHour Collection</value>
+  </data>
+  <data name="RetrieveExpiringOrderLine" xml:space="preserve">
+    <value>Retrieving Expiring Order Line</value>
+  </data>
+  <data name="RetrieveFamily" xml:space="preserve">
+    <value>Retrieving Family</value>
+  </data>
+  <data name="RetrieveOrderLine" xml:space="preserve">
+    <value>Retrieving Order Line</value>
+  </data>
+  <data name="RetrievePFPLines" xml:space="preserve">
+    <value>Retrieved PFP Only Line items</value>
+  </data>
+  <data name="RetrieveSerializedInventory" xml:space="preserve">
+    <value>Retrieving Serialized Inventory</value>
+  </data>
+  <data name="RetrieveSFPLines" xml:space="preserve">
+    <value>Retrieved SFP Line items</value>
+  </data>
+  <data name="RetrieveUnitOfMeasureList" xml:space="preserve">
+    <value>RetrieveUnitOfMeasureList</value>
+  </data>
+  <data name="RetrieveUOMTableMatchingInventory" xml:space="preserve">
+    <value>RetrieveUOMTableMatchingInventory</value>
+  </data>
+  <data name="ReturnedRecoveryBreastPumpNoteSubject" xml:space="preserve">
+    <value>Return/Recovery Breast Pump: {0}.</value>
+  </data>
+  <data name="ReturnRecoveryBreastPumpEmailTemplateforReturnedStatus" xml:space="preserve">
+    <value>Return/Recovery Breast Pump Email Template</value>
+  </data>
+  <data name="ReturnRecoveryBreastPumpTemplateMessage" xml:space="preserve">
+    <value>Return Recovery Breast Pump Return Status Templates are missing</value>
+  </data>
+  <data name="ReturnRecoveryPumpEmailSubject" xml:space="preserve">
+    <value>Return/Recovery Breast Pump {0} | Returned to {1} Clinic</value>
+  </data>
+  <data name="RiskCodeConnectionRole" xml:space="preserve">
+    <value>ContradictoryRiskCodes</value>
+  </data>
+  <data name="RoleAssignmentError" xml:space="preserve">
+    <value>Error while assigning the default role to the team</value>
+  </data>
+  <data name="RolesCheckValidation" xml:space="preserve">
+    <value>Security role check done for the user</value>
+  </data>
+  <data name="ScheduleTemplateDayError" xml:space="preserve">
+    <value>Either one or more schedule templates doesn't have any day selected.</value>
+  </data>
+  <data name="ScheduleTemplateDetailsError" xml:space="preserve">
+    <value>Slot for given Appointment Type and/or Recurrence Pattern is already included as part of one or more templates.</value>
+  </data>
+  <data name="SearchInventoryMessageForMorethanOneRecord" xml:space="preserve">
+    <value>More than one inventory record is found at {0}</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>SECONDS</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Email has been sent</value>
+  </data>
+  <data name="SendEmailToSourceLocationClinicUsers" xml:space="preserve">
+    <value>Send email to source location clinic users</value>
+  </data>
+  <data name="SendMailToRequestingUser" xml:space="preserve">
+    <value>Sending Mail To Requesting User</value>
+  </data>
+  <data name="SerializedInventoryDestructionEligibilityDate" xml:space="preserve">
+    <value>SerializedInventoryDestructionEligibilityDate</value>
+  </data>
+  <data name="SerializedInventoryDuplicateDetectionSerialNumberRequired" xml:space="preserve">
+    <value>Please provide Serial Number</value>
+  </data>
+  <data name="SerializedInventoryDuplicateValidation" xml:space="preserve">
+    <value>EBT Card/Breast Pump with the given serial number {0} already exist in the system</value>
+  </data>
+  <data name="SerializedInventoryInputsMissing" xml:space="preserve">
+    <value>Unable to complete Hot Card Destroy Process as EbtCardkeyType or UOM is missing on serialized inventory.</value>
+  </data>
+  <data name="SerializedInventoryInputsMissingLog" xml:space="preserve">
+    <value>Either EbtCardkeyType or UOM is missing on serialized inventory.</value>
+  </data>
+  <data name="SerializedInventoryNotAvailable" xml:space="preserve">
+    <value>One or more serialized order lines don't have serialized inventory mapped. Please correct the same to proceed further.</value>
+  </data>
+  <data name="SerializedInventoryNull" xml:space="preserve">
+    <value>The selected serialized inventory is not available</value>
+  </data>
+  <data name="SerialNumberLengthException" xml:space="preserve">
+    <value>Cannot place order as serial number length is greater than 100. Please reenter the serial number and place the order.</value>
+  </data>
+  <data name="SerialNumberMaxLimitCheck" xml:space="preserve">
+    <value>Reached Maximum limit for serial Number.</value>
+  </data>
+  <data name="SerialNumberNull" xml:space="preserve">
+    <value>Serial Number is mandatory</value>
+  </data>
+  <data name="SerialNumberValidation" xml:space="preserve">
+    <value>Currently, cannot accommodate your request due to any of following reason:
+  - Either the serial number contains string in serialized inventory or in order line instead numbers 
+  - Serial number begin and end is not 8-digit or contains string 
+Please correct and try again..</value>
+  </data>
+  <data name="SetAlertForRecertificationAppointment" xml:space="preserve">
+    <value>SetAlertForRecertificationAppointment</value>
+  </data>
+  <data name="SetAttributesBasedOnCardStatus" xml:space="preserve">
+    <value>SetAttributesBasedOnCardStatus</value>
+  </data>
+  <data name="SetMissedStatusMessage" xml:space="preserve">
+    <value>Setting Appointment Status to Missed</value>
+  </data>
+  <data name="SettingAdjunctEligibilityProofOrEnrollmentBasedOnTargetModification" xml:space="preserve">
+    <value>Setting IsProofAvailable Or Program Enrollment For AdjunctEligibility  {0}.</value>
+  </data>
+  <data name="SettingAdjunctEligibilityStateToInactive" xml:space="preserve">
+    <value>Setting State To Inactive For AdjunctEligibility  {0}.</value>
+  </data>
+  <data name="SettingParameters" xml:space="preserve">
+    <value>Setting Parameters for Actions</value>
+  </data>
+  <data name="SettingParentAdjunctEligibilityToNull" xml:space="preserve">
+    <value>Setting Parent AdjunctEligibility To Null For AdjunctEligibility  {0}.</value>
+  </data>
+  <data name="ShipBPTransferBegins" xml:space="preserve">
+    <value>Ship BP TransferBegins</value>
+  </data>
+  <data name="ShipBPTransferValidation" xml:space="preserve">
+    <value>More than one order logged for same status reason</value>
+  </data>
+  <data name="ShipEBTTransferBegins" xml:space="preserve">
+    <value>Ship EBT Transfer Begins</value>
+  </data>
+  <data name="ShipFormulaTransferBegins" xml:space="preserve">
+    <value>Ship Formula Transfer Begins</value>
+  </data>
+  <data name="ShipTransferValidation" xml:space="preserve">
+    <value>More than one order logged for same status reason</value>
+  </data>
+  <data name="Shortage" xml:space="preserve">
+    <value>Creating order line for shortage order</value>
+  </data>
+  <data name="SMSBodyOnAddingToWaitingList" xml:space="preserve">
+    <value>This is your State WIC Administrator. You are added to waiting list. Please call or visit your local WIC clinic to complete the necessary paperwork to issue you benefits. [[ClinicPhoneNumber]]</value>
+  </data>
+  <data name="SMSBodyOnOffFromWaitingList" xml:space="preserve">
+    <value>This is your State WIC Administrator. You are off the waiting list. Please call or visit your local WIC clinic to complete the necessary paperwork to issue you benefits. [[ClinicPhoneNumber]]</value>
+  </data>
+  <data name="StageNotFound" xml:space="preserve">
+    <value>Stage not found with name {0}</value>
+  </data>
+  <data name="StandardFoodPackageIsInactive" xml:space="preserve">
+    <value>This food package cannot be verified since the standard food package ({0}) is inactive</value>
+  </data>
+  <data name="StartDateEndDateViolation" xml:space="preserve">
+    <value>Start Date cannot be greater than or equal to End Date.</value>
+  </data>
+  <data name="StartDateIsGreaterThanIneligibilityDate" xml:space="preserve">
+    <value>The Participant cannot be certified since the certification start date is beyond the participant eligibility date</value>
+  </data>
+  <data name="StartDateViolation" xml:space="preserve">
+    <value>Start Date is mandatory</value>
+  </data>
+  <data name="StartTimeEndTimeValidation" xml:space="preserve">
+    <value>Start Time cannot be greater than or equal to End Time.</value>
+  </data>
+  <data name="StockOrderTimePeriod" xml:space="preserve">
+    <value>Stock order time period for the clinic is required to proceed</value>
+  </data>
+  <data name="StopIssuanceError" xml:space="preserve">
+    <value>One or few of the participants on this family have Approved Prescriptions and do not have Rx.Package available to them. Kindly revisit participants data and select appropriate Rx.Package and initiate the issuance process again</value>
+  </data>
+  <data name="SubjectLocationAndClinicCombination" xml:space="preserve">
+    <value>Invalid Location and Clinic Combination</value>
+  </data>
+  <data name="SubjectPartNumberAndClinicCombination" xml:space="preserve">
+    <value>Invalid PartNumber and Clinic Combination</value>
+  </data>
+  <data name="SubstitutionGroupNotAllowedForIssuance" xml:space="preserve">
+    <value>Food Substitution of {0} for Current Month is not allowed due to partially or fully redemption of a food item under the same group.</value>
+  </data>
+  <data name="SuccessMessageForIssueBreastPump" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="SurveyCreated" xml:space="preserve">
+    <value>Survey Record has created</value>
+  </data>
+  <data name="SurveyLink" xml:space="preserve">
+    <value>Click here</value>
+  </data>
+  <data name="SurveyStatusUpdated" xml:space="preserve">
+    <value>Survey Status has Updated</value>
+  </data>
+  <data name="TailoredFoodPackageLineItemError" xml:space="preserve">
+    <value>An error occurred while creating/updating the SFP {0} because of some violation during creation of tailored food package line item {1}. Please download the log file for more details.</value>
+  </data>
+  <data name="TailoredFoodPackageLineItemNull" xml:space="preserve">
+    <value>Tailored Food Package Line Item is not available</value>
+  </data>
+  <data name="TailoredFoodPackageNoteSubject" xml:space="preserve">
+    <value>Reason for removing the food item:</value>
+  </data>
+  <data name="TargetFBIDPrerequisiteAttributeMissing" xml:space="preserve">
+    <value>Target FBID did not have prerequisite attributes</value>
+  </data>
+  <data name="TeamRole" xml:space="preserve">
+    <value>TeamRole</value>
+  </data>
+  <data name="TemplateForShipTransfer" xml:space="preserve">
+    <value>The Transfer Order {0} has been shipped from {1} to {2}.
+{3}
+Thank You,{4}
+CRM Administrator.</value>
+  </data>
+  <data name="TemplateForShipTransferCancel" xml:space="preserve">
+    <value>The Transfer Order {0} cannot be shipped.
+{1}
+Thank You,{2}
+CRM Administrator.</value>
+  </data>
+  <data name="TotalBudgetClinicProgramUpdate" xml:space="preserve">
+    <value>The total budget specified on the Local Agency level ({0}) is less than the sum of all Budgets at the Clinic level. Please update the budget on the clinic and try again.</value>
+  </data>
+  <data name="TotalBudgetLocalAgencyUpdate" xml:space="preserve">
+    <value>The total budget specified on the Program ({0}) is less than the sum of all Budgets at the Local agency level. Please update the budget on the Local Agency and try again.</value>
+  </data>
+  <data name="TotalBudgetProgramUpdate" xml:space="preserve">
+    <value>The sum of budgets at the Local Agency level ({0}) is greater than the total amount entered at the Program level</value>
+  </data>
+  <data name="TotalIncomeExceededMessage" xml:space="preserve">
+    <value>Maximum allowed value for total income value at the family has been exceeded and cannot save this record. Please adjust the current values or the existing income values and try again</value>
+  </data>
+  <data name="TotalQuantity" xml:space="preserve">
+    <value>Total Quantity of all the expiring order line is {0}</value>
+  </data>
+  <data name="TracingServiceFailed" xml:space="preserve">
+    <value>Failed to retrieve tracing service.</value>
+  </data>
+  <data name="TransferEBTProcessDone" xml:space="preserve">
+    <value>Transfer Process completed for selected inventory</value>
+  </data>
+  <data name="TransferHistoryFamilyInformation" xml:space="preserve">
+    <value>Family or Participant Information is required if the Transfer Type is Family.</value>
+  </data>
+  <data name="TransferHistoryGainingFamilyNull" xml:space="preserve">
+    <value>Gaining Family is required if the Transfer Type is Participant</value>
+  </data>
+  <data name="TransferHistoryLosingInformation" xml:space="preserve">
+    <value>The Losing Clinic Information (Clinic, Start Date or End Date) is missing. Please enter the required information and then try again</value>
+  </data>
+  <data name="TransferHistoryParticipantInformation" xml:space="preserve">
+    <value>Participant Information is required if the Transfer Type is Participant.</value>
+  </data>
+  <data name="TransferHistoryParticipantNull" xml:space="preserve">
+    <value>Participant Information is required if the Transfer Type is Participant.</value>
+  </data>
+  <data name="TransferInventoryRoleFailure" xml:space="preserve">
+    <value>You do not have a permission/role to execute this process. Please contact System Administrator.</value>
+  </data>
+  <data name="TransferInventorySecurityRolesCheck" xml:space="preserve">
+    <value>TransferInventorySecurityRoles</value>
+  </data>
+  <data name="TransferValidQuantityCheck" xml:space="preserve">
+    <value>Not a valid quantity</value>
+  </data>
+  <data name="TransitionedParticipantfoodPackage" xml:space="preserve">
+    <value>Participant food package for {0} has transitioned by age</value>
+  </data>
+  <data name="TransitionFoodPackageMessage" xml:space="preserve">
+    <value>A food package expiration has occurred. A transition food package has replaced the Participant Food Package.Any Tailoring will need to be performed again</value>
+  </data>
+  <data name="UnableToChangeClinic" xml:space="preserve">
+    <value>Unable To Change Clinic . Please Contact Administrator.</value>
+  </data>
+  <data name="UnderStockInventoryValidation" xml:space="preserve">
+    <value>Values cannot be null</value>
+  </data>
+  <data name="UnitOfMeasurementNull" xml:space="preserve">
+    <value>Unit of Measurement is not selected</value>
+  </data>
+  <data name="UnlockCardperiod" xml:space="preserve">
+    <value>UnlockEBTperiod</value>
+    <comment>This key is used in configuration entity for unlock ebt card period.</comment>
+  </data>
+  <data name="UnlockEBTCardValidationMessage" xml:space="preserve">
+    <value>EBT Card cannot be unlocked for first two days from locked date</value>
+  </data>
+  <data name="UOMEach" xml:space="preserve">
+    <value>EBT Item's UOM must be Each to proceed</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="UpdateAccountTypeCodeForRequestData" xml:space="preserve">
+    <value>Account type code for request data is updated</value>
+  </data>
+  <data name="UpdateAdjunctEligibilityForChangetoProofAndProgramEnrollment" xml:space="preserve">
+    <value>Updating Adjunct Eligibility {0} for Changes to Proof and Program Enrollment Number</value>
+  </data>
+  <data name="UpdateCardNumberAndReplacementNumber" xml:space="preserve">
+    <value>Card number and replacement number updated</value>
+  </data>
+  <data name="UpdateExpiringInventoryAndExpiringOrderLineWithQuantityToIssue" xml:space="preserve">
+    <value>Update Expiring Inventory And Expiring Order Line With Quantity To Issue</value>
+  </data>
+  <data name="UpdateMatchingSerializedOrderLines" xml:space="preserve">
+    <value>Updating Matched Serialized order Lines.</value>
+  </data>
+  <data name="UpdateOrder" xml:space="preserve">
+    <value>Update Order</value>
+  </data>
+  <data name="UpdateOrderForIssueDropShipBegins" xml:space="preserve">
+    <value>Update Order For Issue DropShip Begins</value>
+  </data>
+  <data name="UpdateOrderForIssueDropShipEnds" xml:space="preserve">
+    <value>Update Order For Issue DropShip Ends</value>
+  </data>
+  <data name="UpdateRootCalendar" xml:space="preserve">
+    <value>Updating Root Calendar</value>
+  </data>
+  <data name="UpdateRootInventory" xml:space="preserve">
+    <value>Updating Root Inventory</value>
+  </data>
+  <data name="UpdateSerializedInventoryCompleted" xml:space="preserve">
+    <value>UpdateSerializedInventoryCompleted</value>
+  </data>
+  <data name="UpdateSerializedInventoryEntered" xml:space="preserve">
+    <value>UpdateSerializedInventoryEntered</value>
+  </data>
+  <data name="UpdatingAdjunctEligibilityForParticipant" xml:space="preserve">
+    <value>Updating Adjunct Eligibility For Participant {0} of type {1}. Parent Adjunct Eligibility is set to {2}</value>
+  </data>
+  <data name="UpdatingEachSerializedOrderLine" xml:space="preserve">
+    <value>Updating each matched serialized order line.</value>
+  </data>
+  <data name="UpdatingEligibilityStatusEligibleForParticipant" xml:space="preserve">
+    <value>Updating Adjunct Eligibility For Participant {0}</value>
+  </data>
+  <data name="UpdatingInventory" xml:space="preserve">
+    <value>Updating Inventory</value>
+  </data>
+  <data name="UpdatingInventoryForCancelTransfer" xml:space="preserve">
+    <value>Updating Inventory For Cancel Transfer Request</value>
+  </data>
+  <data name="UpdatingNutritionGoal" xml:space="preserve">
+    <value>Updating Nutrition Goal</value>
+  </data>
+  <data name="UpdatingSerializedInventory" xml:space="preserve">
+    <value>Updating Serialized Inventory</value>
+  </data>
+  <data name="UserClinicValidation" xml:space="preserve">
+    <value>Users with current clinic or parent clinic can complete this process</value>
+  </data>
+  <data name="UserDoesNotExistForClinic" xml:space="preserve">
+    <value>No user has Clinic Supervisor role for the source clinic  </value>
+  </data>
+  <data name="ValidateAdjunctEligibilityForFamily" xml:space="preserve">
+    <value>There exists an active adjunct eligibility record with the same adjunct eligibility type linked to this family. Please change the adjunct eligibility type and try again</value>
+  </data>
+  <data name="ValidateAdjunctEligibilityForFamilyAndParticipant" xml:space="preserve">
+    <value>Family and Participant Details are required for adjunct eligibility records</value>
+  </data>
+  <data name="ValidateAdjunctEligibilityForParticipant" xml:space="preserve">
+    <value>There exists an adjunct eligibility record with the same adjunct eligibility type linked to this participant. Please change the adjunct eligibility type and try again</value>
+  </data>
+  <data name="ValidateAndAddToCollectionMethod" xml:space="preserve">
+    <value>Entered Validate And Add To Collection Method</value>
+  </data>
+  <data name="ValidateCollectionAndAppointment" xml:space="preserve">
+    <value>WorkHour collection and appointment dates collection are valid</value>
+  </data>
+  <data name="ValidateCurrentCaseLoad" xml:space="preserve">
+    <value>There is no caseload available. Please try to certify this participant once there is additional caseload</value>
+  </data>
+  <data name="ValidateEligibleForDestruction" xml:space="preserve">
+    <value>Selected EBT Card is not eligible for destruction</value>
+  </data>
+  <data name="ValidateFoodItem" xml:space="preserve">
+    <value>Food item cannot be empty</value>
+  </data>
+  <data name="ValidateFoodItemInPrescriptionLineItem" xml:space="preserve">
+    <value>Medical Prescription line item with entered formula food item already exists with given date range</value>
+  </data>
+  <data name="ValidateFoodItemReconstitutedAmountValue" xml:space="preserve">
+    <value>Reconstituted amount cannot be negative value and zero</value>
+  </data>
+  <data name="ValidateIssuanceForm" xml:space="preserve">
+    <value>Family Benefit Issuance can only be created from a Family record. Please navigate to the Family Form and initiate this process again.</value>
+  </data>
+  <data name="ValidateLocalAgencyFormulaApprovalTeam" xml:space="preserve">
+    <value>There is no Formula Approval Team assigned to Local Agency</value>
+  </data>
+  <data name="ValidateMeassageForTailoredFoodPackageLineItem" xml:space="preserve">
+    <value>Same food item is already added, please add a different food item</value>
+  </data>
+  <data name="ValidateNotFoundBenefits" xml:space="preserve">
+    <value>No food items found to be issue for selected issuance period</value>
+  </data>
+  <data name="ValidateOrderedQuantitySupplyStock" xml:space="preserve">
+    <value>Cannot place an order for quantity less than zero</value>
+  </data>
+  <data name="ValidateOrderedQuantityVendorStock" xml:space="preserve">
+    <value>Cannot place an order for quantity less than or equal to zero</value>
+  </data>
+  <data name="ValidateParentPrescriptionStatus" xml:space="preserve">
+    <value>{0} Medical Prescription line item is not allowed when the Prescription is {1}</value>
+  </data>
+  <data name="ValidateProgramFormulaApprovalTeam" xml:space="preserve">
+    <value>There is no Formula Approval Team assigned to Program Office</value>
+  </data>
+  <data name="ValidateSerialNumber" xml:space="preserve">
+    <value>Serial Number End Sequence is not in proper format. Please contact system administrator.</value>
+  </data>
+  <data name="ValidateSubsitutionGroup" xml:space="preserve">
+    <value>The quantity exceeds the {0} Group limit</value>
+  </data>
+  <data name="ValidateSubstitutionEquivalentQuantityAndSubstitutionUOM" xml:space="preserve">
+    <value>Values for the fields “Substitution Equivalent quantity” and “Substitution UOM” doesn’t exist for this food item. Please key in relevant values and try again</value>
+  </data>
+  <data name="ValidateWorkHourCollectionWithParsedDates" xml:space="preserve">
+    <value>Entered ValidateWorkHourCollectionWithParsedDates</value>
+  </data>
+  <data name="ValidVendorOrderReceivedAt" xml:space="preserve">
+    <value>Business Unit Type is not valid</value>
+  </data>
+  <data name="VendorNotFoundOnInventory" xml:space="preserve">
+    <value>Vendor is not selected on Inventory</value>
+  </data>
+  <data name="VendorNull" xml:space="preserve">
+    <value>Vendor is not available for the current inventory</value>
+  </data>
+  <data name="VendorOrderPostExipirationInventoryException" xml:space="preserve">
+    <value>Vendor order can only be processed for Standard and Serialized Inventory.</value>
+  </data>
+  <data name="VendorStockOrderStockMinStockMaxValidation" xml:space="preserve">
+    <value>Current Inventory record has invalid data setup. Please provide Stock Min and Stock Max value.</value>
+  </data>
+  <data name="VerbiageRetrieve" xml:space="preserve">
+    <value>Ready to Retrieve Verbiage Configurations</value>
+  </data>
+  <data name="VerbiageUpdate" xml:space="preserve">
+    <value>Ready to Update Verbiage Configurations</value>
+  </data>
+  <data name="VerificationAlertFoodRuleAndFoodItem" xml:space="preserve">
+    <value>Cannot Verify as food rule or food item or tailored food package line item is not available</value>
+  </data>
+  <data name="VerifySubstitutionValidation" xml:space="preserve">
+    <value>Substitution rule is violated for {0} Group. The total quantity cannot exceed {1} {2}</value>
+  </data>
+  <data name="ViolationRuleVerificationMessage" xml:space="preserve">
+    <value>The {0} rule has been violated. Quantity should be between {1} and {2}.</value>
+  </data>
+  <data name="VoidandReplaceNotesText" xml:space="preserve">
+    <value>Void &amp; Replace action has been performed on associated Family Benefit Issuance with quantity change on {0} by {1}</value>
+  </data>
+  <data name="VoidOrder" xml:space="preserve">
+    <value>Voiding order</value>
+  </data>
+  <data name="Weekends" xml:space="preserve">
+    <value>Weekends</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>WEEKS</value>
+  </data>
+  <data name="WICEBTSystemIDConfigName" xml:space="preserve">
+    <value>WIC_EBT_System_ID</value>
+  </data>
+  <data name="WICMISSystemIDConfigName" xml:space="preserve">
+    <value>WIC_MIS_System_ID</value>
+  </data>
+  <data name="WICStateAgencyIDConfigName" xml:space="preserve">
+    <value>WIC_State_Agency_ID</value>
+  </data>
+  <data name="WorkHourDuration" xml:space="preserve">
+    <value>WorkHourDuration</value>
+  </data>
+  <data name="WorkHourOffset" xml:space="preserve">
+    <value>WorkHourOffset</value>
+  </data>
+  <data name="WorkHourRule" xml:space="preserve">
+    <value>WorkHourRule</value>
+  </data>
+  <data name="WorkHourRulePattern" xml:space="preserve">
+    <value>WorkHourRule</value>
+  </data>
+  <data name="WorkHourValidation" xml:space="preserve">
+    <value>Entered WorkHour Validation Verified Part</value>
+  </data>
+  <data name="Years" xml:space="preserve">
+    <value>YEARS</value>
+  </data>
+  <data name="ZeroQuantityCheck" xml:space="preserve">
+    <value>Please provide a quantity greater than zero</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error : </value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="InfantBloodWorkAlertMonth" xml:space="preserve">
+    <value>InfantBloodWorkAlertMonth</value>
+  </data>
+  <data name="IsDailyRiderDisabled" xml:space="preserve">
+    <value>IsDailyRiderDisabled</value>
+  </data>
+  <data name="ValidateFoodItemInSamePrescription" xml:space="preserve">
+    <value>Same formula food item can not be allowed multiple times in a medical prescription.</value>
+  </data>
+  <data name="UnderageReport" xml:space="preserve">
+    <value>Underage Report – </value>
+  </data>
+  <data name="OrderShortageParticipantRequired" xml:space="preserve">
+    <value>Participant is mandatory on order line</value>
+  </data>
+  <data name="AlertDescriptionForIssuance" xml:space="preserve">
+    <value>Participant {0} has been issued a pump {1} that is expected to be returned on {2}.</value>
+  </data>
+  <data name="RiskCodesNotToDeactivateForWomanCategory" xml:space="preserve">
+    <value>RiskCodesNotToDeactivateForWomanCategory</value>
+  </data>
+  <data name="NoInventoryFound" xml:space="preserve">
+    <value>There is no inventory available in the gaining clinic to transfer serialized inventory</value>
+  </data>
+  <data name="HighRiskFollowUp" xml:space="preserve">
+    <value>High Risk Follow-up</value>
+  </data>
+  <data name="HighRiskFollowUpFor" xml:space="preserve">
+    <value>High Risk Follow-up for</value>
+  </data>
+  <data name="HighRiskReferralCreatedFor" xml:space="preserve">
+    <value>A High Risk Referral was created for "{0}". A follow-up is due by {1}</value>
+  </data>
+  <data name="FamilyId" xml:space="preserve">
+    <value>FamilyId = {0}</value>
+  </data>
+  <data name="PreferredMethodOfContact" xml:space="preserve">
+    <value>preferredMethodOfContact = {0}</value>
+  </data>
+  <data name="RemainderType" xml:space="preserve">
+    <value>RemainderType = {0}</value>
+  </data>
+  <data name="CreateSMS" xml:space="preserve">
+    <value>Message Created</value>
+  </data>
+  <data name="FromUserId" xml:space="preserve">
+    <value>UserId = {0}</value>
+  </data>
+  <data name="MobileNumberExists" xml:space="preserve">
+    <value>Mobile number exists.</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="Missed" xml:space="preserve">
+    <value>Missed</value>
+  </data>
+  <data name="ReminderGroup" xml:space="preserve">
+    <value>Reminder Group</value>
+  </data>
+  <data name="ReminderIndividual" xml:space="preserve">
+    <value>Reminder Individual</value>
+  </data>
+  <data name="RiskCodesNotToDeactivateForInfantTransitioningChildCategory" xml:space="preserve">
+    <value>RiskCodesNotToDeactivateForInfantTransitioningChildCategory</value>
+  </data>
+</root>

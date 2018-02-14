@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Register xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/crm/2011/tools/pluginregistration">
+  <Solutions>
+    <Solution Assembly="MIS.CRM.AuditHistory.dll" Id="d434761b-f6b7-4092-a660-b52b5c6b05c0" IsolationMode="Sandbox" SourceType="Database">
+      <WorkflowTypes>
+        <clear />
+        <WorkflowType Name="CRM" WorkflowActivityGroupName="MIS.CRM.AuditHistory" WorkflowActivityProjectName="MIS.CRM.AuditHistory" Id="00000000-0000-0000-0000-000000000000" TypeName="MIS.CRM.AuditHistory.BusinessProcesses.BasePlugin" />
+      </WorkflowTypes>
+    </Solution>
+  </Solutions>
+  <XamlWorkflows>
+    <XamlWorkflowSolution Assembly="MIS.CRM.AuditHistory.dll" />
+  </XamlWorkflows>
+</Register>

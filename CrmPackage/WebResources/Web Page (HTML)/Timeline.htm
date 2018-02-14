@@ -1,0 +1,2294 @@
+<html><head><meta charset="utf-8">
+
+    <script src="../mis_/Scripts/d3.js"></script>
+    <script src="../mis_/scripts/misxrmutilities.js"></script>
+    <script src="../ClientGlobalContext.js.aspx" type="text/javascript"></script>
+    <style>
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        path {
+            fill: #ccc;
+            stroke: rgb(83, 99, 124);
+            stroke-width: 1.5px;
+        }
+
+        .area {
+            fill: rgb(83, 99, 124);
+        }
+
+        .certificationArea {
+            fill: rgb(1, 139, 202);
+            stroke-width: 0px;
+        }
+
+        .provisionalArea {
+            fill: rgb(231, 123, 50);
+            stroke-width: 0px;
+        }
+
+        .benefitArea {
+            stroke-width: 0px;
+            cursor: pointer;
+        }
+
+        .legend {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            fill: white;
+            font-size: 9pt;
+        }
+
+        .auditLine {
+            stroke-dasharray: (1,1);
+            stroke: rgb(249,187,147);
+        }
+
+        .checkptHeader {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 600;
+            fill: rgb(84, 106, 145);
+            font-size: 9pt;
+        }
+
+        .mainEventsGroup {
+            cursor: pointer;
+        }
+
+        .mainEventSection {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-weight: 500;
+            fill: rgb(84, 106, 145);
+            font-size: 8pt;
+            width: fit-content;
+            height: fit-content;
+            cursor:pointer;
+            /*background-color: rgb(253,243,159);
+            border-radius: 10px;
+            border: 1px solid rgb(204,184,4);*/
+            text-align:left;
+        }
+
+        .auditSection {
+            cursor: default;
+            background-color: rgb(253,243,159); /*rgb(238, 238, 238);*/
+            border-radius: 10px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 7pt;
+            padding-left: 8px;
+            padding-right: 5px;
+            padding-top: 5px;
+            border: 1px solid rgb(204,184,4);
+        }
+
+        .issuanceContainerSection {
+		    position: absolute;
+		    z-index: 500;
+		    cursor: default;
+		    background-color: rgb(238, 238, 238);
+		    border-radius: 10px;
+		    border: 1px solid rgb(170,165,140);
+            padding: 40px 20px 20px;
+		    /*border-top: 10px solid rgb(134,118,42);*/
+		}
+
+        .auditContent {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 7pt;
+        }
+
+        .auditHeader {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            height: 20px;
+            padding-left: 10px;
+            border-bottom: 1px solid rgb(169,169,169);
+        }
+
+        .issuanceHeader {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            height: 20px;
+            padding-left: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgb(169,169,169);
+        }
+
+        .auditValues {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 10px;
+            font-weight: 400;
+            height: 20px;
+            padding-left: 5px;
+            padding-top: 4px;
+            vertical-align: top;
+        }
+
+        .issuanceValues {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            height: 20px;
+            padding-left: 5px;
+            padding-top: 4px;
+            vertical-align: top;
+        }
+
+        .checkptDesc {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            fill: rgb(139, 139, 139);
+            font-size: 9pt;
+        }
+
+        .certificationIndex {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            fill: rgb(1, 139, 202);
+            font-weight: 600;
+            font-size: 9pt;
+        }
+
+        .benefitIndex {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            fill: rgb(212, 75, 41);
+            font-weight: 600;
+            font-size: 9pt;
+        }
+
+        .showTopHeaderSection {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            position: absolute;
+            color: rgb(67,80,97);
+        }
+
+        .durationLabel {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /*fill: rgb(160, 160, 160);*/
+            fill: white;
+            font-weight: 500;
+            font-size: 8pt;
+        }
+
+        .overlaySection {
+            visibility: visible;
+            opacity: 0.7;
+            top: 0;
+            left: 0;
+            background-color: grey;
+            position: absolute;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: 500;
+        }
+
+        .issuanceContainerImg {
+		    /*src: url("../img/close.png");*/
+		    position: absolute;
+		    top: 6px;
+		    right: 12px;
+		    height: 16px;
+		    width: 16px;
+		    cursor: pointer;
+		}
+
+        .axis text {
+            font: 11px sans-serif;
+        }
+
+        .axis path {
+            display: none;
+        }
+
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .grid-background {
+            fill: #ddd;
+        }
+
+        .grid line,
+        .grid path {
+            fill: none;
+            stroke: #fff;
+            shape-rendering: crispEdges;
+        }
+
+        .grid .minor.tick line {
+            stroke-opacity: .5;
+        }
+
+        .brush .extent {
+            stroke: #000;
+            fill: green;
+            fill-opacity: .3;
+            shape-rendering: crispEdges;
+        }
+
+        .gradientArea {
+            fill: url(#gradientForegroundPurple);
+        }
+
+        .eventPathUpdate {
+            stroke-width: 2;
+            stroke: rgb(94, 166, 204);
+            fill: none;
+        }
+
+        .eventPathCreate {
+            stroke-width: 2;
+            stroke: rgb(188, 81, 79);
+            fill: none;
+        }
+
+        .todayPointer {
+            width: 12px;
+            height: 12px;
+        }
+
+        .monthBar {
+            stroke-width: 1;
+            stroke: white;
+            fill: none;
+        }
+
+        .boundary {
+            stroke-width: 1;
+            stroke: rgb(221, 227, 215);
+            fill: none;
+        }
+
+        .divInfoSection {
+            position: absolute;
+            width: 320px;
+            height: 400px;
+            left: 1100px;
+            top: 20px;
+            padding-top: 40px;
+        }
+
+        .panRange{
+            stroke-width:1px;
+            stroke: rgb(156, 173, 139);
+            fill:none;
+        }
+
+        .panNumber {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 8pt;
+            font-weight: 600;
+            fill: rgb(82, 100, 124);
+            cursor: default;
+        }
+
+        .divInfoHeader {
+            font-family: 'Segoe UI Semibold', 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+        }
+
+        .divInfoContent {
+            color: rgb(118, 114, 114);
+            display: block;
+            font-family: sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            padding-top: 15px;
+        }
+    </style>
+    <script>
+        /* Utitlity Methods */
+        /* Start */
+        function datetimeToString(dt, format) {
+            if (dt !== undefined && dt !== null) {
+                var dtString = format.replace("{YYYY}", dt.getFullYear()),
+                month = dt.getMonth() + 1;
+                dtString = dtString.replace("{MM}", month.toString().paddingLeft("00"));
+                dtString = dtString.replace("{DD}", dt.getDate().toString().paddingLeft("00"));
+                dtString = dtString.replace("{hh}", (dt.getHours() % 12));
+                dtString = dtString.replace("{mm}", dt.getMinutes().toString().paddingLeft("00"));
+                dtString = dtString.replace("{tt}", (dt.getHours() >= 12 ? "PM" : "AM"));
+                return dtString;
+            }
+
+            return "";
+        }
+
+        function convertJsonDateToJSDate(dateString) {
+            if (dateString) {
+                return new Date(parseInt(dateString.substr(6)));
+            }
+
+            return new Date();
+        }
+
+        function addMonths(dt, months) {
+            var n = new Date(dt.getTime());
+            var days = n.getDate();
+            n.setDate(1);
+            n.setMonth(n.getMonth() + months);
+            n.setDate(Math.min(days, n.getDaysInMonth()));
+            return n;
+        }
+
+        function areArraysEqual(a, b) {
+            if (a && b) {
+                if (a.length == b.length) {
+                    var index = 0;
+                    for (index = 0; index < a.length; index++) {
+                        if (a[index] != b[index]) {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function getLastDayOfMonth(dt) {
+            return new Date(dt.getFullYear(), dt.getMonth() + 1, 0);
+        }
+
+        function getQueryStringParameter(key) {
+            var ctx = getQueryStringParameter;
+
+            ctx.parse = ctx.parse || function (search) {
+                var pairs = search.split('&');
+                for (var i = 0, length = pairs.length; i < length; i++) {
+                    var pair = pairs[i];
+                    if (pair) {
+                        var tokens = pair.split('=');
+                        if (tokens.length === 2) {
+                            var key = tokens[0],
+                                value = decodeURIComponent(tokens[1].replace(/\+/g, " "));
+                            if (value.indexOf("=") >= 0) {
+                                ctx.parse(value);
+                            } else {
+                                if (!ctx.parameters) {
+                                    ctx.parameters = {};
+                                }
+                                ctx.parameters[key] = value;
+                            }
+                        }
+                    }
+                }
+            };
+
+            if (!ctx.parameters) {
+                ctx.parameters = {};
+                var search = window.location.search.substring(1);
+                ctx.parse(search);
+            }
+            return ctx.parameters[key] || "";
+        }
+
+        function displayOverlay(opacity) {
+            d3.select("body")
+                .append("div")
+                .attr("class", "overlaySection")
+                .attr("id", "divOverlay");
+
+            if (opacity) {
+                d3.select("#divOverlay").style("opacity", opacity);
+            }
+        }
+
+        function hideOverlay() {
+            d3.select("#divOverlay").remove();
+        }
+        /* End */
+
+
+        /* Rounded Corners */
+        /* Start */
+        function rightRoundedRect(x, y, width, height, radius) {
+            return "M" + (x + radius) + "," + y + "h" + (width - radius * 2) + "a" + radius + "," + radius + " 0 0 1 " + radius + "," + radius + "v" + (height - 2 * radius) + "a" + radius + "," + radius + " 0 0 1 " + -radius + "," + radius + "h" + (radius * 2 - width) + "a" + radius + "," + radius + " 0 0 1 " + -radius + "," + -radius + "v" + (height - 2 * radius) + "a" + radius + "," + radius + " 0 0 1 " + radius + "," + -radius + "z";
+        }
+
+        function rightRoundedMainRect(x, y, width, height, radius) {
+            return "M" + (x + radius) + "," + y + "h" + (width - radius * 2) + "a" + radius + "," + radius + " 0 0 1 " + radius + "," + radius + "v" + (height - 2 * radius) + "a" + radius + "," + radius + " 0 0 1 " + -radius + "," + radius + "h" + (radius * 2 - width) + "a" + radius + "," + radius + " 0 0 1 " + -radius + "," + -radius + "v" + (height - 2 * radius) + "a" + radius + "," + radius + " 0 0 1 " + radius + "," + -radius + "z";
+        }
+        /* End */
+
+        /* Retrieve Participant Details */
+        /* Start */
+        function retrieveParticipantDetails(cid) {
+            var query = "$select=contactid,createdon&$filter=contains(mis_cid,'" + cid + "')";
+
+            MisXrmUtilities.WebAPI.RetrieveMultipleRecords(
+                    "contacts",
+                    query,
+                    function (contacts) {
+                        if (contacts && contacts.length > 0) {
+                            var contactDetails = {
+                                "EntityName": "contact",
+                                "EntityId": contacts[0].contactid
+                            };
+
+                            var createdOn = contacts[0].createdon,
+                                todaysDate = new Date(),
+                                brushStart = new Date(new Date().setMonth(todaysDate.getMonth() - 6)),
+                                brushEnd = new Date(new Date().setMonth(todaysDate.getMonth() + 6));
+
+                            sliderStartDate = new Date(createdOn.getFullYear(), createdOn.getMonth(), 01);
+                            sliderEndDate = new Date((todaysDate.getFullYear() + 2), 00, 01);
+                            initialBrushStart = new Date(brushStart.getFullYear(), brushStart.getMonth(), 1);
+                            initialBrushEnd = new Date(brushEnd.getFullYear(), brushEnd.getMonth(), 1);
+
+                            if (sliderStartDate > initialBrushStart) {
+                                initialBrushStart = sliderStartDate;
+                            }
+
+                            if (sliderEndDate < initialBrushEnd) {
+                                initialBrushEnd = sliderEndDate;
+                            }
+
+                            monthScale = d3.time.scale().domain([initialBrushStart, initialBrushEnd]).range([range.lowerBound, range.upperBound]);
+                            sliderScale = d3.time.scale().domain([sliderStartDate, sliderEndDate]).range([(bodyWidth * 0.15), (bodyWidth * 0.85)]);
+
+                            brush = d3.svg.brush()
+                                .x(sliderScale)
+                                .extent([initialBrushStart, initialBrushEnd])
+                                .on("brushend", brushended);
+
+                            allMonths = [];
+
+                            initialDate = sliderStartDate;
+                            endDate = sliderEndDate;
+                            for (i = initialDate; i < endDate; initialDate.setMonth(initialDate.getMonth() + 1)) {
+                                allMonths.push(new Date(i.getFullYear(), i.getMonth(), i.getDate()));
+                            }
+
+                            plotSummaryTimeLine();
+
+                            retrieveAuditDetails(contactDetails);
+
+                            retrieveCertificationDetails(contactDetails.EntityId);
+
+                            retrieveIssuanceDetails(contactDetails.EntityId);
+                        }
+                    },
+                    function (error) {
+                    },
+                    function (contacts){
+                    });
+
+        }
+        /* End */
+
+        /* Retrieve Certification Details */
+        /* Start */
+        function retrieveCertificationDetails(participantId) {
+            var query = "$select=mis_certificationid,mis_applicationtype,mis_isdisastermode,mis_effectivedate,mis_certificationenddate,mis_originalenddate&$filter=" + MisXrmUtilities.WebAPI.FormatLookupAttributeName("mis_participant") + " eq " + participantId;
+
+            MisXrmUtilities.WebAPI.RetrieveMultipleRecords(
+                    "mis_certifications",
+                    query,
+                    function (certifications) {
+                        certificationDetails = [];
+                        if(certifications && certifications.length > 0)
+                        {
+                            certifications.map(function (item, index) {
+                                certificationDetails.push({
+                                    id: item.mis_certificationid,
+                                    startDate: new Date(MisXrmUtilities.WebAPI.GetDateFieldValue(item, "mis_effectivedate").Value),
+                                    endDate: new Date(MisXrmUtilities.WebAPI.GetDateFieldValue(item, "mis_certificationenddate").Value),
+                                    type: MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(item, "mis_applicationtype").Text
+                                });
+                            });
+
+                            plotCertificationArea();
+                        }
+                    },
+                    function (error) {
+                    },
+                    function (certifications) {
+                    });
+
+        }
+        /* End */
+
+        /* Retrieve Issuance Details */
+        /* Start */
+        function retrieveIssuanceDetails(participantId) {
+            var query = "<fetch distinct='false' mapping='logical' output-format='xml-platform' version='1.0' >" +
+                            "<entity name='mis_participantbenefitissuance' >" +
+                                "<attribute name='mis_fooditem' />" +
+                                "<attribute name='mis_benefitmonth' />" +
+                                "<attribute name='mis_quantity' />" +
+                                "<attribute name='mis_participantbenefitissuanceid' />" +
+                                "<attribute name='mis_dateofissuance' />" +
+                                "<attribute name='statuscode' />" +
+                                "<attribute name='statecode' />" +
+                                "<order descending='true' attribute='mis_benefitmonth' />" +
+                                "<filter type='and' >" +
+                                    "<condition attribute='mis_participant' operator='eq' value='" + participantId + "' />" +
+                                "</filter>" +
+                                "<link-entity name='mis_familybenefitissuance' alias='fbi' link-type='outer' visible='false' to='mis_familybenefitissuance' from='mis_familybenefitissuanceid' >" +
+                                    "<attribute name='mis_dateofissuance' />" +
+                                    "<attribute name='mis_familybenefitissuanceid' />" +
+                                    "<attribute name='mis_issuancestatusreason' />" +
+                                    "<attribute name='mis_issuancestatus' />" +
+                                    "<attribute name='mis_issuancestartdate' />" +
+                                    "<attribute name='mis_issuanceenddate' />" +
+                                    "<attribute name='statecode' />" +
+                                "</link-entity>" +
+                            "</entity>" +
+                        "</fetch>";
+
+            MisXrmUtilities.WebAPI.ExecuteFetchXmlAsync(
+                    "mis_participantbenefitissuances",
+                    query,
+                    function (issuances) {
+                        issuanceDetails = [];
+                        if (issuances && issuances.length > 0) {
+                            issuances.map(function (item, index) {
+                                var issuanceStartDate = new Date(MisXrmUtilities.WebAPI.GetDateFieldValue(item, "fbi_x002e_mis_issuancestartdate").Value),
+                                    dateOfIssuance = MisXrmUtilities.Common.ConvertCrmDateToJsDate(item["fbi_x002e_mis_dateofissuance"]);
+
+                                if (dateOfIssuance > issuanceStartDate) {
+                                    issuanceStartDate = dateOfIssuance;
+                                }
+
+                                var existingIssuanceDetail = issuanceDetails.filter(function (issuanceDetail) { return issuanceDetail.id === item.fbi_x002e_mis_familybenefitissuanceid });
+                                if (existingIssuanceDetail.length === 0) {
+                                    issuanceDetails.push({
+                                        id: item.fbi_x002e_mis_familybenefitissuanceid,
+                                        month: issuanceStartDate.getMonth() + issuanceStartDate.getFullYear(),
+                                        startDate: issuanceStartDate,
+                                        endDate: getLastDayOfMonth(new Date(MisXrmUtilities.WebAPI.GetDateFieldValue(item, "fbi_x002e_mis_issuanceenddate").Value)),
+                                        issuanceStatus: MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(item, "fbi_x002e_mis_issuancestatus").Text,
+                                        issuanceStatusReason: (MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(item, "fbi_x002e_mis_issuancestatusreason") ? MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(item, "fbi_x002e_mis_issuancestatusreason").Text : ""),
+                                        issuanceDate: dateOfIssuance,
+                                        participantIssuances: [{
+                                            foodItemId: MisXrmUtilities.WebAPI.GetLookupAttributeValue(item, "mis_fooditem").Id,
+                                            foodItemName: MisXrmUtilities.WebAPI.GetLookupAttributeValue(item, "mis_fooditem").Name,
+                                            participantQuantity: MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(item, "mis_quantity").Text
+                                        }]
+                                    });
+                                } else {
+                                    existingIssuanceDetail[0].participantIssuances.push({
+                                        foodItemId: MisXrmUtilities.WebAPI.GetLookupAttributeValue(item, "mis_fooditem").Id,
+                                        foodItemName: MisXrmUtilities.WebAPI.GetLookupAttributeValue(item, "mis_fooditem").Name,
+                                        participantQuantity: MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(item, "mis_quantity").Text
+                                    })
+                                }
+                            });
+
+                            issuanceDetails.sort(function (a, b) {
+                                if (a.startDate > b.startDate)
+                                    return 1;
+
+                                if (a.startDate < b.startDate)
+                                    return -1;
+
+                                return 0;
+                            });
+
+                            retrieveFamilyBenefitIssuanceDetails();
+
+                            plotIssuanceArea();
+                        }
+                    },
+                    function (error) {
+                    });
+
+        }
+
+        function retrieveFamilyBenefitIssuanceDetails() {
+            if (issuanceDetails.length > 0) {
+                var filterCondition = "";
+
+                issuanceDetails.map(function (item, index) {
+                    filterCondition += "<value>" + item.id + "</value>";
+                });
+
+                if (filterCondition && filterCondition.length > 0) {
+
+                    var fetchXml = "<fetch distinct='false' mapping='logical' output-format='xml-platform' version='1.0' >" +
+                                        "<entity name='mis_familybenefitissuancedetails' >" +
+                                            "<attribute name='mis_familybenefitissuance' />" +
+                                            "<attribute name='mis_fooditem' />" +
+                                            "<attribute name='mis_quantity' />" +
+                                            "<attribute name='mis_availableforissuance' />" +
+                                            "<attribute name='mis_familybenefitissuancedetailsid' />" +
+                                            "<attribute name='mis_redeemed' />" +
+                                            "<attribute name='mis_pan' />" +
+                                            "<order descending='false' attribute='mis_fooditem' />" +
+                                            "<filter type='and' >" +
+                                                "<condition attribute='mis_familybenefitissuance' operator='in' >" +
+                                                    filterCondition +
+                                                "</condition>" +
+                                                "<condition attribute='mis_quantity' value='0' operator='gt'/>" +
+                                            "</filter>" +
+                                        "</entity>" +
+                                    "</fetch>";
+
+                    MisXrmUtilities.WebAPI.ExecuteFetchXmlAsync(
+                            "mis_familybenefitissuancedetailses",
+                            fetchXml,
+                            function (familyBenefitDetails) {
+                                if (familyBenefitDetails && familyBenefitDetails.length > 0) {
+                                    issuanceDetails.map(function (item, index) {
+
+                                        var fbiIssuanceDetails = familyBenefitDetails.filter(function (fbiDetails) {
+                                            return MisXrmUtilities.WebAPI.GetLookupAttributeValue(fbiDetails,"mis_familybenefitissuance").Id === item.id;
+                                        });
+
+                                        if (fbiIssuanceDetails.length > 0) {
+                                            item.PAN = [];
+
+                                            item.participantIssuances.map(function (participantIssuance, ind) {
+                                                var piFoodItem = fbiIssuanceDetails.filter(function (fbiDetails) {
+                                                    return MisXrmUtilities.WebAPI.GetLookupAttributeValue(fbiDetails, "mis_fooditem").Id == participantIssuance.foodItemId;
+                                                });
+
+                                                if (piFoodItem.length > 0) {
+                                                    participantIssuance.familyQuantity = MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(piFoodItem[0], "mis_quantity").Text;
+                                                    participantIssuance.availableForIssuance = MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(piFoodItem[0], "mis_availableforissuance").Text;
+                                                    participantIssuance.redeemedQuantity = MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(piFoodItem[0], "mis_redeemed").Text;
+                                                    var panNo = MisXrmUtilities.WebAPI.GetLookupAttributeValue(piFoodItem[0], "mis_pan");
+                                                    if (panNo && item.PAN.indexOf(panNo.Name) < 0) {
+                                                        item.PAN.push(panNo.Name);
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
+
+                                    plotPANAssignment();
+
+                                }
+                            },
+                            function (error) {
+                            });
+                }
+            }
+        }
+
+        function plotPANAssignment() {
+            
+            function addPANRange(obj) {
+                panAssignment.push({
+                    StartDate: obj.startDate,
+                    EndDate: obj.endDate,
+                    PAN: obj.PAN
+                });
+            }
+
+            panAssignment = [];
+
+            issuanceDetails.map(function (item, index) {
+                if (item) {
+                    if (panAssignment.length > 0) {
+                        var previousPANRange = panAssignment[panAssignment.length - 1];
+                        if (areArraysEqual(previousPANRange.PAN, item.PAN)) {
+                            if (addMonths(previousPANRange.EndDate, 1) > item.startDate) {
+                                previousPANRange.EndDate = item.endDate;
+                                return;
+                            }
+                        }
+                    }
+
+                    addPANRange(item);
+                }
+            });
+
+            var panSection = clipArea.append("g").attr("id", "gpanAssignment");
+
+            var individualPANGroup = panSection.selectAll("g.panContainerGroup")
+                                        .data(panAssignment)
+                                        .enter()
+                                        .append("g")
+                                        .attr("class", "panContainerGroup");
+
+            individualPANGroup
+                .append("path")
+                .attr("d", function (d) {
+                    var rangeStart = monthScale(d.StartDate),
+                        rangeEnd = monthScale(d.EndDate);
+
+                    return "M" + rangeStart + "," + (legendY + 135) + "v10" + "h" + ((rangeEnd - rangeStart) / 2) + "v10v-10" + "h" + ((rangeEnd - rangeStart) / 2) + "v-10";
+                })
+                .attr("class", "panRange");
+
+            individualPANGroup
+                .append("g")
+                .attr("class", "panGroup")
+                .attr("PAN", function (d) {
+                    if (d.PAN && d.PAN.length > 0) {
+                        var startPosition = monthScale(d.StartDate),
+                            endPosition = monthScale(d.EndDate),
+                            currentGroup = d3.select(this);
+
+                        d.PAN.map(function (panItem, panIndex) {
+                            currentGroup
+                                .append("text")
+                                .attr("text-anchor", "middle")
+                                .attr("class", "panNumber")
+                                .attr("id", "panNo_" + panIndex)
+                                .attr("transform", "translate(" + (startPosition + (endPosition - startPosition) / 2) + "," + (legendY + 165 + (panIndex * 13)) + ")")
+                                .text(panItem);
+                        });
+                    }
+                });
+        }
+
+        function updatePANAssignment() {
+            var individualPANGroup = mainClipArea.selectAll("g.panContainerGroup")
+                                        .data(panAssignment);
+
+            individualPANGroup
+                .selectAll("path.panRange")
+                .transition()
+                .duration(750)
+                .attr("d", function (d) {
+                    var rangeStart = monthScale(d.StartDate),
+                        rangeEnd = monthScale(d.EndDate);
+
+                    return "M" + rangeStart + "," + (legendY + 135) + "v10" + "h" + ((rangeEnd - rangeStart) / 2) + "v10v-10" + "h" + ((rangeEnd - rangeStart) / 2) + "v-10";
+                });
+
+            individualPANGroup
+                .selectAll("g.panGroup")
+                //.transition()
+                //.duration(750)
+                .attr("PAN", function (d) {
+                    if (d.PAN && d.PAN.length > 0) {
+                        var startPosition = monthScale(d.StartDate),
+                            endPosition = monthScale(d.EndDate),
+                            currentGroup = d3.select(this);
+
+                        d.PAN.map(function (panItem, panIndex) {
+                            currentGroup
+                                .select("#panNo_" + panIndex)
+                                .transition()
+                                .duration(750)
+                                .attr("transform", "translate(" + (startPosition + (endPosition - startPosition) / 2) + "," + (legendY + 165 + (panIndex * 13)) + ")");
+                        });
+                    }
+                });
+
+
+        }
+        /* End */
+
+        function plotMainUserTimeLine() {
+            var rect = mainClipArea.append("path")
+                .attr("d", rightRoundedMainRect(bodyWidth * 0.07, (bodyHeight - 40) / 2, bodyWidth * 0.85, 40, 20))
+                .attr("class", "gradientArea");
+
+            var lineCenter = bodyHeight / 2 - 15;
+            //Month Separator
+            //start
+            monthBars = mainClipArea.selectAll("line")
+                .data(allMonths)
+                .enter()
+                .append("line")
+                .attr("x1", function (d) {
+                    var xAxis = parseFloat(monthScale(d));
+                    if (xAxis >= range.lowerBound && xAxis <= range.upperBound)
+                        return xAxis;
+                    else if (xAxis < range.lowerBound) {
+                        return range.lowerBound - 25;
+                    } else if (xAxis > range.upperBound) {
+                        return range.upperBound + 25;
+                    }
+                })
+                .attr("y1", lineCenter)
+                .attr("x2", function (d) {
+                    var xAxis = parseFloat(monthScale(d));
+                    if (xAxis >= range.lowerBound && xAxis <= range.upperBound)
+                        return xAxis;
+                    else if (xAxis < range.lowerBound) {
+                        return range.lowerBound - 25;
+                    } else if (xAxis > range.upperBound) {
+                        return range.upperBound + 25;
+                    }
+                }) //<<== and here
+                .attr("y2", (lineCenter + 40 - 10))
+                .attr("class", "monthBar");
+
+            mainClipArea.selectAll("text")
+                .data(allMonths)
+                .enter()
+                .append("text")
+                .attr("text-anchor", "middle")
+                .attr("fill", "red")
+                .attr('transform', function (d) {
+                    var xAxis = parseFloat(monthScale(d));
+                    if (xAxis >= range.lowerBound && xAxis <= range.upperBound)
+                        return 'translate(' + (monthScale(d) + 17) + ', ' + (lineCenter + 20) + ')';
+                    else if (xAxis < range.lowerBound) {
+                        return 'translate(' + (range.lowerBound - 50) + ', ' + (lineCenter + 20) + ')';
+                    } else if (xAxis > range.upperBound) {
+                        return 'translate(' + (range.upperBound + 50) + ', ' + (lineCenter + 20) + ')';
+                    }
+
+                    //return 'translate(' + (monthScale(d) + 17) + ', ' + (-115 + 20) + ')';
+                })
+                .attr("class", "legend")
+                .text(function (d) {
+                    return monthNames[d.getMonth()];
+                });
+        }
+
+        function plotClipArea() {
+            // Generate the Clip Area for Certification And Issuance
+            var clip = mainClipArea.append("svg:defs").append("svg:clipPath")
+                .attr("id", "clipC1")
+                .append("rect")
+                .attr("id", "containerBlock")
+                .attr('width', bodyWidth * 0.85)
+                .attr('height', bodyWidth * 0.8)
+                .attr('x', bodyWidth * 0.07)
+                .attr('y', 0);
+
+            clipArea = mainClipArea.append("g")
+                .attr("clip-path", function (d, i) {
+                    return "url(#clipC1)";
+                });
+
+            clipArea.append("svg:image")
+            .attr('x', monthScale(new Date()))
+            .attr('y', ((bodyHeight / 2) + 21))
+            .attr('id', 'todayPointer')
+            .attr('width', 12)
+            .attr('height', 12)
+            .attr("xlink:href", "../mis_/images/todayPointer.png");
+        }
+
+        function plotCertificationArea() {
+            certificationDetailsBoundary = [];
+            certificationLabels = [];
+            for (i = 0; i < certificationDetails.length; i++) {
+                certificationDetailsBoundary.push(certificationDetails[i].startDate);
+                certificationDetailsBoundary.push(certificationDetails[i].endDate);
+
+                certificationLabels.push(certificationDetails[i]);
+            }
+
+            //Legend
+            mainClipArea.append("text")
+                .attr("text-anchor", "end")
+                .attr('transform', 'translate(' + bodyWidth * 0.05 + ', ' + (legendY + 50) + ')')
+                .attr("class", "certificationIndex")
+                .text("Certification");
+
+            var certificationIndex = clipArea.append("g").attr("id", "gCertification");
+
+            var certificationArea = certificationIndex.selectAll("path.certificationArea")
+                .data(certificationDetails)
+                .enter()
+                .append("path")
+                .attr("d", function (d) {
+                    var xScale = monthScale(d.startDate);
+                    var yScale = monthScale(d.endDate);
+
+                    return rightRoundedRect(xScale, (legendY + 40), (yScale - xScale), 20, 10);
+                })
+                .on("click", function (d) {
+                    displayCertificationDetails(d.id);
+                })
+                .style("stroke-width", "0px")
+                .style("fill", function (d){
+                    switch(d.type)
+                    {
+                        case "Regular":
+                            return "rgb(1, 139, 202)";
+                        case "Precertification":
+                            return "red";
+                        case "VOC":
+                            return "rgb(217,99,71)";
+                        case "Provisional":
+                            return "rgb(231, 123, 50)";
+                    }
+                });
+
+            certificationIndex.selectAll("line.boundary")
+                .data(certificationDetailsBoundary)
+                .enter()
+                .append("line")
+                .attr("x1", function (d) {
+                    return monthScale(d);
+                })
+                .attr("y1", ((bodyHeight / 2) + 20))
+                .attr("x2", function (d) {
+                    return monthScale(d);
+                })
+                .attr("y2", ((bodyHeight / 2) + 90))
+                .attr("class", "boundary");
+
+            certificationIndex.selectAll("text")
+                .data(certificationLabels)
+                .enter()
+                .append("text")
+                .attr("text-anchor", "middle")
+                .attr('transform', function (d) {
+                    var xScale = monthScale(d.startDate);
+                    var yScale = monthScale(d.endDate);
+
+                    return 'translate(' + (yScale + xScale - 10) / 2 + ', ' + ((bodyHeight / 2) + 94) + ')';
+                })
+                .attr("class", "durationLabel")
+                .text(function (d) {
+                    return monthNames[d.startDate.getMonth()] + " " + d.startDate.getFullYear() + " - " + monthNames[d.endDate.getMonth()] + " " + d.startDate.getFullYear();
+                });
+        }
+
+        function displayOverlayInfoSection() {
+            displayOverlay();
+
+            var mapExpandedWidth = 0.7 * document.body.clientWidth - 10,
+                mapExpandedHeight = 0.7 * document.body.clientHeight - 20,
+
+                divContainer = d3.select("body")
+                                    .append("div")
+                                    .attr("class", "issuanceContainerSection")
+                                    .attr("id", "issuanceContainer")
+                                    .style("top", (document.body.clientHeight - mapExpandedHeight - 50) / 2 + "px")
+                                    .style("left", (document.body.clientWidth - mapExpandedWidth - 40) / 2 + "px")
+                                    .style("width", (mapExpandedWidth) + "px")
+                                    .style("height", (mapExpandedHeight) + "px");
+
+            divContainer.append("img")
+                       .attr("class", "issuanceContainerImg")
+                       .attr("src", "../mis_/images/issuanceclose.png")
+                       .attr("title", "Close")
+                       .on("click", function () {
+                           hideOverlay();
+                           d3.select("#issuanceContainer").remove();
+                       });
+
+            return divContainer;
+        }
+
+        function displayCertificationDetails() {
+
+            var divContainer = displayOverlayInfoSection();
+
+            var divContent = "";
+
+            divContent += "<object type='text/html' data='CertificationSnapShot.htm' ></object>";
+
+            divContainer.append("div")
+                        .style("height", "100%")
+                        .style("width", "100%")
+                        .html(divContent);
+        }
+
+        function plotIssuanceArea() {
+            issuanceDetailsBoundary = [];
+
+            for (i = 0; i < issuanceDetails.length; i++) {
+                var issuanceDetailBorder = issuanceDetailsBoundary.filter(function (issuanceDetail) { return issuanceDetail.DateOfIssuance.getTime() === issuanceDetails[i].issuanceDate.withoutTime().getTime() });
+
+                if (issuanceDetailBorder.length > 0) {
+                    if (issuanceDetailBorder[0].StartDate > issuanceDetails[i].startDate) {
+                        issuanceDetailBorder[0].StartDate = issuanceDetails[i].startDate;
+                    }
+
+                    if (issuanceDetailBorder[0].EndDate < issuanceDetails[i].endDate) {
+                        issuanceDetailBorder[0].EndDate = issuanceDetails[i].endDate;
+                    }
+                }
+                else {
+                    issuanceDetailsBoundary.push({
+                        DateOfIssuance: issuanceDetails[i].issuanceDate.withoutTime(),
+                        StartDate: issuanceDetails[i].startDate,
+                        EndDate: issuanceDetails[i].endDate
+                    });
+                }
+            }
+
+            // Issuance Legend
+            mainClipArea.append("text")
+                .attr("text-anchor", "end")
+                .attr('transform', 'translate(' + bodyWidth * 0.05 + ', ' + (legendY + 100) + ')')
+                .attr("class", "benefitIndex")
+                .text("Issuance");
+
+            var issuanceIndex = clipArea.append("g").attr("id", "gIssuance")
+
+            issuanceIndex.selectAll("path.benefitArea")
+                .data(issuanceDetails)
+                .enter()
+                .append("path")
+                .attr("d", function (d) {
+                    var xScale = monthScale(d.startDate);
+                    var yScale = monthScale(d.endDate);
+
+                    return rightRoundedRect(xScale, (bodyHeight / 2 + 145), (yScale - xScale), 20, 10);
+                })
+                .on("click", function (d) {
+                    displayIssuanceDetails(d.id);
+                })
+                .attr("class", "benefitArea")
+                .style("fill", function (d) {
+                    switch (d.issuanceStatusReason) {
+                        case "Void":
+                            return "rgb(98,98,98)";
+                        default:
+                            return "rgb(162,53,29)"
+
+                    }
+                });
+
+            var issuanceBorder = issuanceIndex.selectAll("g.boundaryGroup")
+                                            .data(issuanceDetailsBoundary)
+                                            .enter()
+                                            .append("g")
+                                            .attr("class", "boundaryGroup");
+
+            issuanceBorder.append("line")
+                            .attr("x1", function (d) {
+                                return monthScale(d.StartDate);
+                            })
+                            .attr("y1", ((bodyHeight / 2) + 100))
+                            .attr("x2", function (d) {
+                                return monthScale(d.StartDate);
+                            })
+                            .attr("y2", ((bodyHeight / 2) + 150))
+                            .attr("class", "boundary")
+                            .attr("id","startBorder");
+
+            issuanceBorder.append("line")
+                            .attr("x1", function (d) {
+                                return monthScale(d.EndDate);
+                            })
+                            .attr("y1", ((bodyHeight / 2) + 100))
+                            .attr("x2", function (d) {
+                                return monthScale(d.EndDate);
+                            })
+                            .attr("y2", ((bodyHeight / 2) + 150))
+                            .attr("class", "boundary")
+                            .attr("id", "endBorder");
+
+            issuanceIndex.selectAll("text")
+                .data(issuanceDetails)
+                .enter()
+                .append("text")
+                .attr("text-anchor", "middle")
+                .attr('transform', function (d) {
+                    var xScale = monthScale(d.startDate);
+                    var yScale = monthScale(d.endDate);
+
+                    return 'translate(' + (yScale + xScale - 10) / 2 + ', ' + ((bodyHeight / 2) + 158) + ')';
+                })
+                .attr("class", "durationLabel")
+                .attr("fill", "white")
+                .text(function (d) {
+                    return monthNames[d.startDate.getMonth()];
+                });
+        }
+
+        function displayIssuanceDetails(id) {
+
+            var divContainer = displayOverlayInfoSection();
+
+            var issuanceRecord = issuanceDetails.filter(function (issuanceDetail) { return issuanceDetail.id === id }),
+                divContent = "";
+
+            divContent += "<table cellspacing=0 cellpadding=0 border=0>";
+            divContent += "<tr><td class='issuanceHeader' style='width:130px'>Food Item</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Quantity (Participant)</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Quantity (Family)</td><td class='issuanceHeader' style='width:100px;padding-left:3px' align='right'>Available for issuance</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Redeemed</td></tr>";
+
+            if (issuanceRecord && issuanceRecord.length > 0 && issuanceRecord[0].participantIssuances.length > 0) {
+                issuanceRecord[0].participantIssuances.map(function (issuanceR, issuanceIndex) {
+                    var colorCode = "black";
+
+                    try {
+                        var totalQuantity = parseFloat(issuanceR.familyQuantity),
+                            availableForIssuance = parseFloat(issuanceR.availableForIssuance),
+                            percentage = parseInt(availableForIssuance / totalQuantity * 100);
+
+                        if (percentage > 70) {
+                            colorCode = "#228B22";
+                        }
+                        else if (percentage > 30) {
+                            colorCode = "#B8860B";
+                        }
+                        else {
+                            colorCode = "#FF0000";
+                        }
+
+                    }
+                    catch (err) {
+                    }
+
+                    divContent += "<tr><td class='issuanceValues'>" + issuanceR.foodItemName + "</td><td class='issuanceValues' align='right' style='padding-right:5px'>" + issuanceR.participantQuantity + "</td><td class='issuanceValues' align='right' style='padding-right:5px'>" + issuanceR.familyQuantity + "</td><td class='issuanceValues' align='right' style='padding-right:5px;font-weight:bold;color:" + colorCode + ";'>" + issuanceR.availableForIssuance + "</td><td class='issuanceValues' align='right' style='padding-right:5px'>" + issuanceR.redeemedQuantity + "</td></tr>";
+                });
+            }
+
+            divContent += "</table>";
+
+            divContainer.append("div")
+                        .style("height", "100%")
+                        .style("width", "100%")
+                        .html(divContent);
+        }
+
+        /* Plot the Main Chart */
+        /* Start */
+        function plotSummaryTimeLine() {
+
+            // Main user timeline
+            plotMainUserTimeLine();
+
+            plotClipArea();
+
+            generateSliderControl(mainClipArea);
+        }
+        /* End */
+
+        /* Audit Details */
+        /* Start */
+        function retrieveAuditDetails(contactDetails) {
+
+            MisXrmUtilities.WebAPI.ExecuteCustomAction(
+                       "",
+                       "",
+                       "mis_RetrieveAuditHistoryDetails",
+                       contactDetails,
+                       true,
+                       function (result) {
+                           if (result.AuditDetails) {
+                               auditDetails = JSON.parse(result.AuditDetails);
+                               generateAuditDetails();
+                           }
+                       },
+                       function (error) {
+                           alert(error.message);
+
+                       });
+        }
+
+        function generateAuditDetails() {
+
+            function consolidateIndividualAuditDetails() {
+                auditDetails.map(function (item, index) {
+                    var isRecordAvailable = false;
+
+                    consolidatedAuditDetails.map(function (auditRecord, auditIndex) {
+                        if (!isRecordAvailable) {
+                            if (auditRecord.ChangedDate.withoutTime().getTime() == item.ChangedDate.withoutTime().getTime()) {
+                                isRecordAvailable = true;
+                                auditRecord.AuditEvents.push(item);
+                            }
+                        }
+                    });
+
+                    if (!isRecordAvailable) {
+                        consolidatedAuditDetails.push({
+                            ChangedDate: item.ChangedDate.withoutTime(),
+                            AuditEvents: [item]
+                        });
+                    }
+                });
+            }
+
+            function pushEventsToArray(obj) {
+                if (obj) {
+                    var continueProcess = true;
+                    mainEventsToBeDisplayed.map(function (item) {
+                        if (item.changedDate.getTime() == obj.changedDate) {
+                            if (obj.modifiedAttribute.attributeLabel) {
+                                var existingItem = item.modifiedAttribute.filter(function (modItem) { return modItem.attributeLabel == obj.modifiedAttribute.attributeLabel });
+                                if (existingItem && existingItem.length > 0) {
+                                    if (existingItem[0].attributeLabel.indexOf("{0}") < 0 || existingItem[0].value == obj.modifiedAttribute.value) {
+                                        continueProcess = false;
+                                        return;
+                                    }
+                                }
+                            }
+                            item.modifiedAttribute.push(obj.modifiedAttribute);
+                            continueProcess = false;
+                            return;
+                        }
+                    });
+
+                    if (continueProcess) {
+                        mainEventsToBeDisplayed.push({
+                            changedDate: new Date(obj.changedDate),
+                            action: obj.action,
+                            modifiedAttribute: [obj.modifiedAttribute]
+                        });
+                    }
+
+                }
+            }
+
+            auditDetails.map(function (item, index) {
+                item.ChangedDate = convertJsonDateToJSDate(item.ChangedDate);
+            });
+
+            auditDetails.sort(function (a, b) {
+                if (a.ChangedDate > b.ChangedDate)
+                    return 1;
+
+                if (a.ChangedDate < b.ChangedDate)
+                    return -1;
+
+                return 0;
+            });
+
+            consolidateIndividualAuditDetails();
+
+            mainEventsToBeDisplayed = [];
+
+            eventsToHighlight.map(function (mainEvent, i) {
+                auditDetails.map(function (auditInfo, j) {
+                    auditInfo.ModifiedAttributes.map(function (modifiedAttibute, k) {
+                        if (mainEvent.attributeName == modifiedAttibute.Attribute && modifiedAttibute.OldValue !== modifiedAttibute.NewValue) {
+                            if (mainEvent.excludeCreate && auditInfo.Action == "Create")
+                                return;
+
+                            if (mainEvent.hasValue && modifiedAttibute.NewValue.length < 1) {
+                                return;
+                            }
+
+                            if (!mainEvent.matchingValue || mainEvent.matchingValue == modifiedAttibute.NewValue) {
+                                var labelText = mainEvent.colorCode ? "<font style='color:" + mainEvent.colorCode + "'>" + mainEvent.labelName + "</font>" : mainEvent.labelName;
+
+                                labelText += mainEvent.img ? "<img align='middle' style='padding-bottom: 2px; padding-left: 2px;' src='/Webresources/" + mainEvent.img + "' />" : "";
+
+                                labelText = "<div style='padding: 0px; height: 15px;'>" + labelText + "</div>";
+
+                                pushEventsToArray({
+                                    changedDate: auditInfo.ChangedDate.setHours(0, 0, 0, 0),
+                                    action: auditInfo.Action,
+                                    modifiedAttribute: {
+                                        attributeLabel: labelText,
+                                        value: modifiedAttibute.NewValue
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+                });
+            });
+
+            mainEventsToBeDisplayed.sort(function (a, b) {
+                if (a.changedDate > b.changedDate)
+                    return 1;
+
+                if (a.changedDate < b.changedDate)
+                    return -1;
+
+                return 0;
+            });
+
+            generateBriefAuditDetails();
+
+            plotDisplayAuditSection();
+        }
+        /* End */
+
+        /* Plot the Detailed Audit Details */
+        /* Start */
+        function generateDetailedAuditDetails() {
+
+            var cy = bodyHeight / 2,
+                auditDetailsOffset = 20,
+                svgOffset = document.getElementById("divMainSvgContainer").getBoundingClientRect();
+
+            var auditDetailsGroup = mainClipArea.append("g")
+                                    .attr("clip-path", "url(#clipC1)")
+                                    .selectAll("g.auditDetailsGroup")
+                                    .data(consolidatedAuditDetails)
+                                    .enter()
+                                    .append("g")
+                                    .attr("class", "auditDetailsGroup")
+                                    .attr('transform', function (d, i) {
+                                        return 'translate(' + (monthScale(d.ChangedDate) - auditDetailsOffset) + ',' + (cy - (250 - i % 3 * 80)) + ')';
+                                    })
+                                    .attr("id", function (d, i) {
+                                        return "gAuditSection_" + i;
+                                    });
+
+            auditDetailsGroup.append("line")
+                            .attr("x1", auditDetailsOffset)
+                            .attr("y1", function (d, i) {
+                                return 230 - i % 3 * 80;
+                            })
+                            .attr("x2", auditDetailsOffset)
+                            .attr("y2", function (d, i) {
+                                return 230 - i % 3 * 80;
+                            })
+                            .attr("class", "auditLine")
+                            .transition()
+                            .duration(500)
+                            .attr("y1", 0);
+
+            auditDetailsGroup.append("circle")
+                    .attr("cx", auditDetailsOffset)
+                    .attr("cy", function (d, i) {
+                        return 230 - i % 3 * 80;
+                    })
+                    .attr("r", 3)
+                    .attr("fill", "rgb(244,130,53)");
+
+            setTimeout(function () {
+                d3.select("body")
+                        .selectAll("div.auditSection")
+                        .data(consolidatedAuditDetails)
+                        .enter()
+                        .append("div")
+                        .attr("class", "auditSection")
+                        .style("top", function (d, i) {
+                            return ((cy - (250 - i % 3 * 80)) - 40);
+                        })
+                        .style("left", function (d, i) {
+                            return (monthScale(d.ChangedDate) - 10 + svgOffset.left);
+                        })
+                        .style("position", "absolute")
+                        .style("width", 130)
+                        .style("height", 50)
+                        .style("z-index", 100)
+                        .html(function (d, i) {
+
+                            var auditText = "<div class='auditSection' style='height:100%'>",
+                                minAuditText = "",
+                                maxAuditText = "";
+
+                            minAuditText = "<table style='width:100%;' id='fOtb1AuditDetails_" + i + "' >";
+
+                            maxAuditText = "<table style='display:block;visibility:hidden' cellspacing=0 cellpadding=0 id='fOtb2AuditDetails_" + i + "' border=0>"
+                            maxAuditText += "<tr><td class='auditHeader' style='width:125px'>Changed Date</td><td class='auditHeader' style='width:120px'>Changed By</td><td class='auditHeader' style='width:160px'>Changed Field</td><td class='auditHeader' style='width:160px'>Old Value</td><td class='auditHeader' style='width:160px'>New Value</td></tr>";
+
+                            if (d.AuditEvents) {
+                                var attributeCount = 0;
+                                d.AuditEvents.map(function (auditEvent, auditIndex) {
+                                    if (auditEvent.ModifiedAttributes) {
+                                        auditEvent.ModifiedAttributes.map(function (item, index) {
+                                            if (attributeCount <= 3) {
+                                                minAuditText += "<tr><td class='auditContent'>" + (item.Attribute + "   (Old Value: " + item.OldValue + ", New Value: " + item.NewValue + ")").substring(0, 14) + "..." + "</td></tr>";
+                                            }
+
+                                            if (index === 0) {
+                                                maxAuditText += "<tr><td rowspan=" + auditEvent.ModifiedAttributes.length + " class='auditValues' nowrap>" + datetimeToString(auditEvent.ChangedDate, "{MM}/{DD}/{YYYY} {hh}:{mm} {tt}") + "</td><td rowspan=" + auditEvent.ModifiedAttributes.length + " class='auditValues'>" + auditEvent.ChangedBy + "</td><td class='auditValues'>" + item.Attribute + "</td><td class='auditValues'>" + item.OldValue + "</td><td class='auditValues'>" + item.NewValue + "</td></tr>";
+                                            }
+                                            else {
+                                                maxAuditText += "<tr><td class='auditValues'>" + item.Attribute + "</td><td class='auditValues'>" + item.OldValue + "</td><td class='auditValues'>" + item.NewValue + "</td></tr>";
+                                            }
+
+                                            attributeCount++;
+                                        });
+                                    }
+
+                                });
+                            }
+
+                            minAuditText += "</table>";
+
+                            maxAuditText += "</table>";
+
+                            auditText += minAuditText + maxAuditText + "</div>";
+
+                            return minAuditText + maxAuditText;
+                        });
+
+                d3.select("body").selectAll("div.auditSection")
+                        .on("mouseover", function (d, i) {
+                            var auditDetailsElement = d3.select("#fOtb2AuditDetails_" + i);
+
+                            if (d3.select(this).style("opacity") == 1 && auditDetailsElement.style("visibility") != "visible") {
+                                d3.selectAll("g.auditDetailsGroup").attr("opacity", 0.1);
+                                d3.select("#gAuditSection_" + i).attr("opacity", 1);
+
+                                d3.selectAll("div.auditSection")
+                                    .each(function (d) {
+                                        if (d3.select(this).style("opacity") == 1) {
+                                            d3.select(this).style("opacity", 0.1);
+                                        }
+                                    });
+
+                                var divHeight = 200;
+                                if ((!auditDetailsElement.attr("customHeight")) ||
+                                    (document.getElementById("fOtb2AuditDetails_" + i).clientHeight < parseInt(auditDetailsElement.attr("customHeight")))) {
+                                    auditDetailsElement.attr("customHeight", document.getElementById("fOtb2AuditDetails_" + i).clientHeight);
+                                }
+
+                                console.log((parseFloat(d3.select(this).style("left")) + 795) + ":" + bodyWidth);
+                                var leftOffset = (monthScale(d.ChangedDate) - 10 + svgOffset.left),
+                                    totalExtendedDivLength = (parseFloat(d3.select(this).style("left")) + 795);
+
+                                if (totalExtendedDivLength > bodyWidth) {
+                                    leftOffset -= (totalExtendedDivLength - bodyWidth + 30);
+                                }
+
+                                d3.select(this)
+                                    .transition()
+                                    .duration(120)
+                                    .style("height", (parseInt(auditDetailsElement.attr("customHeight")) < 190 ? parseInt(auditDetailsElement.attr("customHeight")) + 10 : 200))
+                                    .style("width", 795)
+                                    .style("left", leftOffset)
+                                    .style("opacity", 1)
+                                    .style("z-index", "300")
+                                    .style("overflow-y", "auto");
+
+                                d3.select("#fOtb1AuditDetails_" + i).style("display", "none");
+                                auditDetailsElement.style("visibility", "visible");
+                            }
+                        })
+                        .on("mouseleave", function (d, i) {
+                            d3.selectAll("g.auditDetailsGroup").attr("opacity", 1);
+                            d3.selectAll("div.auditSection")
+                                .each(function (d) {
+                                    if (d3.select(this).style("opacity") > 0) {
+                                        d3.select(this).style("opacity", 1).style("z-index", "100");
+                                    }
+
+                                    d3.select(this).style("overflow-y", "hidden");
+                                });
+
+                            d3.select(this)
+                                .transition()
+                                .duration(120)
+                                .style("left", (monthScale(d.ChangedDate) - 10 + svgOffset.left))
+                                .style("height", 50)
+                                .style("width", 130);
+
+                            this.scrollTop = 0;
+
+                            d3.select("#fOtb2AuditDetails_" + i).style("visibility", "hidden");
+                            d3.select("#fOtb1AuditDetails_" + i).style("display", "block");
+
+                            console.log(d3.select(this).html());
+                        });
+            }, 500);
+        }
+
+        function updateDetailedAuditDetails() {
+            var svgOffset = document.getElementById("divMainSvgContainer").getBoundingClientRect(),
+                clipOffset = document.getElementById("clipC1").getBoundingClientRect(),
+                leftOffset = parseFloat(clipOffset.left) + parseFloat(clipOffset.width);
+
+            mainClipArea.selectAll("g.auditDetailsGroup")
+                            .data(consolidatedAuditDetails)
+                            .transition()
+                            .duration(750)
+                            .attr('transform', function (d, i) {
+                                return "translate(" + (monthScale(d.ChangedDate) - 20) + "," + d3.transform(d3.select(this).attr("transform")).translate[1] + ")";
+                            });
+
+            d3.select("body")
+                    .selectAll("div.auditSection")
+                    .data(consolidatedAuditDetails)
+                    .transition()
+                    .duration(750)
+                    .style("left", function (d, i) {
+                        var divOffset = monthScale(d.ChangedDate) - 10 + svgOffset.left;
+
+                        if (divOffset > leftOffset) {
+                            return leftOffset;
+                        }
+
+                        if (divOffset < clipOffset.left) {
+                            return clipOffset.left - 130;
+                        }
+
+                        return monthScale(d.ChangedDate) - 10 + svgOffset.left;
+                    })
+                    .style("opacity", function (d, i) {
+                        var divOffset = monthScale(d.ChangedDate) - 10 + svgOffset.left;
+
+                        if (divOffset > leftOffset || divOffset < clipOffset.left) {
+                            return 0;
+                        }
+                        else {
+                            return 1;
+                        }
+                    })
+        }
+
+        function removeDetailedAuditDetails() {
+            mainClipArea.selectAll("g.auditDetailsGroup").remove();
+
+            d3.select("body").selectAll("div.auditSection").remove();
+        }
+        /* End */
+
+		/* Plot the Brief Audit Details (Includes only the main events) */
+		/* Start */
+        function generateBriefAuditDetails() {
+            var lineCenter = bodyHeight / 2 - 15,
+                lineLength = 205,
+                groupOffset = 50,
+                svgOffset = document.getElementById("divMainSvgContainer").getBoundingClientRect();
+
+            var mainEventGroups = mainClipArea.selectAll("g.mainEventsGroup")
+                                    .data(mainEventsToBeDisplayed)
+                                    .enter()
+                                    .append("g")
+                                    .attr("id", function (d, i) {
+                                        return "gMainEventGroup_" + i;
+                                    })
+                                    .attr("class", "mainEventsGroup")
+                                    .attr('transform', function (d, i) {
+                                        var xAxis = monthScale(d.changedDate) - groupOffset;
+                                        var yAxis = lineCenter - lineLength - 7;
+
+                                        yAxis = yAxis + ((i % 3) * 50);
+
+                                        return 'translate(' + xAxis + ',' + yAxis + ')';
+                                    })
+                                    .on("mouseover", function (d,i) {
+                                        d3.selectAll("g.mainEventsGroup").attr("opacity", 0.1);
+                                        d3.select(this).attr("opacity", 1).style("font-weight",700);
+
+                                        d3.selectAll("div.mainEventSection")
+                                            .each(function (event, index) {
+                                                if (index !== i) {
+                                                    if (d3.select(this).style("opacity") == 1) {
+                                                        d3.select(this).style("opacity", 0.1);
+                                                    }
+                                                }
+                                                else {
+                                                    d3.select(this).style("opacity", 1).style("font-weight", 600);
+                                                }
+                                            });
+                                    })
+                                    .on("mouseout", function (d) {
+                                        d3.selectAll("g.mainEventsGroup").attr("opacity", 1).style("font-weight",500);
+
+                                        d3.selectAll("div.mainEventSection")
+                                           .each(function (event) {
+                                               switch (d3.select(this).style("opacity")) {
+                                                   case "0.1":
+                                                   case "1":
+                                                       d3.select(this).style("opacity", 1).style("font-weight", 500);
+                                                       break;
+                                               }
+                                           });
+                                    });
+
+            mainEventGroups.append("line")
+                            .attr("x1", groupOffset)
+                            .attr("y1", function (d, i) {
+                                var yAxis = lineLength;
+
+                                yAxis = yAxis - ((i % 3) * 50);
+
+                                return yAxis;
+                            })
+                            .attr("x2", groupOffset)
+                            .attr("y2", function (d, i) {
+                                var yAxis = lineLength;
+
+                                yAxis = yAxis - ((i % 3) * 50);
+
+                                return yAxis;
+                            })
+                            .attr("class", function (d) {
+                                return "eventPath" + d.action;
+                            })
+                            .transition()
+                            .duration(500)
+                            .attr("y1", 0);
+
+            setTimeout(function () {
+                mainEventGroups.append("svg:image")
+                                .attr('x', groupOffset + 1)
+                                .attr('y', 0)
+                                .attr('width', 14)
+                                .attr('height', 14)
+                                .attr("xlink:href", function (d) {
+                                    switch (d.action) {
+                                        case "Create":
+                                            return "../mis_/images/rarrow.jpg";
+                                        default:
+                                            return "../mis_/images/Arrow.jpg";
+                                    }
+                                });
+
+                mainEventGroups.append("text")
+                                .attr("text-anchor", "end")
+                                .attr('transform', 'translate(' + (groupOffset - 8) + ', ' + 5 + ')')
+                                .attr("class", "checkptDesc")
+                                .text(function (d) {
+                                    return monthNames[d.changedDate.getMonth()] + " " + d.changedDate.getDate();
+                                });
+
+                mainEventGroups.append("text")
+                                .attr("text-anchor", "end")
+                                .attr('transform', 'translate(' + (groupOffset - 8) + ', ' + 22 + ')')
+                                .attr("class", "checkptDesc")
+                                .text(function (d) {
+                                    return d.changedDate.getFullYear();
+                                });
+
+                d3.select("body")
+                        .selectAll("div.mainEventSection")
+                        .data(mainEventsToBeDisplayed)
+                        .enter()
+                        .append("div")
+                        .attr("class", "mainEventSection")
+                        .attr("id", function (d, i) {
+                            return "divMainEventSection_" + i;
+                        })
+                        .style("top", function (d, i) {
+                            return lineCenter - lineLength - 8 + ((i % 3) * 50) - (d.modifiedAttribute.length - 1) * 10;
+                        })
+                        .style("left", function (d, i) {
+                            return monthScale(d.changedDate) + 20 + svgOffset.left;
+                        })
+                        .style("position", "absolute")
+                        .html(function (d) {
+                            var htmlContent = "";
+                            d.modifiedAttribute.map(function (item, index) {
+                                htmlContent += item.attributeLabel.replace("{0}", item.value);
+                            });
+
+                            return htmlContent;
+                        })
+                        .on("mouseover", function (d, i) {
+                            d3.selectAll("g.mainEventsGroup").attr("opacity", 0.1);
+                            d3.select("#gMainEventGroup_" + i).attr("opacity", 1).style("font-weight", 700);
+
+                            d3.selectAll("div.mainEventSection")
+                                .each(function (event, index) {
+                                    if (index !== i) {
+                                        if (d3.select(this).style("opacity") == 1) {
+                                            d3.select(this).style("opacity", 0.1);
+                                        }
+                                    }
+                                    else {
+                                        d3.select(this).style("opacity", 1).style("font-weight", 600);
+                                    }
+                                });
+                        })
+                        .on("mouseout", function (d) {
+                            d3.selectAll("g.mainEventsGroup").attr("opacity", 1).style("font-weight", 500);
+
+                            d3.selectAll("div.mainEventSection")
+                                .each(function (event) {
+                                    switch (d3.select(this).style("opacity")) {
+                                        case "0.1":
+                                        case "1":
+                                            d3.select(this).style("opacity", 1).style("font-weight", 500);
+                                            break;
+                                    }
+                                });
+                        });
+            }, 500);
+        }
+
+        function updateBriefAuditDetails() {
+            var lineCenter = bodyHeight / 2 - 15,
+                svgOffset = document.getElementById("divMainSvgContainer").getBoundingClientRect(),
+                clipOffset = document.getElementById("clipC1").getBoundingClientRect(),
+                leftOffset = parseFloat(clipOffset.left) + parseFloat(clipOffset.width);
+
+            mainClipArea.selectAll("g.mainEventsGroup")
+                            .data(mainEventsToBeDisplayed)
+                            .transition()
+                            .duration(750)
+                            .attr('transform', function (d, i) {
+                                console.log(d3.transform(d3.select(this).attr("transform")));
+                                return "translate(" + (monthScale(d.changedDate) - 50) + "," + d3.transform(d3.select(this).attr("transform")).translate[1] + ")";
+                            });
+
+            d3.select("body")
+                    .selectAll("div.mainEventSection")
+                    .data(mainEventsToBeDisplayed)
+                    .transition()
+                    .duration(750)
+                    .style("left", function (d, i) {
+                        var divOffset = monthScale(d.changedDate) + 20 + svgOffset.left;
+
+                        if (divOffset > leftOffset) {
+                            return leftOffset;
+                        }
+
+                        if (divOffset < clipOffset.left) {
+                            return clipOffset.left - 130;
+                        }
+
+                        return divOffset;
+                    })
+                    .style("opacity", function (d, i) {
+                        var divOffset = monthScale(d.changedDate) + 20 + svgOffset.left;
+
+                        if (divOffset > leftOffset || divOffset < clipOffset.left) {
+                            return 0;
+                        }
+                        else {
+                            return 1;
+                        }
+                    });
+        }
+
+        function removeBriefAuditDetails() {
+
+            mainClipArea.selectAll("g.mainEventsGroup").remove();
+
+            d3.select("body").selectAll("div.mainEventSection").remove();
+        }
+        /* End */
+
+        /* Display of Audit Selection */
+        /* Start */
+        function plotDisplayAuditSection() {
+            d3.select("body")
+                .append("div")
+                .attr("class", "showTopHeaderSection")
+                .style("top", 50)
+                .style("right", 100)
+                .html("Show Detailed Audit History&nbsp;&nbsp;<input type='checkbox' onclick='displayDetailedAuditDetails(this);' />");
+        }
+
+        function displayDetailedAuditDetails(chk) {
+            if (chk.checked) {
+                removeBriefAuditDetails();
+
+                generateDetailedAuditDetails();
+            }
+            else {
+                removeDetailedAuditDetails();
+
+                generateBriefAuditDetails();
+            }
+        }
+        /* End */
+    </script>
+</head>
+<body>
+    <script>
+        Date.prototype.withoutTime = function () {
+            var d = new Date(this);
+            d.setHours(0, 0, 0, 0);
+            return d;
+        };
+
+        String.prototype.paddingLeft = function (paddingValue) {
+            return String(paddingValue + this).slice(-paddingValue.length);
+        };
+
+        var bodyHeight = document.getElementsByTagName("body")[0].clientHeight,
+           bodyWidth = document.getElementsByTagName("body")[0].clientWidth,
+           legendY = (bodyHeight / 2 + 40);
+
+        var mainEventsToBeDisplayed = [];
+
+        var element = {
+            width: bodyWidth * 0.95,
+            height: bodyHeight * 0.95
+        };
+
+        var range = {
+            lowerBound: parseFloat(bodyWidth * 0.07 + 20),
+            upperBound: parseFloat(bodyWidth * 0.92 - 20)
+        }
+
+        var initialDate = new Date(2017, 00, 01);
+        var endDate = new Date(2018, 11, 31);
+
+        var sliderStartDate = new Date(2014, 00, 01),
+            sliderEndDate = new Date(2019, 00, 01),
+            initialBrushStart = new Date(2017, 11, 1),
+            initialBrushEnd = new Date(2018, 2, 1);
+
+        var monthScale, sliderScale, brush;
+
+        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        var eventsToHighlight = [
+        {
+            attributeName: "createdby",
+            labelName: "Created By: {0}",
+            id: "events_0"
+        },
+        {
+            attributeName: "mis_isdisastermode",
+            labelName: "Participant moved to Disaster Mode",
+            matchingValue: "True",
+            colorCode: "red",
+            id: "events_0"
+        },
+        {
+            attributeName: "mis_isdisastermode",
+            labelName: "Participant moved out of Disaster Mode",
+            matchingValue: "False",
+            excludeCreate: true,
+            colorCode: "red",
+            id: "events_1"
+        },
+        {
+            attributeName: "mis_outofstatevoc",
+            labelName: "Moved in as Out-Of-State VOC",
+            matchingValue: "True",
+            colorCode: "rgb(141,52,38)",
+            img: "mis_/images/leftarrow.png",
+            id: "events_2"
+        },
+        {
+            attributeName: "mis_outofstatevoc",
+            labelName: "Moved Out of Out-Of-State VOC",
+            matchingValue: "False",
+            excludeCreate: true,
+            colorCode: "rgb(141,52,38)",
+            id: "events_3"
+        },
+        {
+            attributeName: "mis_family",
+            labelName: "Transferred to family: {0}",
+            excludeCreate: true,
+            img: "mis_/images/intertransfer.png",
+            colorCode: "rgb(141,52,38)",
+            id: "events_4"
+        },
+        {
+            attributeName: "mis_clinic",
+            labelName: "Transferred to clinic: {0}",
+            excludeCreate: true,
+            img: "mis_/images/intertransfer.png",
+            colorCode: "rgb(141,52,38)",
+            id: "events_5"
+        },
+        {
+            attributeName: "mis_isdailyriderreporteddate",
+            labelName: "Reported for Daily Rider",
+            excludeCreate: true,
+            id: "events_6"
+        },
+        {
+            attributeName: "statuscode",
+            labelName: "Participant Terminated",
+            matchingValue: "Terminated",
+            colorCode: "red",
+            id: "events_7"
+        },
+        //{
+        //    attributeName: "mis_participantineligibilityreason",
+        //    labelName: "Cleared Participant Ineligibility Reason",
+        //    matchingValue: "",
+        //    excludeCreate: true,
+        //    id: "events_8"
+        //},
+        //{
+        //    attributeName: "mis_participantineligibilityreason",
+        //    labelName: "Participant Ineligibility Reason Set to '{0}'",
+        //    hasValue: true,
+        //    excludeCreate: true,
+        //    id: "events_9"
+        //},
+        {
+            attributeName: "mis_actualdeliverydate",
+            labelName: "Actual Delivery Date: {0}",
+            id: "events_10"
+        },
+        {
+            attributeName: "mis_datevocissued",
+            labelName: "Issued VoC",
+            id: "events_11"
+        },
+        {
+            attributeName: "mis_isfosterchild",
+            labelName: "Marked as Foster",
+            matchingValue: "True",
+            id: "events_12"
+        },
+        {
+            attributeName: "mis_isfosterchild",
+            labelName: "Moved out of Foster",
+            matchingValue: "False",
+            excludeCreate: true,
+            id: "events_13"
+        },
+        {
+            attributeName: "mis_participantcategory",
+            labelName: "Participant Category set to {0}",
+            id: "events_14"
+        },
+        {
+            attributeName: "mis_participantrequestsoutofstatevoc",
+            labelName: "Requests Out-Of-State VoC",
+            matchingValue: "True",
+            colorCode: "#D24726",
+            excludeCreate: true,
+            id: "events_15"
+        },
+        {
+            attributeName: "mis_participantrequestsoutofstatevoc",
+            labelName: "Returning Out-Of-State VoC",
+            matchingValue: "False",
+            colorCode: "#D24726",
+            excludeCreate: true,
+            id: "events_16"
+        },
+        {
+            attributeName: "mis_reinstatereason",
+            labelName: "Reinstated (Reason: {0})",
+            id: "events_17"
+        },
+        {
+            attributeName: "mis_startrecertify",
+            labelName: "Initiated Recertification Process",
+            matchingValue: "True",
+            colorCode: "red",
+            id: "events_18"
+        },
+        {
+            attributeName: "mis_ismidreviewcomplete",
+            labelName: "Mid-Review completed",
+            matchingValue: "True",
+            colorCode: "#D24726",
+            id: "events_19"
+        },
+        {
+            attributeName: "mis_participantprofile",
+            labelName: "Participant Profile: {0}",
+            id: "events_20"
+        },
+        {
+            attributeName: "mis_panid",
+            labelName: "PAN: {0}",
+            colorCode: "#D24726",
+            id: "events_21"
+        },
+        {
+            attributeName: "mis_lastfoodbenefitsissued",
+            labelName: "Issued Benefits",
+            colorCode: "#D24726",
+            id: "events_22"
+        },
+        {
+            attributeName: "mis_standardfoodpackage",
+            labelName: "Standard Food Package: {0}",
+            colorCode: "#D24726",
+            id: "events_23"
+        }];
+
+        var auditDetails = [],
+            consolidatedAuditDetails = [],
+            clipArea,
+            certificationDetails = [],
+            issuanceDetails = [],
+            certificationLabels = [],
+            certificationDetailsBoundary = [],
+            issuanceDetailsBoundary = [],
+            panAssignment = [],
+            allMonths = [];
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", element.width)
+            .attr("height", element.height)
+            .attr("id", "divMainSvgContainer")
+            .append("g")
+            .attr("transform", "translate(0,0)");
+
+        var mainclipContainer = svg.append("svg:defs").append("svg:clipPath")
+             .attr("id", "mainClip")
+             .append("rect")
+             .attr("id", "mainContainerBlock")
+             .attr('width', bodyWidth * 0.92)
+             .attr('height', bodyHeight * 0.95)
+             .attr('x', 0)
+             .attr('y', 0);
+
+        var mainClipArea = svg.append("g")
+          .attr("clip-path", function (d, i) {
+              return "url(#mainClip)";
+          });
+
+        //Gradient
+        var gradientForegroundPurple = svg.append("svg:defs").append("svg:linearGradient")
+            .attr('id', 'gradientForegroundPurple')
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "0%")
+            .attr("y2", "100%")
+            .attr("spreadMethod", "pad");
+
+        gradientForegroundPurple.append("svg:stop")
+            .attr("offset", "0%")
+            .attr("stop-color", "rgb(67,80,97)")
+            .attr("stop-opacity", 1);
+
+        gradientForegroundPurple.append("svg:stop")
+            .attr("offset", "100%")
+            .attr("stop-color", "rgb(82,100,124)")
+            .attr("stop-opacity", 1);
+        //Stop
+
+        function displayInfoArea() {
+            d3.select("#mainContainerBlock")
+            .transition()
+            .duration(750)
+             .attr("width", 1000)
+            .each("end", addInfoContent)
+            ;
+        }
+
+        function addInfoContent() {
+            if (!document.getElementById("divInfoArea")) {
+                d3.select("body").append("div")
+                    .attr("id", "divInfoArea")
+                .attr("class", "divInfoSection");
+            }
+
+            d3.select("#divInfoArea")
+                .html("<table width='100%'><tr><td class='divInfoHeader'>Issuance Information</td><td><img src='close.png' width='12px' height='12px' onclick='hideInfoArea();' /></td></tr><tr><td colspan='2' class='divInfoContent'><ul><li>Calcium-set tofu prepared with calcium salts (e.g., calcium sulfate), but may also contain other coagulants (i.e., magnesium chloride).</li><li>May not contain added fats, sugars, oils or sodium.</li><li>Fresh shell Domestic hen’s eggs*: any size, white or brown shells.</li><li>Dried egg mix: must conform to FDA standard of identity at 21 CFR Part 160.105.</li><li>Pasteurized liquid whole eggs: must conform to FDA standard at 21 CFR Part 160.115.</li></ul></td></tr></table>")
+        }
+
+        function hideInfoArea() {
+            d3.select("#divInfoArea").remove();
+
+            d3.select("#mainContainerBlock")
+            .transition()
+            .duration(750)
+             .attr("width", 1100);
+        }
+
+        var cid = getQueryStringParameter("Data");
+
+        if (cid.trim().length == 0) {
+            cid = "00001005636"
+        }
+
+        retrieveParticipantDetails(cid);//00001005756, 122006348, 3302080514. 4820505632, 00001005636
+
+        function generateSliderControl(mainClipArea) {
+
+            var sliderGroup = mainClipArea.append("g"),
+                sliderOffset = bodyHeight - 70; //(bodyHeight / 2 + 240);
+
+            var sliderElement = sliderGroup.append("rect")
+                .attr("class", "grid-background")
+                .attr('transform', 'translate(' + (bodyWidth * 0.1) + ', ' + sliderOffset + ')')
+                .attr("width", bodyWidth * 0.8)
+                .attr("height", 15);
+
+            sliderGroup.append("g")
+                .attr("class", "grid")
+                .attr("transform", "translate(0," + (sliderOffset + 15) + ")")
+                .call(d3.svg.axis()
+                    .scale(sliderScale)
+                    .orient("bottom")
+                    .ticks(d3.time.months, 1)
+                    .tickSize(-15)
+                    .tickFormat(""))
+                .selectAll(".tick")
+                .classed("minor", function (d) {
+                    return d.getHours();
+                });
+
+            sliderGroup.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + (sliderOffset + 15) + ")")
+                .call(d3.svg.axis()
+                    .scale(sliderScale)
+                    .orient("bottom")
+                    .ticks(d3.time.years)
+                    .tickPadding(0))
+                .selectAll("text")
+                .attr("x", 6)
+                .style("text-anchor", null);
+
+            var gBrush = sliderGroup.append("g")
+                .attr("class", "brush")
+                .attr("transform", "translate(0," + sliderOffset + ")")
+                .call(brush)
+                .call(brush.event);
+
+            gBrush.selectAll("rect")
+                .attr("height", 15);
+        }
+
+        function brushended() {
+            if (!d3.event.sourceEvent) return; // only transition after input
+            var extent0 = brush.extent(),
+                extent1 = extent0.map(d3.time.month);
+
+            // if empty when rounded, use floor & ceil instead
+            if (extent1[0] >= extent1[1]) {
+                extent1[0] = d3.time.month.floor(extent0[0]);
+                extent1[1] = d3.time.month.ceil(extent0[1]);
+                console.log(extent0[0]);
+                console.log(extent0[1])
+            }
+
+            d3.select(this).transition()
+                .call(brush.extent(extent1))
+                .call(brush.event);
+
+            monthScale.domain(brush.extent());
+            expand(brush.extent());
+        }
+
+        function expand(ranges) {
+
+            d3.select("#todayPointer")
+                .transition()
+                .duration(750)
+                .attr('x', monthScale(new Date()));
+
+            var lineCenter = bodyHeight / 2 - 15;
+
+            mainClipArea.selectAll("line.monthBar")
+                //.transition()
+                //.duration(1500)
+                .data(allMonths)
+                //.update()
+                //.append("line")
+                .transition()
+                .duration(750)
+                .attr("x1", function (d) {
+                    var xAxis = parseFloat(monthScale(d));
+                    if (xAxis >= range.lowerBound && xAxis <= range.upperBound)
+                        return xAxis;
+                    else if (xAxis < range.lowerBound) {
+                        return range.lowerBound - 25;
+                    } else if (xAxis > range.upperBound) {
+                        return range.upperBound + 25;
+                    }
+
+                }) //<<== change your code here
+                .attr("y1", lineCenter)
+                .attr("x2", function (d) {
+                    var xAxis = parseFloat(monthScale(d));
+                    if (xAxis >= range.lowerBound && xAxis <= range.upperBound)
+                        return xAxis;
+                    else if (xAxis < range.lowerBound) {
+                        return range.lowerBound - 25;
+                    } else if (xAxis > range.upperBound) {
+                        return range.upperBound + 25;
+                    }
+                }) //<<== and here
+                .attr("y2", (lineCenter + 40 - 10));
+
+            mainClipArea.selectAll("text.legend")
+                .data(allMonths)
+                .transition()
+                .duration(750)
+                .attr("text-anchor", "middle")
+                .attr("fill", "red")
+                .attr('transform', function (d) {
+                    var xAxis = parseFloat(monthScale(d));
+                    if (xAxis >= range.lowerBound && xAxis <= range.upperBound)
+                        return 'translate(' + (monthScale(d) + 17) + ', ' + (lineCenter + 20) + ')';
+                    else if (xAxis < range.lowerBound) {
+                        return 'translate(' + (range.lowerBound - 50) + ', ' + (lineCenter + 20) + ')';
+                    } else if (xAxis > range.upperBound) {
+                        return 'translate(' + (range.upperBound + 50) + ', ' + (lineCenter + 20) + ')';
+                    }
+
+                    //return 'translate(' + (monthScale(d) + 17) + ', ' + (-115 + 20) + ')';
+                })
+                .attr("class", "legend")
+                .text(function (d) {
+                    return monthNames[d.getMonth()];
+                });
+
+            var legendY = (bodyHeight / 2 + 40);
+
+            mainClipArea.select("#gCertification").selectAll("path")
+                .data(certificationDetails)
+                .transition()
+                .duration(750)
+                .attr("d", function (d) {
+                    var xScale = monthScale(d.startDate);
+                    var yScale = monthScale(d.endDate);
+
+                    return rightRoundedRect(xScale, (legendY + 40), (yScale - xScale), 20, 10);
+                });
+
+            mainClipArea.select("#gCertification").selectAll("line")
+                .data(certificationDetailsBoundary)
+                .transition()
+                .duration(750)
+                .attr("x1", function (d) {
+                    return monthScale(d);
+                })
+                .attr("x2", function (d) {
+                    return monthScale(d);
+                });
+
+
+            mainClipArea.select("#gCertification").selectAll("text")
+                .data(certificationLabels)
+                .transition()
+                .duration(750)
+                .attr('transform', function (d) {
+                    var xScale = monthScale(d.startDate);
+                    var yScale = monthScale(d.endDate);
+
+                    return 'translate(' + (yScale + xScale - 10) / 2 + ', ' + ((bodyHeight / 2) + 94) + ')';
+                });
+
+
+            mainClipArea.select("#gIssuance").selectAll("path.benefitArea")
+                .data(issuanceDetails)
+                .transition()
+                .duration(750)
+                .attr("d", function (d) {
+                    var xScale = monthScale(d.startDate);
+                    var yScale = monthScale(d.endDate);
+
+                    return rightRoundedRect(xScale, (bodyHeight / 2 + 145), (yScale - xScale), 20, 10);
+                });
+
+            var issuanceBorder = mainClipArea.select("#gIssuance").selectAll("g.boundaryGroup")
+                                    .data(issuanceDetailsBoundary);
+
+            issuanceBorder.selectAll("#startBorder")
+                .transition()
+                .duration(750)
+                .attr("x1", function (d) {
+                    return monthScale(d.StartDate);
+                })
+                .attr("x2", function (d) {
+                    return monthScale(d.StartDate);
+                });
+
+            issuanceBorder.selectAll("#endBorder")
+                .transition()
+                .duration(750)
+                .attr("x1", function (d) {
+                    return monthScale(d.EndDate);
+                })
+                .attr("x2", function (d) {
+                    return monthScale(d.EndDate);
+                });
+
+
+            mainClipArea.select("#gIssuance").selectAll("text.durationLabel")
+                .data(issuanceDetails)
+                .transition()
+                .duration(750)
+                .attr('transform', function (d) {
+                    var xScale = monthScale(d.startDate);
+                    var yScale = monthScale(d.endDate);
+
+                    return 'translate(' + (yScale + xScale - 10) / 2 + ', ' + ((bodyHeight / 2) + 158) + ')';
+                });
+
+            updateDetailedAuditDetails();
+
+            updateBriefAuditDetails();
+
+            updatePANAssignment();
+        }
+    </script>
+
+
+</body></html>
