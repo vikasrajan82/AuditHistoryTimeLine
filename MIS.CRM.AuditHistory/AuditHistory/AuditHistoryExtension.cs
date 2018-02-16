@@ -162,17 +162,20 @@ namespace MIS.CRM.AuditHistory.AuditHistory
 
                 if (auditRecCollection.Count == 0 || !(from record in auditRecCollection where record.Action == "Create" select record).Any<AuditRecords>())
                 {
-                    auditRecCollection.Add(new AuditRecords()
+                    if (this.EntityName == "contact")
                     {
-                        ChangedBy = "SYSTEM",
-                        Action = "Create",
-                        ModifiedAttributes = new Collection<ModifiedAttributes>(){
-                            new ModifiedAttributes(){Attribute = "mis_participantcategory", AttributeName = "mis_participantcategory", NewValue = NO_VALUE, OldValue = string.Empty},
-                            new ModifiedAttributes(){Attribute = "birthdate", AttributeName = "birthdate", NewValue = NO_VALUE, OldValue = string.Empty},
-                            new ModifiedAttributes(){Attribute = "createdon", AttributeName = "createdon", NewValue = NO_VALUE, OldValue = string.Empty},
-                            new ModifiedAttributes(){Attribute = "createdby", AttributeName = "createdby", NewValue = NO_VALUE, OldValue = string.Empty}
-                        }
-                    });
+                        auditRecCollection.Add(new AuditRecords()
+                        {
+                            ChangedBy = "SYSTEM",
+                            Action = "Create",
+                            ModifiedAttributes = new Collection<ModifiedAttributes>(){
+                                new ModifiedAttributes(){Attribute = "mis_participantcategory", AttributeName = "mis_participantcategory", NewValue = NO_VALUE, OldValue = string.Empty},
+                                new ModifiedAttributes(){Attribute = "birthdate", AttributeName = "birthdate", NewValue = NO_VALUE, OldValue = string.Empty},
+                                new ModifiedAttributes(){Attribute = "createdon", AttributeName = "createdon", NewValue = NO_VALUE, OldValue = string.Empty},
+                                new ModifiedAttributes(){Attribute = "createdby", AttributeName = "createdby", NewValue = NO_VALUE, OldValue = string.Empty}
+                            }
+                        });
+                    }
                 }
 
                 if (auditRecCollection.Count > 0)

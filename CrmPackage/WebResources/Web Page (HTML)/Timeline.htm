@@ -1,5 +1,6 @@
-<html><head><meta charset="utf-8">
-
+﻿<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
     <script src="../mis_/Scripts/d3.js"></script>
     <script src="../mis_/scripts/misxrmutilities.js"></script>
     <script src="../ClientGlobalContext.js.aspx" type="text/javascript"></script>
@@ -59,6 +60,13 @@
             cursor: pointer;
         }
 
+        .certFrame{
+            width: 100%;
+            height: 100%;
+            border:none;
+            overflow-x:hidden;
+        }
+
         .mainEventSection {
             font-family: Verdana, Arial, Helvetica, sans-serif;
             font-weight: 500;
@@ -66,11 +74,11 @@
             font-size: 8pt;
             width: fit-content;
             height: fit-content;
-            cursor:pointer;
+            cursor: pointer;
             /*background-color: rgb(253,243,159);
             border-radius: 10px;
             border: 1px solid rgb(204,184,4);*/
-            text-align:left;
+            text-align: left;
         }
 
         .auditSection {
@@ -88,15 +96,15 @@
         }
 
         .issuanceContainerSection {
-		    position: absolute;
-		    z-index: 500;
-		    cursor: default;
-		    background-color: rgb(238, 238, 238);
-		    border-radius: 10px;
-		    border: 1px solid rgb(170,165,140);
+            position: absolute;
+            z-index: 500;
+            cursor: default;
+            background-color: rgb(238, 238, 238);
+            border-radius: 10px;
+            border: 1px solid rgb(170,165,140);
             padding: 40px 20px 20px;
-		    /*border-top: 10px solid rgb(134,118,42);*/
-		}
+            /*border-top: 10px solid rgb(134,118,42);*/
+        }
 
         .auditContent {
             font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -191,14 +199,14 @@
         }
 
         .issuanceContainerImg {
-		    /*src: url("../img/close.png");*/
-		    position: absolute;
-		    top: 6px;
-		    right: 12px;
-		    height: 16px;
-		    width: 16px;
-		    cursor: pointer;
-		}
+            /*src: url("../img/close.png");*/
+            position: absolute;
+            top: 6px;
+            right: 12px;
+            height: 16px;
+            width: 16px;
+            cursor: pointer;
+        }
 
         .axis text {
             font: 11px sans-serif;
@@ -278,10 +286,10 @@
             padding-top: 40px;
         }
 
-        .panRange{
-            stroke-width:1px;
+        .panRange {
+            stroke-width: 1px;
             stroke: rgb(156, 173, 139);
-            fill:none;
+            fill: none;
         }
 
         .panNumber {
@@ -497,7 +505,7 @@
         /* Retrieve Certification Details */
         /* Start */
         function retrieveCertificationDetails(participantId) {
-            var query = "$select=mis_certificationid,mis_applicationtype,mis_isdisastermode,mis_effectivedate,mis_certificationenddate,mis_originalenddate&$filter=" + MisXrmUtilities.WebAPI.FormatLookupAttributeName("mis_participant") + " eq " + participantId;
+            var query = "$select=mis_certificationid,mis_applicationtype,mis_isdisastermode,mis_effectivedate,mis_certificationenddate,mis_originalenddate,mis_certificationsummary&$filter=" + MisXrmUtilities.WebAPI.FormatLookupAttributeName("mis_participant") + " eq " + participantId;
 
             MisXrmUtilities.WebAPI.RetrieveMultipleRecords(
                     "mis_certifications",
@@ -511,7 +519,8 @@
                                     id: item.mis_certificationid,
                                     startDate: new Date(MisXrmUtilities.WebAPI.GetDateFieldValue(item, "mis_effectivedate").Value),
                                     endDate: new Date(MisXrmUtilities.WebAPI.GetDateFieldValue(item, "mis_certificationenddate").Value),
-                                    type: MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(item, "mis_applicationtype").Text
+                                    type: MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(item, "mis_applicationtype").Text,
+                                    snapshot: item.mis_certificationsummary
                                 });
                             });
 
@@ -685,7 +694,7 @@
         }
 
         function plotPANAssignment() {
-            
+
             function addPANRange(obj) {
                 panAssignment.push({
                     StartDate: obj.startDate,
@@ -981,13 +990,13 @@
             return divContainer;
         }
 
-        function displayCertificationDetails() {
+        function displayCertificationDetails(id) {
 
             var divContainer = displayOverlayInfoSection();
 
             var divContent = "";
 
-            divContent += "<object type='text/html' data='CertificationSnapShot.htm' ></object>";
+            divContent += "<iframe src='CertificationDetails.htm?Data=" + id + "' class='certFrame'></iframe>";
 
             divContainer.append("div")
                         .style("height", "100%")
@@ -1212,9 +1221,11 @@
                             if (obj.modifiedAttribute.attributeLabel) {
                                 var existingItem = item.modifiedAttribute.filter(function (modItem) { return modItem.attributeLabel == obj.modifiedAttribute.attributeLabel });
                                 if (existingItem && existingItem.length > 0) {
-                                    if (existingItem[0].attributeLabel.indexOf("{0}") < 0 || existingItem[0].value == obj.modifiedAttribute.value) {
-                                        continueProcess = false;
-                                        return;
+                                    for (var modifiedIndex = 0; modifiedIndex < existingItem.length; modifiedIndex++) {
+                                        if (existingItem[modifiedIndex].attributeLabel.indexOf("{0}") < 0 || existingItem[modifiedIndex].value == obj.modifiedAttribute.value) {
+                                            continueProcess = false;
+                                            return;
+                                        }
                                     }
                                 }
                             }
@@ -1968,14 +1979,18 @@
         {
             attributeName: "mis_lastfoodbenefitsissued",
             labelName: "Issued Benefits",
-            colorCode: "#D24726",
+            colorCode: "green",
             id: "events_22"
         },
         {
             attributeName: "mis_standardfoodpackage",
             labelName: "Standard Food Package: {0}",
-            colorCode: "#D24726",
             id: "events_23"
+        },
+        {
+            attributeName: "birthdate",
+            labelName: "Date Of Birth: {0}",
+            id: "events_24"
         }];
 
         var auditDetails = [],
@@ -2290,5 +2305,4 @@
         }
     </script>
 
-
-</body></html>
+</body>

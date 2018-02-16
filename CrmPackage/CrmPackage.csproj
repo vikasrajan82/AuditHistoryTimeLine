@@ -84,6 +84,11 @@
       <UniqueName>mis_/images/todayPointer.png</UniqueName>
       <WebResourceType>PNG</WebResourceType>
     </CRMWebResource>
+    <CRMWebResource Include="WebResources\Web Page %28HTML%29\CertificationDetails.htm">
+      <DisplayName>mis_/CertificationDetails.htm</DisplayName>
+      <UniqueName>mis_/CertificationDetails.htm</UniqueName>
+      <WebResourceType>WebPage</WebResourceType>
+    </CRMWebResource>
     <CRMWebResource Include="WebResources\Web Page %28HTML%29\Timeline.htm">
       <DisplayName>mis_/Timeline.htm</DisplayName>
       <UniqueName>mis_/Timeline.htm</UniqueName>

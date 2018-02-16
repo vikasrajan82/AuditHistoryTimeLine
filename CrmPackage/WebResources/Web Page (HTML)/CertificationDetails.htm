@@ -1,0 +1,667 @@
+﻿<html><head>
+    <title>Certification Snapshot</title>
+    <link href="../mis_/Styles/crm_grid_1.0.0.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            color: #444444;
+            font-size: 9pt;
+        }
+
+        div {
+            box-sizing: border-box;
+        }
+
+            div#content {
+                position: absolute;
+                top: 20px;
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+            }
+
+                div#content table tr td {
+                    padding: 4px 6px;
+                    vertical-align: middle;
+                }
+
+                    div#content table tr td.label {
+                        font-family: Segoe UI,Arial,sans-serif;
+                        font-size: 12px;
+                        min-width: 180px;
+                        width: 180px;
+                        color: #444444;
+                    }
+
+                    div#content table tr td.data {
+                        font-family: Segoe UI,Arial,sans-serif;
+                        font-size: 12px;
+                        min-width: 300px;
+                        width: 300px;
+                        color: #000000;
+                        font-weight: 700;
+                        padding-right: 40px;
+                    }
+
+                div#content div.header {
+                    position: relative;
+                }
+
+                    div#content div.header table {
+                        width: 100% !important;
+                    }
+
+                        div#content div.header table tr.heading td {
+                            text-align: center;
+                            font-family: Segoe UI,Arial,sans-serif;
+                            font-size: 12px;
+                            font-weight: 700;
+                            color: #413aa1;
+                            padding-bottom: 20px;
+                        }
+
+                div#content div.section {
+                    position: relative;
+                    margin-top: 20px;
+                    page-break-before: auto;
+                    page-break-inside: avoid;
+                }
+
+                    div#content div.section table {
+                        table-layout: fixed;
+                        border-spacing: 0;
+                        padding: 0;
+                    }
+
+                        div#content div.section table tr td.heading {
+                            font-family: Segoe UI,Arial,sans-serif;
+                            font-size: 12px;
+                            color: #000000;
+                            font-weight: 700;
+                            padding: 13px 6px;
+                        }
+
+        img#printIcon:hover {
+            cursor: pointer;
+        }
+
+        div#adjunctGridSection {
+            width: 100%;
+            height: 180px;
+            overflow-x: auto;
+            overflow-y: auto;
+        }
+    </style>
+<meta charset="utf-8"></head>
+<body>
+    <div id="content">
+        <!--Section: Participant-->
+        <div class="section">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Participant</td>
+                </tr>
+                <tr>
+                    <td class="label">Participant Name</td>
+                    <td class="data" id="ParticipantName"></td>
+                    <td class="label">Client ID</td>
+                    <td class="data" id="ClientId"></td>
+                </tr>
+                <tr>
+                    <td class="label">Birth Date</td>
+                    <td class="data" id="Birthdate"></td>
+                    <td class="label">Age</td>
+                    <td class="data" id="Age"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="label">GAA</td>
+                    <td class="data" id="GestationalAge"></td>
+                    <td class="label">Race</td>
+                    <td class="data" id="Race"></td>
+                </tr>
+                <tr>
+                    <td class="label">Ethnicity</td>
+                    <td class="data" id="Ethnicity"></td>
+                    <td class="label">Sex</td>
+                    <td class="data" id="Sex"></td>
+                </tr>
+                <tr>
+                    <td class="label">Category</td>
+                    <td class="data" id="Category"></td>
+                    <td class="label">Endorser Name</td>
+                    <td class="data" id="EndorserName"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Identity-->
+        <div class="section">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Identity</td>
+                </tr>
+                <tr>
+                    <td class="label">Record Date</td>
+                    <td class="data" id="IdentityRecordDate"></td>
+                    <td class="label">Proof of Identity</td>
+                    <td class="data" id="ProofOfIdentity"></td>
+                </tr>
+                <tr>
+                    <td class="label">Physically Present</td>
+                    <td class="data" id="PhysicallyPresent"></td>
+                    <td class="label">Staff Member</td>
+                    <td class="data" id="StaffMember"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Income-->
+        <div class="section">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Income</td>
+                </tr>
+                <tr>
+                    <td class="label">Economic Unit</td>
+                    <td class="data" id="EconomicUnit"></td>
+                    <td class="label">Record Date</td>
+                    <td class="data" id="IncomeRecordDate"></td>
+                </tr>
+                <tr>
+                    <td class="label">Total Income</td>
+                    <td class="data" id="TotalYearlyIncome"></td>
+                    <td class="label">Family Income Frequency</td>
+                    <td class="data" id="FamilyIncomeFrequency"></td>
+                </tr>
+                <tr>
+                    <td class="label">Household Size Number</td>
+                    <td class="data" id="HouseholdSizeNumber"></td>
+                    <td class="label">Proof of Income</td>
+                    <td class="data" id="ProofOfIncome"></td>
+                </tr>
+                <tr>
+                    <td class="label">Staff Member</td>
+                    <td class="data" id="IncomeStaffMember"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Blood Work-->
+        <div class="section">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Blood Work</td>
+                </tr>
+                <tr>
+                    <td class="label">Record Date</td>
+                    <td class="data" id="LatestBloodRecordDate"></td>
+                    <td class="label">Blood Work Date</td>
+                    <td class="data" id="BloodWorkDate"></td>
+                </tr>
+                <tr>
+                    <td class="label">Hemoglobin</td>
+                    <td class="data" id="Hemoglobin"></td>
+                    <td class="label">Hematocrit</td>
+                    <td class="data" id="Hematocrit"></td>
+                </tr>
+                <tr>
+                    <td class="label">No Test Performed</td>
+                    <td class="data" id="NoTestPerformed"></td>
+                    <td class="label">Staff Member</td>
+                    <td class="data" id="BloodWorkStaffMember"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Breastfeeding-->
+        <div class="section" id="BreastfeedingDiv">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Breastfeeding</td>
+                </tr>
+                <tr>
+                    <td class="label">Reported to WIC Date</td>
+                    <td class="data" id="ReportedToWICDate"></td>
+                    <td class="label">Ever Breastfed</td>
+                    <td class="data" id="EverBreastfed"></td>
+                </tr>
+                <tr>
+                    <td class="label">Currently Breastfed</td>
+                    <td class="data" id="CurrentlyBreastfeed"></td>
+                    <td class="label">BF Description</td>
+                    <td class="data" id="BFDescription"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Pregnancy-->
+        <div class="section" id="PregnancyDiv">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Pregnancy</td>
+                </tr>
+                <tr>
+                    <td class="label">EDD</td>
+                    <td class="data" id="ExpectedDeliveryDate"></td>
+                    <td class="label">Pre-Pregnancy Weight (Pounds)</td>
+                    <td class="data" id="PrePregnantWeight"></td>
+                </tr>
+                <tr>
+                    <td class="label">LMP</td>
+                    <td class="data" id="LastMenstrualPeriod"></td>
+                    <td class="label">Weight Gained (Pounds)</td>
+                    <td class="data" id="WeightGained"></td>
+                </tr>
+                <tr>
+                    <td class="label">ADD</td>
+                    <td class="data" id="ActualDeliveryDate"></td>
+                    <td class="label"></td>
+                    <td class="data"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Food Package-->
+        <div class="section">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Food Package</td>
+                </tr>
+                <tr>
+                    <td class="label">Food Package</td>
+                    <td class="data" id="StandardFoodPackage"></td>
+                    <td class="label"></td>
+                    <td class="data"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Application-->
+        <div class="section">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Application</td>
+                </tr>
+                <tr>
+                    <td class="label">Application Type</td>
+                    <td class="data" id="ApplicationType"></td>
+                    <td class="label">Application Date</td>
+                    <td class="data" id="ApplicationDate"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Certification-->
+        <div class="section">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Certification</td>
+                </tr>
+                <tr>
+                    <td class="label">Certification Start Date</td>
+                    <td class="data" id="CertificationStartDate"></td>
+                    <td class="label">Certification End Date</td>
+                    <td class="data" id="CertificationEndDate"></td>
+                </tr>
+                <tr>
+                    <td class="label">Provisional Certification</td>
+                    <td class="data" id="ProvisionalCertification"></td>
+                    <td class="label">Missing Proof</td>
+                    <td class="data" id="MissingProof"></td>
+                </tr>
+                <tr>
+                    <td class="label">Staff Member</td>
+                    <td class="data" id="CertificationStaffMember"></td>
+                    <td class="label"></td>
+                    <td class="label"></td>
+
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Residency / Address-->
+        <div class="section">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Residency / Address</td>
+                </tr>
+                <tr>
+                    <td class="label">Residency Effective Date</td>
+                    <td class="data" id="EffectiveDate"></td>
+                    <td class="label">Proof of Residency</td>
+                    <td class="data" id="ProofOfResidency"></td>
+                </tr>
+                <tr>
+                    <td class="label">Address Line 1</td>
+                    <td class="data" id="AddressLine1"></td>
+                    <td class="label">County</td>
+                    <td class="data" id="County"></td>
+                </tr>
+                <tr>
+                    <td class="label">City</td>
+                    <td class="data" id="City"></td>
+                    <td class="label">Zip Code</td>
+                    <td class="data" id="ZipCode"></td>
+                </tr>
+                <tr>
+                    <td class="label">State</td>
+                    <td class="data" id="State"></td>
+                    <td class="label"></td>
+                    <td class="data"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Adjunct Eligibility-->
+        <div class="section">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Adjunct Eligibility</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div id="adjunctGridSection"></div>
+                    </td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Anthropometric-->
+        <div class="section">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Anthropometric</td>
+                </tr>
+                <tr>
+                    <td class="label">Record Date</td>
+                    <td class="data" id="AnthropometricRecordDate"></td>
+                    <td class="label">Measurement Date</td>
+                    <td class="data" id="MeasurementDate"></td>
+                </tr>
+                <tr>
+                    <td class="label">Height (inches)</td>
+                    <td class="data" id="Height"></td>
+                    <td class="label">Weight (pounds)</td>
+                    <td class="data" id="Weight"></td>
+                </tr>
+                <tr>
+                    <td class="label">Staff Member</td>
+                    <td class="data" id="AnthropometricStaffMember"></td>
+                    <td class="label"></td>
+                    <td class="data"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Birth Measurements-->
+        <div class="section" id="BirthMeasurementsDiv">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Birth Measurements</td>
+                </tr>
+                <tr>
+                    <td class="label">Birth Length (inches)</td>
+                    <td class="data" id="BirthLength"></td>
+                    <td class="label">Birth Weight (pounds/ounces)</td>
+                    <td class="data" id="BirthWeight"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Risks-->
+        <div class="section">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Risks</td>
+                </tr>
+                <tr>
+                    <td class="label">Record Date</td>
+                    <td class="data" id="RiskRecordDate"></td>
+                    <td class="label">Risks</td>
+                    <td class="data" id="Risks"></td>
+                </tr>
+                <tr>
+                    <td class="label">High Risk</td>
+                    <td class="data" id="HighRisk"></td>
+                    <td class="label">Priority</td>
+                    <td class="data" id="Priority"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!--Section: Disaster Profile Information-->
+        <div class="section">
+            <table>
+                <tbody><tr>
+                    <td class="heading" colspan="4">Disaster Profile Information</td>
+                </tr>
+                <tr>
+                    <td class="label">Disaster Mode</td>
+                    <td class="data" id="DisasterMode"></td>
+                    <td class="label">Disaster Type</td>
+                    <td class="data" id="DisasterType"></td>
+                </tr>
+                <tr>
+                    <td class="label">Disaster Type Details</td>
+                    <td class="data" id="DisasterTypeDetails"></td>
+                    <td class="label"></td>
+                    <td class="data"></td>
+                </tr>
+            </tbody></table>
+        </div>
+
+    </div>
+
+    <script>
+        // Preload few images beforehand to ensure responsiveness.
+        try {
+            var imagePaths = [
+                '/WebResources/mis_/images/cellspacer.png',
+                '/WebResources/mis_/images/grid_ctrl_images.png',
+                '/WebResources/mis_/images/spacer_9_12.png'
+            ];
+
+            imagePaths.forEach(function (path) {
+                (new Image()).src = path;
+            });
+        } catch (e) {
+            // Don't handle
+        }
+    </script>
+    <script src="../mis_/Scripts/jquery_1.10.2.js"></script>
+    <script src="../ClientGlobalContext.js.aspx"> </script>
+    <script src="../mis_/Scripts/crm_grid_1.0.0.js"></script>
+    <script>
+
+        /*jslint browser: true, devel: true, plusplus: true, newcap: true*/
+        /*jslint nomen: true*/
+        /*jslint maxlen: 250*/
+        /*global jQuery,MIS*/
+
+        /******************************************************************************/
+
+        (function ($) {
+            "use strict";
+
+            function getQueryStringParameter(key) {
+                var ctx = getQueryStringParameter;
+
+                ctx.parse = ctx.parse || function (search) {
+                    var pairs = search.split('&');
+                    for (var i = 0, length = pairs.length; i < length; i++) {
+                        var pair = pairs[i];
+                        if (pair) {
+                            var tokens = pair.split('=');
+                            if (tokens.length === 2) {
+                                var key = tokens[0],
+                                    value = decodeURIComponent(tokens[1].replace(/\+/g, " "));
+                                if (value.indexOf("=") >= 0) {
+                                    ctx.parse(value);
+                                } else {
+                                    if (!ctx.parameters) {
+                                        ctx.parameters = {};
+                                    }
+                                    ctx.parameters[key] = value;
+                                }
+                            }
+                        }
+                    }
+                };
+
+                if (!ctx.parameters) {
+                    ctx.parameters = {};
+                    var search = window.location.search.substring(1);
+                    ctx.parse(search);
+                }
+                return ctx.parameters[key] || "";
+            }
+
+            function trim(value) {
+                if (value === null || value === undefined) {
+                    return "";
+                }
+                return String(value).replace(/^\s\s*/, "").replace(/\s\s*$/, "");
+            }
+
+            function formatDate(date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2) {
+                    month = '0' + month;
+                }
+                if (day.length < 2) {
+                    day = '0' + day;
+                }
+
+                return [month, day, year].join('/');
+            }
+
+            function getAttributeValue(name) {
+                var attribute = Xrm.Page.getAttribute(name);
+                if (attribute !== null) {
+                    return attribute.getValue();
+                }
+                return null;
+            }
+
+            function getCertificationSummaryData() {
+                if (Xrm) {
+                    var json = getAttributeValue("mis_certificationsummary");
+                    if (json) {
+                        return $.parseJSON(json);
+                    }
+                }
+                return null;
+            }
+
+            function populateFields(data) {
+                if (data && typeof data === "object") {
+                    $.each(data, function (key, value) {
+                        if (key !== "AdjunctEligibility") {
+                            value = trim(value) || "--";
+                            $('#' + key).text(value);
+                        }
+                    });
+                }
+            }
+
+            function hideSectionsBasedOnCategory(data) {
+                if (data && data["Category"]) {
+                    var category = data["Category"];
+                    if (category != "Infant" && category != "Breastfeeding") {
+                        $("#BreastfeedingDiv").hide();
+                    }
+                    if (category != "Pregnant" && category != "Post-Partum") {
+                        $("#PregnancyDiv").hide();
+                    }
+                    if (category != "Infant") {
+                        $("#BirthMeasurementsDiv").hide();
+                    }
+                }
+            }
+
+            function populateAdjunctEligibilityGrid(data) {
+                var generator = new MIS.Lib.GridGenerator();
+                if (data && typeof data === "object") {
+                    data = data.AdjunctEligibility;
+                }
+                if (data && data.length > 0) {
+                    $.each(data, function (index, d) {
+                        d.SN = index + 1;
+                    });
+                }
+                var config = {
+                    tableHeight: 150,
+                    noRecordMessage: "No Adjunct Eligibility records found.",
+                    enableMultipleSelection: false,
+                    cols: [
+                        { header: "S.No", key: "SN", sortable: true, editable: false, controlProperties: null, editControlProperties: null, width: '60px' },
+                        { header: "Adjunct Eligibility Type", key: "AdjunctProgram", sortable: true, editable: false, controlProperties: null, editControlProperties: null, width: '160px' },
+                        { header: "Program Enrollment Number", key: "AdjunctProgramEnrollmentNumber", sortable: true, editable: false, controlProperties: null, editControlProperties: null, width: '200px' },
+                        { header: "Is Proof Available?", key: "AdjunctProgramIsProofAvailable", sortable: true, editable: false, controlProperties: null, editControlProperties: null, width: '140px' }
+                    ],
+                    fetch: function (callback, errorback) {
+                        callback(data);
+                    }
+                };
+                generator.create("adjunctGridSection", config);
+            }
+
+            $(document).ready(function () {
+
+                var certificationId = getQueryStringParameter("Data");
+
+                if (window && window.parent &&
+                    window.parent.certificationDetails) {
+                    var certificationRecord = window.parent.certificationDetails.filter(function (cert) {
+                        return cert.id == certificationId;
+                    });
+
+                    if (certificationRecord && certificationRecord.length > 0) {
+                        var json = certificationRecord[0].snapshot;
+                        if (json) {
+                            var data = $.parseJSON(json);
+
+                            if (!(data && typeof data === "object")) {
+                                return;
+                            }
+
+                            populateFields(data);
+                            populateAdjunctEligibilityGrid(data);
+                            hideSectionsBasedOnCategory(data);
+                        }
+                    }
+                }
+
+                //var Xrm = window.opener.Xrm;
+
+                //$("img#printIcon").on("click", function () {
+                //    window.focus();
+                //    window.print();
+                //});
+
+                //var data = getCertificationSummaryData();
+                //if (!(data && typeof data === "object")) {
+                //    return;
+                //}
+
+                //populateFields(data);
+                //populateAdjunctEligibilityGrid(data);
+                //hideSectionsBasedOnCategory(data);
+            });
+
+        }(jQuery));
+
+    </script>
+
+
+</body></html>
