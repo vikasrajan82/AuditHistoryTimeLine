@@ -248,6 +248,11 @@
             fill: url(#gradientForegroundPurple);
         }
 
+        .issuanceHistoryArea {
+            fill: rgb(223,104,79);
+            stroke: rgb(223,104,79);
+        }
+
         .eventPathUpdate {
             stroke-width: 2;
             stroke: rgb(94, 166, 204);
@@ -487,7 +492,7 @@
 
                             plotSummaryTimeLine();
 
-                            retrieveAuditDetails(contactDetails);
+                            retrieveAuditDetails(contactDetails, generateAuditDetails);
 
                             retrieveCertificationDetails(contactDetails.EntityId);
 
@@ -918,6 +923,7 @@
                     displayCertificationDetails(d.id);
                 })
                 .style("stroke-width", "0px")
+                .style("cursor","pointer")
                 .style("fill", function (d){
                     switch(d.type)
                     {
@@ -966,17 +972,17 @@
         function displayOverlayInfoSection() {
             displayOverlay();
 
-            var mapExpandedWidth = 0.7 * document.body.clientWidth - 10,
-                mapExpandedHeight = 0.7 * document.body.clientHeight - 20,
+            overlayExpandedWidth = 0.7 * document.body.clientWidth - 10;
+            overlayExpandedHeight = 0.7 * document.body.clientHeight - 20;
 
-                divContainer = d3.select("body")
+            var divContainer = d3.select("body")
                                     .append("div")
                                     .attr("class", "issuanceContainerSection")
                                     .attr("id", "issuanceContainer")
-                                    .style("top", (document.body.clientHeight - mapExpandedHeight - 50) / 2 + "px")
-                                    .style("left", (document.body.clientWidth - mapExpandedWidth - 40) / 2 + "px")
-                                    .style("width", (mapExpandedWidth) + "px")
-                                    .style("height", (mapExpandedHeight) + "px");
+                                    .style("top", (document.body.clientHeight - overlayExpandedHeight - 50) / 2 + "px")
+                                    .style("left", (document.body.clientWidth - overlayExpandedWidth - 40) / 2 + "px")
+                                    .style("width", (overlayExpandedWidth) + "px")
+                                    .style("height", (overlayExpandedHeight) + "px");
 
             divContainer.append("img")
                        .attr("class", "issuanceContainerImg")
@@ -1116,10 +1122,10 @@
             var issuanceRecord = issuanceDetails.filter(function (issuanceDetail) { return issuanceDetail.id === id }),
                 divContent = "";
 
-            divContent += "<table cellspacing=0 cellpadding=0 border=0>";
-            divContent += "<tr><td class='issuanceHeader' style='width:130px'>Food Item</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Quantity (Participant)</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Quantity (Family)</td><td class='issuanceHeader' style='width:100px;padding-left:3px' align='right'>Available for issuance</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Redeemed</td></tr>";
-
             if (issuanceRecord && issuanceRecord.length > 0 && issuanceRecord[0].participantIssuances.length > 0) {
+                divContent += "<div style='height:220px'><table cellspacing=0 cellpadding=0 border=0>";
+                divContent += "<tr><td class='issuanceHeader' style='width:130px'>Food Item</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Quantity (Participant)</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Quantity (Family)</td><td class='issuanceHeader' style='width:100px;padding-left:3px' align='right'>Available for issuance</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Redeemed</td></tr>";
+
                 issuanceRecord[0].participantIssuances.map(function (issuanceR, issuanceIndex) {
                     var colorCode = "black";
 
@@ -1144,14 +1150,242 @@
 
                     divContent += "<tr><td class='issuanceValues'>" + issuanceR.foodItemName + "</td><td class='issuanceValues' align='right' style='padding-right:5px'>" + issuanceR.participantQuantity + "</td><td class='issuanceValues' align='right' style='padding-right:5px'>" + issuanceR.familyQuantity + "</td><td class='issuanceValues' align='right' style='padding-right:5px;font-weight:bold;color:" + colorCode + ";'>" + issuanceR.availableForIssuance + "</td><td class='issuanceValues' align='right' style='padding-right:5px'>" + issuanceR.redeemedQuantity + "</td></tr>";
                 });
+
+                divContent += "</table></div>";
+                divContent += "<div id='divIssuanceAuditHistory' style='border:1px solid black;height:" + (overlayExpandedHeight - 220 - 16) + "px'></div>"
+
+                divContainer.append("div")
+                            .style("height", "100%")
+                            .style("width", "100%")
+                            .attr("id", "divIssuanceDetails")
+                            .html(divContent);
+
+                if (!issuanceRecord[0].auditHistory) {
+                    var issuanceRecordId = {
+                        "EntityName": "mis_familybenefitissuance",
+                        "EntityId": issuanceRecord[0].id
+                    };
+
+                    retrieveAuditDetails(issuanceRecordId, function (result) {
+                        generateIssuanceAuditDetails(issuanceRecord[0], result);
+                    });
+                }
             }
+        }
 
-            divContent += "</table>";
+        function generateIssuanceAuditDetails(issuance, result) {
+            var issuanceAudit = result,
+                consolidatedIssuanceAudit = [];
 
-            divContainer.append("div")
-                        .style("height", "100%")
-                        .style("width", "100%")
-                        .html(divContent);
+            sortAuditDetails(issuanceAudit);
+
+            consolidateIndividualAuditDetails(issuanceAudit, consolidatedIssuanceAudit);
+
+            var divOffset = document.getElementById("divIssuanceAuditHistory").getBoundingClientRect();
+
+            var issuanceEventsToHighlight = [{
+                attributeName: "mis_action",
+                labelName: "Action: {0}",
+                id: "events_0"
+            },
+            {
+                attributeName: "mis_issuancestatus",
+                labelName: "Issuance Status: {0}",
+                colorCode: "red",
+                id: "events_1"
+            },
+            {
+                attributeName: "mis_issuancestatusreason",
+                labelName: "Issuance Status reason: {0}",
+                colorCode: "red",
+                id: "events_2"
+            }];
+
+            var issuanceMainEvents = [];
+
+            if (issuanceAudit && issuanceAudit.length > 0) {
+
+                var iStartDate = new Date(issuanceAudit[0].ChangedDate),
+                    iEndDate = new Date(issuance.endDate.getFullYear(), issuance.endDate.getMonth(), 31);
+
+                iStartDate = new Date(iStartDate.setDate(iStartDate.getDate() - iStartDate.getDay()));
+
+                var iMonthScale = d3.time.scale().domain([iStartDate, iEndDate]).range([(divOffset.width * 0.07 + 2.5), divOffset.width * 0.93]);
+
+                segregateMainEvents(issuanceEventsToHighlight, issuanceAudit, issuanceMainEvents);
+
+                var svgIssuance = d3.select("#divIssuanceAuditHistory")
+                                        .append("svg")
+                                        .attr("id", "svgIssuanceAudit");
+
+                svgIssuance.append("path")
+                    .attr("d", rightRoundedMainRect(divOffset.width * 0.07, divOffset.height * 0.70, divOffset.width * 0.85, 10, 5))
+                    .attr("class", "issuanceHistoryArea");
+
+                var lineCenter = divOffset.height * 0.70 - 2.5,
+                    lineLength = 190,
+                    groupOffset = 50;
+
+                var mainEventGroups = svgIssuance.selectAll("g.issuanceMainEventsGroup")
+                                    .data(issuanceMainEvents)
+                                    .enter()
+                                    .append("g")
+                                    .attr("id", function (d, i) {
+                                        return "gIssuanceMainEventGroup_" + i;
+                                    })
+                                    .attr("class", "issuanceMainEventsGroup")
+                                    .attr('transform', function (d, i) {
+                                        var xAxis = iMonthScale(d.changedDate) - 50;
+                                        var yAxis = lineCenter - lineLength;
+
+                                        yAxis = yAxis + ((i % 3) * 50);
+
+                                        return 'translate(' + xAxis + ',' + yAxis + ')';
+                                    })
+                                    .on("mouseover", function (d, i) {
+                                        d3.select("#svgIssuanceAudit").selectAll("g.issuanceMainEventsGroup").attr("opacity", 0.1);
+                                        d3.select(this).attr("opacity", 1).style("font-weight", 700);
+
+                                        d3.select("#divIssuanceAuditHistory").selectAll("div.mainEventSection")
+                                            .each(function (event, index) {
+                                                if (index !== i) {
+                                                    if (d3.select(this).style("opacity") == 1) {
+                                                        d3.select(this).style("opacity", 0.1);
+                                                    }
+                                                }
+                                                else {
+                                                    d3.select(this).style("opacity", 1).style("font-weight", 600);
+                                                }
+                                            });
+                                    })
+                                    .on("mouseout", function (d) {
+                                        d3.select("#svgIssuanceAudit").selectAll("g.issuanceMainEventsGroup").attr("opacity", 1).style("font-weight", 500);
+
+                                        d3.selectAll("div.mainEventSection")
+                                           .each(function (event) {
+                                               switch (d3.select(this).style("opacity")) {
+                                                   case "0.1":
+                                                   case "1":
+                                                       d3.select(this).style("opacity", 1).style("font-weight", 500);
+                                                       break;
+                                               }
+                                           });
+                                    });
+
+                mainEventGroups.append("line")
+                                .attr("x1", groupOffset)
+                                .attr("y1", function (d, i) {
+                                    var yAxis = lineLength;
+
+                                    yAxis = yAxis - ((i % 3) * 50);
+
+                                    return yAxis;
+                                })
+                                .attr("x2", groupOffset)
+                                .attr("y2", function (d, i) {
+                                    var yAxis = lineLength;
+
+                                    yAxis = yAxis - ((i % 3) * 50);
+
+                                    return yAxis;
+                                })
+                                .attr("class", function (d) {
+                                    return "eventPath" + d.action;
+                                })
+                                .transition()
+                                .duration(500)
+                                .attr("y1", 0);
+
+                setTimeout(function () {
+                    mainEventGroups.append("svg:image")
+                                    .attr('x', groupOffset + 1)
+                                    .attr('y', 0)
+                                    .attr('width', 14)
+                                    .attr('height', 14)
+                                    .attr("xlink:href", function (d) {
+                                        switch (d.action) {
+                                            case "Create":
+                                                return "../mis_/images/rarrow.jpg";
+                                            default:
+                                                return "../mis_/images/Arrow.gif";
+                                        }
+                                    });
+
+                    mainEventGroups.append("text")
+                                    .attr("text-anchor", "end")
+                                    .attr('transform', 'translate(' + (groupOffset - 8) + ', ' + 5 + ')')
+                                    .attr("class", "checkptDesc")
+                                    .text(function (d) {
+                                        return monthNames[d.changedDate.getMonth()] + " " + d.changedDate.getDate();
+                                    });
+
+                    mainEventGroups.append("text")
+                                    .attr("text-anchor", "end")
+                                    .attr('transform', 'translate(' + (groupOffset - 8) + ', ' + 22 + ')')
+                                    .attr("class", "checkptDesc")
+                                    .text(function (d) {
+                                        return d.changedDate.getFullYear();
+                                    });
+
+                    //d3.select("body")
+                    //        .selectAll("div.mainEventSection")
+                    //        .data(mainEventsToBeDisplayed)
+                    //        .enter()
+                    //        .append("div")
+                    //        .attr("class", "mainEventSection")
+                    //        .attr("id", function (d, i) {
+                    //            return "divMainEventSection_" + i;
+                    //        })
+                    //        .style("top", function (d, i) {
+                    //            return lineCenter - lineLength - 8 + ((i % 3) * 50) - (d.modifiedAttribute.length - 1) * 10;
+                    //        })
+                    //        .style("left", function (d, i) {
+                    //            return eventsLeftOffset(monthScale(d.changedDate), 20, svgOffset, leftOffset, clipOffset);
+                    //            //return monthScale(d.changedDate) + 20 + svgOffset.left;
+                    //        })
+                    //        .style("opacity", function (d, i) {
+                    //            return eventsOpacity(monthScale(d.changedDate), 20, svgOffset, leftOffset, clipOffset);
+                    //        })
+                    //        .style("position", "absolute")
+                    //        .html(function (d) {
+                    //            var htmlContent = "";
+                    //            d.modifiedAttribute.map(function (item, index) {
+                    //                htmlContent += item.attributeLabel.replace("{0}", item.value);
+                    //            });
+
+                    //            return htmlContent;
+                    //        })
+                    //        .on("mouseover", function (d, i) {
+                    //            d3.selectAll("g.mainEventsGroup").attr("opacity", 0.1);
+                    //            d3.select("#gMainEventGroup_" + i).attr("opacity", 1).style("font-weight", 700);
+
+                    //            d3.selectAll("div.mainEventSection")
+                    //                .each(function (event, index) {
+                    //                    if (index !== i) {
+                    //                        if (d3.select(this).style("opacity") == 1) {
+                    //                            d3.select(this).style("opacity", 0.1);
+                    //                        }
+                    //                    }
+                    //                    else {
+                    //                        d3.select(this).style("opacity", 1).style("font-weight", 600);
+                    //                    }
+                    //                });
+                    //        })
+                    //        .on("mouseout", function (d) {
+                    //            d3.selectAll("g.mainEventsGroup").attr("opacity", 1).style("font-weight", 500);
+
+                    //            d3.selectAll("div.mainEventSection")
+                    //                .each(function (event) {
+                    //                    switch (d3.select(this).style("opacity")) {
+                    //                        case "0.1":
+                    //                        case "1":
+                    //                            d3.select(this).style("opacity", 1).style("font-weight", 500);
+                    //                            break;
+                    //                    }
+                    //                });
+                    //        });
+                }, 500);
+            }
         }
 
         /* Plot the Main Chart */
@@ -1169,18 +1403,18 @@
 
         /* Audit Details */
         /* Start */
-        function retrieveAuditDetails(contactDetails) {
+        function retrieveAuditDetails(entityDetails, callBackMethod) {
 
             MisXrmUtilities.WebAPI.ExecuteCustomAction(
                        "",
                        "",
                        "mis_RetrieveAuditHistoryDetails",
-                       contactDetails,
+                       entityDetails,
                        true,
                        function (result) {
                            if (result.AuditDetails) {
-                               auditDetails = JSON.parse(result.AuditDetails);
-                               generateAuditDetails();
+                               callBackMethod(JSON.parse(result.AuditDetails));
+                               //generateAuditDetails();
                            }
                        },
                        function (error) {
@@ -1189,34 +1423,50 @@
                        });
         }
 
-        function generateAuditDetails() {
+        function sortAuditDetails(auditResult) {
+            auditResult.map(function (item, index) {
+                item.ChangedDate = convertJsonDateToJSDate(item.ChangedDate);
+            });
 
-            function consolidateIndividualAuditDetails() {
-                auditDetails.map(function (item, index) {
-                    var isRecordAvailable = false;
+            auditResult.sort(function (a, b) {
+                if (a.ChangedDate > b.ChangedDate)
+                    return 1;
 
-                    consolidatedAuditDetails.map(function (auditRecord, auditIndex) {
-                        if (!isRecordAvailable) {
-                            if (auditRecord.ChangedDate.withoutTime().getTime() == item.ChangedDate.withoutTime().getTime()) {
-                                isRecordAvailable = true;
-                                auditRecord.AuditEvents.push(item);
-                            }
-                        }
-                    });
+                if (a.ChangedDate < b.ChangedDate)
+                    return -1;
 
+                return 0;
+            });
+        }
+
+        function consolidateIndividualAuditDetails(auditResults, consolidatedDataSet) {
+            auditResults.map(function (item, index) {
+                var isRecordAvailable = false;
+
+                consolidatedDataSet.map(function (auditRecord, auditIndex) {
                     if (!isRecordAvailable) {
-                        consolidatedAuditDetails.push({
-                            ChangedDate: item.ChangedDate.withoutTime(),
-                            AuditEvents: [item]
-                        });
+                        if (auditRecord.ChangedDate.withoutTime().getTime() == item.ChangedDate.withoutTime().getTime()) {
+                            isRecordAvailable = true;
+                            auditRecord.AuditEvents.push(item);
+                        }
                     }
                 });
-            }
+
+                if (!isRecordAvailable) {
+                    consolidatedDataSet.push({
+                        ChangedDate: item.ChangedDate.withoutTime(),
+                        AuditEvents: [item]
+                    });
+                }
+            });
+        }
+
+        function segregateMainEvents(configuredEvents, auditRecords, eventArray) {
 
             function pushEventsToArray(obj) {
                 if (obj) {
                     var continueProcess = true;
-                    mainEventsToBeDisplayed.map(function (item) {
+                    eventArray.map(function (item) {
                         if (item.changedDate.getTime() == obj.changedDate) {
                             if (obj.modifiedAttribute.attributeLabel) {
                                 var existingItem = item.modifiedAttribute.filter(function (modItem) { return modItem.attributeLabel == obj.modifiedAttribute.attributeLabel });
@@ -1236,7 +1486,7 @@
                     });
 
                     if (continueProcess) {
-                        mainEventsToBeDisplayed.push({
+                        eventArray.push({
                             changedDate: new Date(obj.changedDate),
                             action: obj.action,
                             modifiedAttribute: [obj.modifiedAttribute]
@@ -1246,26 +1496,8 @@
                 }
             }
 
-            auditDetails.map(function (item, index) {
-                item.ChangedDate = convertJsonDateToJSDate(item.ChangedDate);
-            });
-
-            auditDetails.sort(function (a, b) {
-                if (a.ChangedDate > b.ChangedDate)
-                    return 1;
-
-                if (a.ChangedDate < b.ChangedDate)
-                    return -1;
-
-                return 0;
-            });
-
-            consolidateIndividualAuditDetails();
-
-            mainEventsToBeDisplayed = [];
-
-            eventsToHighlight.map(function (mainEvent, i) {
-                auditDetails.map(function (auditInfo, j) {
+            configuredEvents.map(function (mainEvent, i) {
+                auditRecords.map(function (auditInfo, j) {
                     auditInfo.ModifiedAttributes.map(function (modifiedAttibute, k) {
                         if (mainEvent.attributeName == modifiedAttibute.Attribute && modifiedAttibute.OldValue !== modifiedAttibute.NewValue) {
                             if (mainEvent.excludeCreate && auditInfo.Action == "Create")
@@ -1283,7 +1515,7 @@
                                 labelText = "<div style='padding: 0px; height: 15px;'>" + labelText + "</div>";
 
                                 pushEventsToArray({
-                                    changedDate: auditInfo.ChangedDate.setHours(0, 0, 0, 0),
+                                    changedDate: new Date(auditInfo.ChangedDate).setHours(0, 0, 0, 0),
                                     action: auditInfo.Action,
                                     modifiedAttribute: {
                                         attributeLabel: labelText,
@@ -1297,7 +1529,7 @@
                 });
             });
 
-            mainEventsToBeDisplayed.sort(function (a, b) {
+            eventArray.sort(function (a, b) {
                 if (a.changedDate > b.changedDate)
                     return 1;
 
@@ -1306,6 +1538,19 @@
 
                 return 0;
             });
+        }
+
+        function generateAuditDetails(auditResult) {
+
+            auditDetails = auditResult;
+
+            sortAuditDetails(auditDetails);
+
+            consolidateIndividualAuditDetails(auditDetails, consolidatedAuditDetails);
+
+            mainEventsToBeDisplayed = [];
+
+            segregateMainEvents(eventsToHighlight, auditDetails, mainEventsToBeDisplayed);
 
             generateBriefAuditDetails();
 
@@ -1319,7 +1564,9 @@
 
             var cy = bodyHeight / 2,
                 auditDetailsOffset = 20,
-                svgOffset = document.getElementById("divMainSvgContainer").getBoundingClientRect();
+                svgOffset = document.getElementById("divMainSvgContainer").getBoundingClientRect(),
+                clipOffset = document.getElementById("clipC1").getBoundingClientRect(),
+                leftOffset = parseFloat(clipOffset.left) + parseFloat(clipOffset.width);
 
             var auditDetailsGroup = mainClipArea.append("g")
                                     .attr("clip-path", "url(#clipC1)")
@@ -1368,7 +1615,11 @@
                             return ((cy - (250 - i % 3 * 80)) - 40);
                         })
                         .style("left", function (d, i) {
-                            return (monthScale(d.ChangedDate) - 10 + svgOffset.left);
+                            return eventsLeftOffset(monthScale(d.ChangedDate), -10, svgOffset, leftOffset, clipOffset);
+                            //return (monthScale(d.ChangedDate) - 10 + svgOffset.left);
+                        })
+                        .style("opacity", function (d, i) {
+                            return eventsOpacity(monthScale(d.ChangedDate), -10, svgOffset, leftOffset, clipOffset);
                         })
                         .style("position", "absolute")
                         .style("width", 130)
@@ -1438,7 +1689,6 @@
                                     auditDetailsElement.attr("customHeight", document.getElementById("fOtb2AuditDetails_" + i).clientHeight);
                                 }
 
-                                console.log((parseFloat(d3.select(this).style("left")) + 795) + ":" + bodyWidth);
                                 var leftOffset = (monthScale(d.ChangedDate) - 10 + svgOffset.left),
                                     totalExtendedDivLength = (parseFloat(d3.select(this).style("left")) + 795);
 
@@ -1507,28 +1757,12 @@
                     .transition()
                     .duration(750)
                     .style("left", function (d, i) {
-                        var divOffset = monthScale(d.ChangedDate) - 10 + svgOffset.left;
-
-                        if (divOffset > leftOffset) {
-                            return leftOffset;
-                        }
-
-                        if (divOffset < clipOffset.left) {
-                            return clipOffset.left - 130;
-                        }
-
-                        return monthScale(d.ChangedDate) - 10 + svgOffset.left;
+                        return eventsLeftOffset(monthScale(d.ChangedDate), -10, svgOffset, leftOffset, clipOffset);
+                        //return (monthScale(d.ChangedDate) - 10 + svgOffset.left);
                     })
                     .style("opacity", function (d, i) {
-                        var divOffset = monthScale(d.ChangedDate) - 10 + svgOffset.left;
-
-                        if (divOffset > leftOffset || divOffset < clipOffset.left) {
-                            return 0;
-                        }
-                        else {
-                            return 1;
-                        }
-                    })
+                        return eventsOpacity(monthScale(d.ChangedDate), -10, svgOffset, leftOffset, clipOffset);
+                    });
         }
 
         function removeDetailedAuditDetails() {
@@ -1544,9 +1778,11 @@
             var lineCenter = bodyHeight / 2 - 15,
                 lineLength = 205,
                 groupOffset = 50,
-                svgOffset = document.getElementById("divMainSvgContainer").getBoundingClientRect();
+                svgOffset = document.getElementById("divMainSvgContainer").getBoundingClientRect(),
+                clipOffset = document.getElementById("clipC1").getBoundingClientRect(),
+                leftOffset = parseFloat(clipOffset.left) + parseFloat(clipOffset.width);
 
-            var mainEventGroups = mainClipArea.selectAll("g.mainEventsGroup")
+            var mainEventGroups = clipArea.selectAll("g.mainEventsGroup")
                                     .data(mainEventsToBeDisplayed)
                                     .enter()
                                     .append("g")
@@ -1562,9 +1798,9 @@
 
                                         return 'translate(' + xAxis + ',' + yAxis + ')';
                                     })
-                                    .on("mouseover", function (d,i) {
+                                    .on("mouseover", function (d, i) {
                                         d3.selectAll("g.mainEventsGroup").attr("opacity", 0.1);
-                                        d3.select(this).attr("opacity", 1).style("font-weight",700);
+                                        d3.select(this).attr("opacity", 1).style("font-weight", 700);
 
                                         d3.selectAll("div.mainEventSection")
                                             .each(function (event, index) {
@@ -1579,7 +1815,7 @@
                                             });
                                     })
                                     .on("mouseout", function (d) {
-                                        d3.selectAll("g.mainEventsGroup").attr("opacity", 1).style("font-weight",500);
+                                        d3.selectAll("g.mainEventsGroup").attr("opacity", 1).style("font-weight", 500);
 
                                         d3.selectAll("div.mainEventSection")
                                            .each(function (event) {
@@ -1627,7 +1863,7 @@
                                         case "Create":
                                             return "../mis_/images/rarrow.jpg";
                                         default:
-                                            return "../mis_/images/Arrow.jpg";
+                                            return "../mis_/images/Arrow.gif";
                                     }
                                 });
 
@@ -1660,7 +1896,11 @@
                             return lineCenter - lineLength - 8 + ((i % 3) * 50) - (d.modifiedAttribute.length - 1) * 10;
                         })
                         .style("left", function (d, i) {
-                            return monthScale(d.changedDate) + 20 + svgOffset.left;
+                            return eventsLeftOffset(monthScale(d.changedDate), 20, svgOffset, leftOffset, clipOffset);
+                            //return monthScale(d.changedDate) + 20 + svgOffset.left;
+                        })
+                        .style("opacity", function (d, i) {
+                            return eventsOpacity(monthScale(d.changedDate), 20, svgOffset, leftOffset, clipOffset);
                         })
                         .style("position", "absolute")
                         .html(function (d) {
@@ -1701,6 +1941,31 @@
                                 });
                         });
             }, 500);
+        }
+
+        function eventsLeftOffset(changedDateScale, initialOffset, svgOffset, leftOffset, clipOffset) {
+            var divOffset = changedDateScale + initialOffset + svgOffset.left;
+
+            if (divOffset > leftOffset) {
+                return leftOffset;
+            }
+
+            if (divOffset < clipOffset.left) {
+                return clipOffset.left - 130;
+            }
+
+            return divOffset;
+        }
+
+        function eventsOpacity(changedDateScale, initialOffset, svgOffset, leftOffset, clipOffset) {
+            var divOffset = changedDateScale + initialOffset + svgOffset.left;
+
+            if (divOffset > leftOffset || divOffset < clipOffset.left) {
+                return 0;
+            }
+            else {
+                return 1;
+            }
         }
 
         function updateBriefAuditDetails() {
@@ -1818,7 +2083,11 @@
             initialBrushStart = new Date(2017, 11, 1),
             initialBrushEnd = new Date(2018, 2, 1);
 
-        var monthScale, sliderScale, brush;
+        var monthScale,
+            sliderScale,
+            brush,
+            overlayExpandedWidth,
+            overlayExpandedHeight;
 
         var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 

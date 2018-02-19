@@ -103,14 +103,16 @@ namespace MIS.CRM.AuditHistory.AuditHistory
         {
             if (this.attributesToBeRetrieved.Length > 0)
             {
-                Entity missingAttributes = this.OrgService.Retrieve(this.EntityName, this.EntityId, new ColumnSet(this.attributesToBeRetrieved.ToString().Split(',')));
+                ColumnSet attributes = new ColumnSet(this.attributesToBeRetrieved.ToString().Split(','));
+
+                Entity missingAttributes = this.OrgService.Retrieve(this.EntityName, this.EntityId, attributes);
                 if (missingAttributes != null)
                 {
                     foreach (var currentAuditRecord in this.auditRecordsCollection)
                     {
                         foreach (ModifiedAttributes modifiedAttribute in currentAuditRecord.ModifiedAttributes)
                         {
-                            if (modifiedAttribute.NewValue == NO_VALUE && missingAttributes.Contains(modifiedAttribute.Attribute))
+                            if (modifiedAttribute.NewValue == NO_VALUE && attributes.Columns.Contains(modifiedAttribute.Attribute))
                             {
                                 modifiedAttribute.NewValue = this.GetAttributeValueBasedOnType(missingAttributes, modifiedAttribute.Attribute);
                             }
@@ -128,21 +130,24 @@ namespace MIS.CRM.AuditHistory.AuditHistory
         {
             string value = "";
 
-            switch (entityRecord[keyName].GetType().FullName)
+            if (entityRecord.Contains(keyName))
             {
-                case "Microsoft.Xrm.Sdk.EntityReference":
-                    value = ((EntityReference)(entityRecord[keyName])).Name;
-                    break;
-                case "Microsoft.Xrm.Sdk.OptionSetValue":
-                case "Microsoft.Xrm.Sdk.Money":
-                    value = entityRecord.FormattedValues[keyName] == null ? string.Empty : entityRecord.FormattedValues[keyName].ToString();
-                    break;
-                case "System.DateTime":
-                    value = ((DateTime)entityRecord[keyName]).ToString("dd-MMM-yyyy hh:mm tt");
-                    break;
-                default:
-                    value = entityRecord[keyName].ToString();
-                    break;
+                switch (entityRecord[keyName].GetType().FullName)
+                {
+                    case "Microsoft.Xrm.Sdk.EntityReference":
+                        value = ((EntityReference)(entityRecord[keyName])).Name;
+                        break;
+                    case "Microsoft.Xrm.Sdk.OptionSetValue":
+                    case "Microsoft.Xrm.Sdk.Money":
+                        value = entityRecord.FormattedValues[keyName] == null ? string.Empty : entityRecord.FormattedValues[keyName].ToString();
+                        break;
+                    case "System.DateTime":
+                        value = ((DateTime)entityRecord[keyName]).ToString("dd-MMM-yyyy hh:mm tt");
+                        break;
+                    default:
+                        value = entityRecord[keyName].ToString();
+                        break;
+                }
             }
 
             return value;
@@ -199,21 +204,21 @@ namespace MIS.CRM.AuditHistory.AuditHistory
 
             if (createEvent != null)
             {
-                
-                    createEvent.ChangedDate = this.CreatedOn;
-                    createEvent.ChangedBy = this.CreatedBy;
-                
-                    if (!(from record in createEvent.ModifiedAttributes where record.Attribute == "createdby" select record).Any<ModifiedAttributes>())
+
+                createEvent.ChangedDate = this.CreatedOn;
+                createEvent.ChangedBy = this.CreatedBy;
+
+                if (!(from record in createEvent.ModifiedAttributes where record.Attribute == "createdby" select record).Any<ModifiedAttributes>())
+                {
+                    createEvent.ModifiedAttributes.Add(new ModifiedAttributes()
                     {
-                        createEvent.ModifiedAttributes.Add(new ModifiedAttributes()
-                        {
-                            Attribute = "createdby", 
-                            AttributeName = "createdby", 
-                            NewValue = createEvent.ChangedBy, 
-                            OldValue = string.Empty
-                        });
-                    }
-                
+                        Attribute = "createdby",
+                        AttributeName = "createdby",
+                        NewValue = createEvent.ChangedBy,
+                        OldValue = string.Empty
+                    });
+                }
+
             }
         }
 

@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="WebResources\GIF format\" />
     <Folder Include="WebResources\JPG format\" />
     <Folder Include="WebResources\PNG format\" />
     <Folder Include="WebResources\Web Page %28HTML%29\" />
