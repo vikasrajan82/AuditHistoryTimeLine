@@ -55,6 +55,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <CRMWebResource Include="WebResources\GIF format\Arrow.gif">
+      <DisplayName>/Images/Arrow.gif</DisplayName>
+      <UniqueName>mis_/images/Arrow.gif</UniqueName>
+      <WebResourceType>GIF</WebResourceType>
+    </CRMWebResource>
     <CRMWebResource Include="WebResources\JPG format\Arrow.jpg">
       <DisplayName>/Images/Arrow.jpg</DisplayName>
       <UniqueName>mis_/images/Arrow.jpg</UniqueName>

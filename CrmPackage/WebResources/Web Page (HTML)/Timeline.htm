@@ -67,7 +67,7 @@
             overflow-x:hidden;
         }
 
-        .mainEventSection {
+        .mainEventSection, .issuanceMainEventSection {
             font-family: Verdana, Arial, Helvetica, sans-serif;
             font-weight: 500;
             fill: rgb(84, 106, 145);
@@ -208,6 +208,12 @@
             cursor: pointer;
         }
 
+        .issuanceLegend {
+            stroke-width: 1;
+            stroke: rgb(162, 53, 29);
+            fill: none;
+        }
+
         .axis text {
             font: 11px sans-serif;
         }
@@ -249,8 +255,8 @@
         }
 
         .issuanceHistoryArea {
-            fill: rgb(223,104,79);
-            stroke: rgb(223,104,79);
+            fill: rgb(162, 53, 29);
+            stroke: rgb(162, 53, 29);
         }
 
         .eventPathUpdate {
@@ -298,6 +304,14 @@
         }
 
         .panNumber {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 8pt;
+            font-weight: 600;
+            fill: rgb(82, 100, 124);
+            cursor: default;
+        }
+
+        .issuanceDateLegend {
             font-family: Verdana, Arial, Helvetica, sans-serif;
             font-size: 8pt;
             font-weight: 600;
@@ -378,6 +392,14 @@
 
         function getLastDayOfMonth(dt) {
             return new Date(dt.getFullYear(), dt.getMonth() + 1, 0);
+        }
+
+        function setTimePart(dt, hh, mm, ss) {
+            return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), hh, mm, ss);
+        }
+
+        function addDays(dt, days) {
+            return new Date(dt.getFullYear(), dt.getMonth(), (dt.getDate() + days));
         }
 
         function getQueryStringParameter(key) {
@@ -588,7 +610,7 @@
                                         id: item.fbi_x002e_mis_familybenefitissuanceid,
                                         month: issuanceStartDate.getMonth() + issuanceStartDate.getFullYear(),
                                         startDate: issuanceStartDate,
-                                        endDate: getLastDayOfMonth(new Date(MisXrmUtilities.WebAPI.GetDateFieldValue(item, "fbi_x002e_mis_issuanceenddate").Value)),
+                                        endDate: setTimePart(new Date(MisXrmUtilities.WebAPI.GetDateFieldValue(item, "fbi_x002e_mis_issuanceenddate").Value), 23, 59, 00),
                                         issuanceStatus: MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(item, "fbi_x002e_mis_issuancestatus").Text,
                                         issuanceStatusReason: (MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(item, "fbi_x002e_mis_issuancestatusreason") ? MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(item, "fbi_x002e_mis_issuancestatusreason").Text : ""),
                                         issuanceDate: dateOfIssuance,
@@ -738,7 +760,7 @@
                 .append("path")
                 .attr("d", function (d) {
                     var rangeStart = monthScale(d.StartDate),
-                        rangeEnd = monthScale(d.EndDate);
+                        rangeEnd = monthScale(d.EndDate.withoutTime());
 
                     return "M" + rangeStart + "," + (legendY + 135) + "v10" + "h" + ((rangeEnd - rangeStart) / 2) + "v10v-10" + "h" + ((rangeEnd - rangeStart) / 2) + "v-10";
                 })
@@ -750,7 +772,7 @@
                 .attr("PAN", function (d) {
                     if (d.PAN && d.PAN.length > 0) {
                         var startPosition = monthScale(d.StartDate),
-                            endPosition = monthScale(d.EndDate),
+                            endPosition = monthScale(d.EndDate.withoutTime()),
                             currentGroup = d3.select(this);
 
                         d.PAN.map(function (panItem, panIndex) {
@@ -1152,7 +1174,7 @@
                 });
 
                 divContent += "</table></div>";
-                divContent += "<div id='divIssuanceAuditHistory' style='border:1px solid black;height:" + (overlayExpandedHeight - 220 - 16) + "px'></div>"
+                divContent += "<div id='divIssuanceAuditHistory' style='padding-top:10px;height:" + (overlayExpandedHeight - 220) + "px'></div>"
 
                 divContainer.append("div")
                             .style("height", "100%")
@@ -1192,12 +1214,14 @@
                 attributeName: "mis_issuancestatus",
                 labelName: "Issuance Status: {0}",
                 colorCode: "red",
+                excludeCreate: true,
                 id: "events_1"
             },
             {
                 attributeName: "mis_issuancestatusreason",
                 labelName: "Issuance Status reason: {0}",
                 colorCode: "red",
+                excludeCreate: true,
                 id: "events_2"
             }];
 
@@ -1206,25 +1230,105 @@
             if (issuanceAudit && issuanceAudit.length > 0) {
 
                 var iStartDate = new Date(issuanceAudit[0].ChangedDate),
-                    iEndDate = new Date(issuance.endDate.getFullYear(), issuance.endDate.getMonth(), 31);
+                    iEndDate = setTimePart(new Date(issuance.endDate.getFullYear(), issuance.endDate.getMonth(), 31),23,59,00),
+                    dateLegends = [],
+                    dateIndex = 0,
+                    tickSize = 7,
+                    PANAudit = [];
 
                 iStartDate = new Date(iStartDate.setDate(iStartDate.getDate() - iStartDate.getDay()));
 
-                var iMonthScale = d3.time.scale().domain([iStartDate, iEndDate]).range([(divOffset.width * 0.07 + 2.5), divOffset.width * 0.93]);
+                var iMonthScale = d3.time.scale().domain([iStartDate, iEndDate]).range([(divOffset.width * 0.07 + 2.5), divOffset.width * 0.93 - 2.5]);
 
                 segregateMainEvents(issuanceEventsToHighlight, issuanceAudit, issuanceMainEvents);
+
+                issuanceAudit.map(function (eachIssuance) {
+                    if (eachIssuance.ModifiedAttributes) {
+                        eachIssuance.ModifiedAttributes.map(function (modifiedAttribute) {
+                            if (modifiedAttribute.Attribute === "mis_name" && modifiedAttribute.NewValue != modifiedAttribute.OldValue) {
+                                var PANValue = modifiedAttribute.NewValue;
+                                if (PANValue.length > 0 && PANValue.indexOf("_") > -1) {
+                                    PANValue = PANValue.substring(0, PANValue.indexOf("_"));
+
+                                    if (PANAudit.length > 0) {
+                                        PANAudit[PANAudit.length - 1].EndDate = setTimePart(addDays(eachIssuance.ChangedDate, -1), 19, 59, 00);
+                                    }
+
+                                    PANAudit.push({
+                                        StartDate: eachIssuance.ChangedDate.withoutTime(),
+                                        PAN: PANValue
+                                    });
+                                }
+                            }
+                        })
+                    }
+                });
+
+                if (PANAudit.length > 0) {
+                    PANAudit[PANAudit.length - 1].EndDate = setTimePart(iEndDate, 19, 59, 00);
+                }
+
+
 
                 var svgIssuance = d3.select("#divIssuanceAuditHistory")
                                         .append("svg")
                                         .attr("id", "svgIssuanceAudit");
 
+                dateLegends.push(new Date(issuance.startDate.withoutTime()));
+
+                while (dateIndex != -1) {
+                    if (iStartDate < dateLegends[0]) {
+                        var date0 = new Date(dateLegends[0].getFullYear(),
+                                                dateLegends[0].getMonth(),
+                                                dateLegends[0].getDate() - tickSize);
+                        dateLegends.splice(0, 0, date0);
+                    }
+
+                    if (iEndDate > dateLegends[dateLegends.length - 1]) {
+                        var date1 = new Date(dateLegends[dateLegends.length - 1].getFullYear(),
+                                                dateLegends[dateLegends.length - 1].getMonth(),
+                                                dateLegends[dateLegends.length - 1].getDate() + tickSize);
+                        dateLegends.push(date1);
+                    }
+
+                    if (iStartDate >= dateLegends[0] && iEndDate <= dateLegends[dateLegends.length - 1]) {
+                        dateLegends.splice(0, 1);
+                        dateLegends.splice(dateLegends.length - 1, 1);
+                        dateIndex = -1;
+                    }
+                }
+
+                var pathX = divOffset.width * 0.07,
+                    pathY = divOffset.height * 0.70,
+                    pathHeight = 10;
+
                 svgIssuance.append("path")
-                    .attr("d", rightRoundedMainRect(divOffset.width * 0.07, divOffset.height * 0.70, divOffset.width * 0.85, 10, 5))
+                    .attr("d", rightRoundedMainRect(pathX, pathY, divOffset.width * 0.85, pathHeight, 5))
                     .attr("class", "issuanceHistoryArea");
 
+                svgIssuance.selectAll("line.issuanceLegend")
+                            .data(dateLegends)
+                            .enter()
+                            .append("line")
+                            .attr("class", "issuanceLegend")
+                            .attr("x1", function (d) { return iMonthScale(d); })
+                            .attr("x2", function (d) {
+                                svgIssuance.append("text")
+                                        .attr("text-anchor", "middle")
+                                        .attr("class", "issuanceDateLegend")
+                                        .attr("transform", "translate(" + iMonthScale(d) + "," + (pathY + pathHeight + 24) + ")")
+                                        .text(d.getDate() + "-" + monthNames[d.getMonth()]);
+
+                                return iMonthScale(d);
+                            })
+                            .attr("y1", pathY + pathHeight + 2)
+                            .attr("y2", pathY + pathHeight + 12);
+
                 var lineCenter = divOffset.height * 0.70 - 2.5,
-                    lineLength = 190,
-                    groupOffset = 50;
+                    lineLength = 150,
+                    groupOffset = 50,
+                    svgIssuanceOffset = document.getElementById("svgIssuanceAudit").getBoundingClientRect(),
+                    issuanceContainterOffset = document.getElementById("issuanceContainer").getBoundingClientRect();
 
                 var mainEventGroups = svgIssuance.selectAll("g.issuanceMainEventsGroup")
                                     .data(issuanceMainEvents)
@@ -1236,7 +1340,7 @@
                                     .attr("class", "issuanceMainEventsGroup")
                                     .attr('transform', function (d, i) {
                                         var xAxis = iMonthScale(d.changedDate) - 50;
-                                        var yAxis = lineCenter - lineLength;
+                                        var yAxis = lineCenter - lineLength + 1;
 
                                         yAxis = yAxis + ((i % 3) * 50);
 
@@ -1327,63 +1431,114 @@
                                         return d.changedDate.getFullYear();
                                     });
 
-                    //d3.select("body")
-                    //        .selectAll("div.mainEventSection")
-                    //        .data(mainEventsToBeDisplayed)
-                    //        .enter()
-                    //        .append("div")
-                    //        .attr("class", "mainEventSection")
-                    //        .attr("id", function (d, i) {
-                    //            return "divMainEventSection_" + i;
-                    //        })
-                    //        .style("top", function (d, i) {
-                    //            return lineCenter - lineLength - 8 + ((i % 3) * 50) - (d.modifiedAttribute.length - 1) * 10;
-                    //        })
-                    //        .style("left", function (d, i) {
-                    //            return eventsLeftOffset(monthScale(d.changedDate), 20, svgOffset, leftOffset, clipOffset);
-                    //            //return monthScale(d.changedDate) + 20 + svgOffset.left;
-                    //        })
-                    //        .style("opacity", function (d, i) {
-                    //            return eventsOpacity(monthScale(d.changedDate), 20, svgOffset, leftOffset, clipOffset);
-                    //        })
-                    //        .style("position", "absolute")
-                    //        .html(function (d) {
-                    //            var htmlContent = "";
-                    //            d.modifiedAttribute.map(function (item, index) {
-                    //                htmlContent += item.attributeLabel.replace("{0}", item.value);
+                    d3.select("#divIssuanceAuditHistory")
+                            .selectAll("div.issuanceMainEventSection")
+                            .data(issuanceMainEvents)
+                            .enter()
+                            .append("div")
+                            .attr("class", "issuanceMainEventSection")
+                            .attr("id", function (d, i) {
+                                return "divIssuanceMainEventSection_" + i;
+                            })
+                            .style("top", function (d, i) {
+                                return (svgIssuanceOffset.top - issuanceContainterOffset.top) + lineCenter - lineLength + 4 + ((i % 3) * 50) - (d.modifiedAttribute.length - 1) * 10;
+                            })
+                            .style("left", function (d, i) {
+                                return iMonthScale(d.changedDate) + 38;
+                            })
+                            .style("opacity", 1)
+                            .style("position", "absolute")
+                            .html(function (d) {
+                                var htmlContent = "";
+                                d.modifiedAttribute.map(function (item, index) {
+                                    htmlContent += item.attributeLabel.replace("{0}", item.value);
+                                });
+
+                                return htmlContent;
+                            })
+                            .on("mouseover", function (d, i) {
+                                d3.selectAll("g.issuanceMainEventsGroup").attr("opacity", 0.1);
+                                d3.select("#gIssuanceMainEventGroup_" + i).attr("opacity", 1).style("font-weight", 700);
+
+                                d3.selectAll("div.issuanceMainEventSection")
+                                    .each(function (event, index) {
+                                        if (index !== i) {
+                                            if (d3.select(this).style("opacity") == 1) {
+                                                d3.select(this).style("opacity", 0.1);
+                                            }
+                                        }
+                                        else {
+                                            d3.select(this).style("opacity", 1).style("font-weight", 600);
+                                        }
+                                    });
+                            })
+                            .on("mouseout", function (d) {
+                                d3.selectAll("g.issuanceMainEventsGroup").attr("opacity", 1).style("font-weight", 500);
+
+                                d3.selectAll("div.issuanceMainEventSection")
+                                    .each(function (event) {
+                                        switch (d3.select(this).style("opacity")) {
+                                            case "0.1":
+                                            case "1":
+                                                d3.select(this).style("opacity", 1).style("font-weight", 500);
+                                                break;
+                                        }
+                                    });
+                            });
+
+                    var individualPANGroup = svgIssuance.append("g")
+                                                .selectAll("g.panContainerGroup")
+                                                .data(PANAudit)
+                                                .enter()
+                                                .append("g")
+                                                .attr("class", "panContainerGroup");
+
+                    individualPANGroup
+                        .append("path")
+                        .attr("d", function (d) {
+                            var rangeStart = iMonthScale(d.StartDate),
+                                rangeEnd = iMonthScale(d.EndDate);
+
+                            return "M" + rangeStart + "," + (pathY + pathHeight + 24) + "v10" + "h" + ((rangeEnd - rangeStart) / 2) + "v10v-10" + "h" + ((rangeEnd - rangeStart) / 2) + "v-10";
+                        })
+                        .attr("class", "panRange");
+
+                    individualPANGroup
+                         .append("text")
+                        .attr("text-anchor", "middle")
+                        .attr("class", "panNumber")
+                        //.attr("id", "panNo_" + panIndex)
+                        .attr("transform", function (d) {
+                            var startPosition = iMonthScale(d.StartDate),
+                                   endPosition = iMonthScale(d.EndDate);
+
+                            return "translate(" + (startPosition + (endPosition - startPosition) / 2) + "," + (pathY + pathHeight + 54) + ")";
+                        })
+                        .text(function (d) {
+                            return d.PAN;
+                        });
+
+                    //individualPANGroup
+                    //    .append("g")
+                    //    .attr("class", "panGroup")
+                    //    .attr("PAN", function (d) {
+                    //        if (d.PAN && d.PAN.length > 0) {
+                    //            var startPosition = iMonthScale(d.StartDate),
+                    //                endPosition = iMonthScale(d.EndDate.withoutTime()),
+                    //                currentGroup = d3.select(this);
+
+                    //            d.PAN.map(function (panItem, panIndex) {
+                    //                currentGroup
+                    //                    .append("text")
+                    //                    .attr("text-anchor", "middle")
+                    //                    .attr("class", "panNumber")
+                    //                    //.attr("id", "panNo_" + panIndex)
+                    //                    .attr("transform", "translate(" + (startPosition + (endPosition - startPosition) / 2) + "," + (pathY + pathHeight + 40 + (panIndex * 13)) + ")")
+                    //                    .text(panItem);
                     //            });
+                    //        }
+                    //    });
 
-                    //            return htmlContent;
-                    //        })
-                    //        .on("mouseover", function (d, i) {
-                    //            d3.selectAll("g.mainEventsGroup").attr("opacity", 0.1);
-                    //            d3.select("#gMainEventGroup_" + i).attr("opacity", 1).style("font-weight", 700);
-
-                    //            d3.selectAll("div.mainEventSection")
-                    //                .each(function (event, index) {
-                    //                    if (index !== i) {
-                    //                        if (d3.select(this).style("opacity") == 1) {
-                    //                            d3.select(this).style("opacity", 0.1);
-                    //                        }
-                    //                    }
-                    //                    else {
-                    //                        d3.select(this).style("opacity", 1).style("font-weight", 600);
-                    //                    }
-                    //                });
-                    //        })
-                    //        .on("mouseout", function (d) {
-                    //            d3.selectAll("g.mainEventsGroup").attr("opacity", 1).style("font-weight", 500);
-
-                    //            d3.selectAll("div.mainEventSection")
-                    //                .each(function (event) {
-                    //                    switch (d3.select(this).style("opacity")) {
-                    //                        case "0.1":
-                    //                        case "1":
-                    //                            d3.select(this).style("opacity", 1).style("font-weight", 500);
-                    //                            break;
-                    //                    }
-                    //                });
-                    //        });
                 }, 500);
             }
         }
@@ -2145,9 +2300,9 @@
             id: "events_5"
         },
         {
-            attributeName: "mis_isdailyriderreporteddate",
+            attributeName: "mis_dailyriderreporteddate",
             labelName: "Reported for Daily Rider",
-            excludeCreate: true,
+            colorCode: "#D24726",
             id: "events_6"
         },
         {
