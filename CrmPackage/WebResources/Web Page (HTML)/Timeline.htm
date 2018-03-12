@@ -95,6 +95,17 @@
             border: 1px solid rgb(204,184,4);
         }
 
+        .redemptionSection {
+            cursor: default;
+            background-color: rgb(253,243,159); /*rgb(238, 238, 238);*/
+            border-radius: 10px;
+            padding-left: 8px;
+            padding-right: 5px;
+            padding-top: 1px;
+            border: 1px solid rgb(204,184,4);
+            width:80%;
+        }
+
         .issuanceContainerSection {
             position: absolute;
             z-index: 500;
@@ -136,6 +147,7 @@
             font-weight: 400;
             height: 20px;
             padding-left: 5px;
+            padding-right: 5px;
             padding-top: 4px;
             vertical-align: top;
         }
@@ -466,7 +478,7 @@
         /* Retrieve Participant Details */
         /* Start */
         function retrieveParticipantDetails(cid) {
-            var query = "$select=contactid,createdon&$filter=contains(mis_cid,'" + cid + "')";
+            var query = "$select=contactid,createdon," + MisXrmUtilities.WebAPI.FormatLookupAttributeName("mis_panid") + "&$filter=contains(mis_cid,'" + cid + "')";
 
             MisXrmUtilities.WebAPI.RetrieveMultipleRecords(
                     "contacts",
@@ -477,6 +489,8 @@
                                 "EntityName": "contact",
                                 "EntityId": contacts[0].contactid
                             };
+
+                            currentContactRecord = contacts[0];
 
                             var createdOn = contacts[0].createdon,
                                 todaysDate = new Date(),
@@ -698,6 +712,7 @@
                                                 });
 
                                                 if (piFoodItem.length > 0) {
+                                                    participantIssuance.familyBenefitIssuanceDetaildId = piFoodItem[0].mis_familybenefitissuancedetailsid;
                                                     participantIssuance.familyQuantity = MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(piFoodItem[0], "mis_quantity").Text;
                                                     participantIssuance.availableForIssuance = MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(piFoodItem[0], "mis_availableforissuance").Text;
                                                     participantIssuance.redeemedQuantity = MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(piFoodItem[0], "mis_redeemed").Text;
@@ -1145,35 +1160,45 @@
                 divContent = "";
 
             if (issuanceRecord && issuanceRecord.length > 0 && issuanceRecord[0].participantIssuances.length > 0) {
-                divContent += "<div style='height:220px'><table cellspacing=0 cellpadding=0 border=0>";
-                divContent += "<tr><td class='issuanceHeader' style='width:130px'>Food Item</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Quantity (Participant)</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Quantity (Family)</td><td class='issuanceHeader' style='width:100px;padding-left:3px' align='right'>Available for issuance</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Redeemed</td></tr>";
+                divContent += "<div style='height:220px;overflow-y:auto'><table cellspacing=0 cellpadding=0 width='820px' id='tbIssuanceDetails'>";
+                divContent += "<tr><td class='issuanceHeader' style='width:40%'>Food Item</td><td class='issuanceHeader' style='width:15%;padding-left:3px' align='right'>Quantity (Participant)</td><td class='issuanceHeader' style='width:15%;padding-left:3px' align='right'>Quantity (Family)</td><td class='issuanceHeader' style='width:15%;padding-left:3px' align='right'>Available for issuance</td><td class='issuanceHeader' style='width:15%;padding-left:3px' align='right'>Redeemed</td></tr>";
 
                 issuanceRecord[0].participantIssuances.map(function (issuanceR, issuanceIndex) {
-                    var colorCode = "black";
+                    if (issuanceR.availableForIssuance) {
+                        var colorCode = "black",
+                            styleOnClick = "";
 
-                    try {
-                        var totalQuantity = parseFloat(issuanceR.familyQuantity),
-                            availableForIssuance = parseFloat(issuanceR.availableForIssuance),
-                            percentage = parseInt(availableForIssuance / totalQuantity * 100);
+                        try {
+                            var totalQuantity = parseFloat(issuanceR.familyQuantity),
+                                availableForIssuance = parseFloat(issuanceR.availableForIssuance),
+                                percentage = parseInt(availableForIssuance / totalQuantity * 100);
 
-                        if (percentage > 70) {
-                            colorCode = "#228B22";
+                            if (percentage > 70) {
+                                colorCode = "#228B22";
+                            }
+                            else if (percentage > 30) {
+                                colorCode = "#B8860B";
+                            }
+                            else {
+                                colorCode = "#FF0000";
+                            }
+
                         }
-                        else if (percentage > 30) {
-                            colorCode = "#B8860B";
+                        catch (err) {
+                        }
+
+                        if (parseFloat(issuanceR.redeemedQuantity) > 0) {
+                            styleOnClick = "style='padding-right:5px;text-decoration:underline;color:blue;cursor:pointer;' onclick=displayRedemptionDetails(this,'" + issuanceRecord[0].id + "','" + issuanceR.familyBenefitIssuanceDetaildId + "')";
                         }
                         else {
-                            colorCode = "#FF0000";
+                            styleOnClick = "style='padding-right:5px;'";
                         }
 
+                        divContent += "<tr><td class='issuanceValues'>" + issuanceR.foodItemName + "</td><td class='issuanceValues' align='right' style='padding-right:5px'>" + issuanceR.participantQuantity + "</td><td class='issuanceValues' align='right' style='padding-right:5px'>" + issuanceR.familyQuantity + "</td><td class='issuanceValues' align='right' style='padding-right:5px;font-weight:bold;color:" + colorCode + ";'>" + issuanceR.availableForIssuance + "</td><td class='issuanceValues' align='right' " + styleOnClick + ">" + issuanceR.redeemedQuantity + "</td></tr>";
                     }
-                    catch (err) {
-                    }
-
-                    divContent += "<tr><td class='issuanceValues'>" + issuanceR.foodItemName + "</td><td class='issuanceValues' align='right' style='padding-right:5px'>" + issuanceR.participantQuantity + "</td><td class='issuanceValues' align='right' style='padding-right:5px'>" + issuanceR.familyQuantity + "</td><td class='issuanceValues' align='right' style='padding-right:5px;font-weight:bold;color:" + colorCode + ";'>" + issuanceR.availableForIssuance + "</td><td class='issuanceValues' align='right' style='padding-right:5px'>" + issuanceR.redeemedQuantity + "</td></tr>";
                 });
 
-                divContent += "</table></div>";
+                divContent += "</table></div>";//<div><table id=''><tr><td class='issuanceHeader' style='width:60px'>Redeemed Date</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>Redeemed Quantity</td><td class='issuanceHeader' style='width:80px;padding-left:3px' align='right'>PAN</td><td class='issuanceHeader' style='width:100px;padding-left:3px' align='right'>Vendor</td></tr><tr><td class='issuanceValues' align='right'>8/22/2017</td><td class='issuanceValues' align='right'>18</td><td class='issuanceValues' style='width:80px;'>5077171000104071028</td><td class='issuanceValues'>WAL-MART SUPERCENTER #1129</td></tr></table></div>
                 divContent += "<div id='divIssuanceAuditHistory' style='padding-top:10px;height:" + (overlayExpandedHeight - 220) + "px'></div>"
 
                 divContainer.append("div")
@@ -1189,20 +1214,134 @@
                     };
 
                     retrieveAuditDetails(issuanceRecordId, function (result) {
-                        generateIssuanceAuditDetails(issuanceRecord[0], result);
+                        var issuanceAudit = result;
+
+                        sortAuditDetails(issuanceAudit);
+
+                        issuanceRecord[0].auditHistory = issuanceAudit;
+
+                        generateIssuanceAuditDetails(issuanceRecord[0]);
                     });
                 }
+                else {
+                    generateIssuanceAuditDetails(issuanceRecord[0]);
+                }
+
+                if (!issuanceRecord[0].redemptionDetails) {
+                    var query = "<fetch distinct='false' mapping='logical' output-format='xml-platform' version='1.0'>" +
+                                   "<entity name='mis_familybenefitredemptiondetails'>" +
+                                      "<attribute name='mis_redeemeddate' />" +
+                                      "<attribute name='mis_fooditem' />" +
+                                      "<attribute name='mis_redeemedquantity' />" +
+                                      "<attribute name='mis_pan' />" +
+                                      "<attribute name='mis_vendor' />" +
+                                      "<attribute name='mis_familybenefitredemptiondetailsid' />" +
+                                      "<attribute name='mis_familyissuancedetails' />" +
+                                      "<order descending='false' attribute='mis_redeemeddate' />" +
+                                      "<link-entity name='mis_familybenefitissuancedetails' alias='af' to='mis_familyissuancedetails' from='mis_familybenefitissuancedetailsid'>" +
+                                         "<filter type='and'>" +
+                                            "<condition attribute='mis_familybenefitissuance' operator='eq' value='" + issuanceRecord[0].id + "'/>" +
+                                         "</filter>" +
+                                      "</link-entity>" +
+                                   "</entity>" +
+                                "</fetch>";
+
+                    MisXrmUtilities.WebAPI.ExecuteFetchXmlAsync(
+                                    "mis_familybenefitredemptiondetailses",
+                                    query,
+                                    function (redemptionDetails) {
+                                        var redDetails = [];
+                                        if (redemptionDetails && redemptionDetails.length > 0) {
+                                            redemptionDetails.map(function (redemption) {
+                                                redDetails.push({
+                                                    mis_familyissuancedetails: MisXrmUtilities.WebAPI.GetLookupAttributeValue(redemption, "mis_familyissuancedetails") != null ? MisXrmUtilities.WebAPI.GetLookupAttributeValue(redemption, "mis_familyissuancedetails").Id : "",
+                                                    mis_pan: MisXrmUtilities.WebAPI.GetLookupAttributeValue(redemption, "mis_pan") != null ? MisXrmUtilities.WebAPI.GetLookupAttributeValue(redemption, "mis_pan").Name : "",
+                                                    mis_vendor: MisXrmUtilities.WebAPI.GetLookupAttributeValue(redemption, "mis_vendor") != null ? MisXrmUtilities.WebAPI.GetLookupAttributeValue(redemption, "mis_vendor").Name : "",
+                                                    mis_redeemeddate: MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(redemption, "mis_redeemeddate") != null ? MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(redemption, "mis_redeemeddate").Text : "",
+                                                    mis_redeemedquantity: MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(redemption, "mis_redeemedquantity") != null ? MisXrmUtilities.WebAPI.GetOptionsetAttributeValue(redemption, "mis_redeemedquantity").Text : ""
+                                                });
+                                            })
+                                        }
+                                        issuanceRecord[0].redemptionDetails = redDetails;
+                                    },
+                                    function (error) {
+                                    });
+
+                }
+
             }
         }
 
-        function generateIssuanceAuditDetails(issuance, result) {
-            var issuanceAudit = result,
-                consolidatedIssuanceAudit = [];
+        function displayRedemptionDetails(rowObj, issuanceId, issuanceDetailsId) {
+            var tbIssuance = document.getElementById("tbIssuanceDetails"),
+                rowIndex = rowObj.parentElement.rowIndex;
 
-            sortAuditDetails(issuanceAudit);
+            if (tbIssuance.rows.length > (rowIndex + 1) && tbIssuance.rows[rowIndex + 1].cells[0].colSpan > 1) {
+                tbIssuance.deleteRow(rowIndex + 1);
+                return;
+            }
 
-            consolidateIndividualAuditDetails(issuanceAudit, consolidatedIssuanceAudit);
+            var rowIssuanceDetails = tbIssuance.insertRow(rowIndex + 1);
 
+            var redemptionCols = [{
+                colName: "Redeemed Date",
+                dataColName: "mis_redeemeddate",
+                width: "100px",
+                align: "right"
+            },
+            {
+                colName: "Redeemed Quantity",
+                dataColName: "mis_redeemedquantity",
+                width: "120px",
+                align: "right"
+            },
+            {
+                colName: "PAN",
+                dataColName: "mis_pan",
+                width: "180px",
+                align: "left"
+            },
+            {
+                colName: "Vendor",
+                dataColName: "mis_vendor",
+                width: "160px",
+                align: "left"
+            }];
+
+            var tableHtml = "<div class='redemptionSection'><table><tr>";
+            redemptionCols.map(function (col, index) {
+                tableHtml += "<td class='auditHeader' style='width:" + col.width + "'>" + col.colName + "</td>";
+            });
+            tableHtml += "</tr>";
+
+
+            var issuanceRecord = issuanceDetails.filter(function (issuanceDetail) { return issuanceDetail.id === issuanceId });
+
+            if (issuanceRecord && issuanceRecord.length > 0 && issuanceRecord[0].redemptionDetails && issuanceRecord[0].redemptionDetails.length > 0) {
+                var redemptionRecords = issuanceRecord[0].redemptionDetails.filter(function (redemptionDetail) { return redemptionDetail.mis_familyissuancedetails === issuanceDetailsId })
+                if (redemptionRecords && redemptionRecords.length > 0) {
+                    redemptionRecords.map(function (redemptionRecord) {
+                        tableHtml += "<tr>";
+                        redemptionCols.map(function (col, index) {
+                            tableHtml += "<td class='auditValues' align='" + col.align + "'>" + redemptionRecord[col.dataColName] + "</td>";
+                        });
+                        tableHtml += "</tr>";
+                    });
+                }
+            }
+
+            tableHtml += "</table></div>";
+
+            var cellIssuance = rowIssuanceDetails.insertCell(0);
+            cellIssuance.colSpan = rowObj.parentElement.cells.length;
+            cellIssuance.style.padding = "10px";
+            cellIssuance.align = "center";
+            cellIssuance.innerHTML = tableHtml;
+        }
+
+        function generateIssuanceAuditDetails(issuance) {
+            var issuanceAudit = issuance.auditHistory;
+          
             var divOffset = document.getElementById("divIssuanceAuditHistory").getBoundingClientRect();
 
             var issuanceEventsToHighlight = [{
@@ -1229,16 +1368,16 @@
 
             if (issuanceAudit && issuanceAudit.length > 0) {
 
-                var iStartDate = new Date(issuanceAudit[0].ChangedDate),
+                var iStartDate = new Date(issuanceAudit[0].ChangedDate > issuance.startDate ? issuance.startDate : issuanceAudit[0].ChangedDate),
                     iEndDate = setTimePart(new Date(issuance.endDate.getFullYear(), issuance.endDate.getMonth(), 31),23,59,00),
                     dateLegends = [],
                     dateIndex = 0,
-                    tickSize = 7,
+                    tickSize = 10,
                     PANAudit = [];
-
+                
                 iStartDate = new Date(iStartDate.setDate(iStartDate.getDate() - iStartDate.getDay()));
 
-                var iMonthScale = d3.time.scale().domain([iStartDate, iEndDate]).range([(divOffset.width * 0.07 + 2.5), divOffset.width * 0.93 - 2.5]);
+                var iMonthScale = d3.time.scale().domain([iStartDate, addDays(iEndDate,2)]).range([(divOffset.width * 0.07 + 2.5), divOffset.width * 0.93 - 2.5]);
 
                 segregateMainEvents(issuanceEventsToHighlight, issuanceAudit, issuanceMainEvents);
 
@@ -1250,14 +1389,16 @@
                                 if (PANValue.length > 0 && PANValue.indexOf("_") > -1) {
                                     PANValue = PANValue.substring(0, PANValue.indexOf("_"));
 
-                                    if (PANAudit.length > 0) {
-                                        PANAudit[PANAudit.length - 1].EndDate = setTimePart(addDays(eachIssuance.ChangedDate, -1), 19, 59, 00);
-                                    }
+                                    if (AvailablePANs.indexOf(PANValue) > -1) {
+                                        if (PANAudit.length > 0) {
+                                            PANAudit[PANAudit.length - 1].EndDate = setTimePart(addDays(eachIssuance.ChangedDate, -1), 19, 59, 00);
+                                        }
 
-                                    PANAudit.push({
-                                        StartDate: eachIssuance.ChangedDate.withoutTime(),
-                                        PAN: PANValue
-                                    });
+                                        PANAudit.push({
+                                            StartDate: eachIssuance.ChangedDate.withoutTime(),
+                                            PAN: PANValue
+                                        });
+                                    }
                                 }
                             }
                         })
@@ -1305,6 +1446,14 @@
                 svgIssuance.append("path")
                     .attr("d", rightRoundedMainRect(pathX, pathY, divOffset.width * 0.85, pathHeight, 5))
                     .attr("class", "issuanceHistoryArea");
+
+                svgIssuance.append("rect")
+                    .attr('width', (iMonthScale(issuance.endDate) - iMonthScale(issuance.startDate)))
+                    .attr('height', pathHeight)
+                    .attr('x', iMonthScale(issuance.startDate))
+                    .attr('y', pathY)
+                    .style("fill", "rgb(197,124,60)") // rgb(255,144,112)
+                    .style("stroke", "rgb(197,124,60)");
 
                 svgIssuance.selectAll("line.issuanceLegend")
                             .data(dateLegends)
@@ -1567,8 +1716,15 @@
                        entityDetails,
                        true,
                        function (result) {
-                           if (result.AuditDetails) {
-                               callBackMethod(JSON.parse(result.AuditDetails));
+                           if (result && result.hasOwnProperty("AuditDetails")) {
+                               var resultObject;
+                               if (result.AuditDetails) {
+                                   resultObject = JSON.parse(result.AuditDetails);
+                               }
+                               else {
+                                   resultObject = [];
+                               }
+                               callBackMethod(resultObject);
                                //generateAuditDetails();
                            }
                        },
@@ -1703,6 +1859,10 @@
 
             consolidateIndividualAuditDetails(auditDetails, consolidatedAuditDetails);
 
+            AvailablePANs = [];
+
+            identifyParticipantPANs(auditDetails, AvailablePANs);
+
             mainEventsToBeDisplayed = [];
 
             segregateMainEvents(eventsToHighlight, auditDetails, mainEventsToBeDisplayed);
@@ -1710,6 +1870,35 @@
             generateBriefAuditDetails();
 
             plotDisplayAuditSection();
+        }
+
+        function identifyParticipantPANs(auditResult, panList) {
+            if (auditResult && panList) {
+                auditResult.map(function (auditRecord, auditIndex) {
+                    if (auditRecord.ModifiedAttributes) {
+                        auditRecord.ModifiedAttributes.map(function (modifiedAttribute) {
+                            if (modifiedAttribute.Attribute == "mis_panid"
+                                && modifiedAttribute.NewValue != modifiedAttribute.OldValue
+                                && modifiedAttribute.NewValue.length > 0) {
+                                if (panList.indexOf(modifiedAttribute.OldValue) == -1) {
+                                    panList.push(modifiedAttribute.OldValue);
+                                }
+
+                                if (panList.indexOf(modifiedAttribute.NewValue) == -1) {
+                                    panList.push(modifiedAttribute.NewValue);
+                                }
+                            }
+                        });
+                    }
+                });
+
+                if (panList.length == 0) {
+                    if (currentContactRecord && MisXrmUtilities.WebAPI.GetLookupAttributeValue(currentContactRecord, "mis_panid") != null) {
+                        panList.push(MisXrmUtilities.WebAPI.GetLookupAttributeValue(currentContactRecord, "mis_panid").Name);
+                    }
+                }
+            }
+
         }
         /* End */
 
@@ -2218,7 +2407,7 @@
            bodyWidth = document.getElementsByTagName("body")[0].clientWidth,
            legendY = (bodyHeight / 2 + 40);
 
-        var mainEventsToBeDisplayed = [];
+        var mainEventsToBeDisplayed = [], AvailablePANs = [];
 
         var element = {
             width: bodyWidth * 0.95,
@@ -2242,7 +2431,8 @@
             sliderScale,
             brush,
             overlayExpandedWidth,
-            overlayExpandedHeight;
+            overlayExpandedHeight,
+            currentContactRecord;
 
         var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
