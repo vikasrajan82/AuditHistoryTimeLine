@@ -296,6 +296,6 @@ namespace MIS.CRM.AuditHistory.BusinessProcesses
         /// <param name="attributeName">Attribute Name</param>
         /// <param name="optionSetValue">Option set value</param>
         /// <returns>Display name of the Option set</returns>
-        string GetOptionSetText(IOrganizationService orgService, string entityName, string attributeName, int optionSetValue);
+        //string GetOptionSetText(IOrganizationService orgService, string entityName, string attributeName, int optionSetValue);
     }
 }

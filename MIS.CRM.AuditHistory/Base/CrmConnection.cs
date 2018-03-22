@@ -587,34 +587,34 @@ namespace MIS.CRM.AuditHistory.BusinessProcesses
         /// <param name="attributeName">attribute Name</param>
         /// <param name="optionSetValue">option set value</param>
         /// <returns>option set text</returns>
-        public string GetOptionSetText(IOrganizationService orgService, string entityName, string attributeName, int optionSetValue)
-        {
-            string optionsetText = string.Empty;
-            RetrieveAttributeRequest retrieveAttributeRequest = new RetrieveAttributeRequest();
-            retrieveAttributeRequest.EntityLogicalName = entityName;
-            retrieveAttributeRequest.LogicalName = attributeName;
-            retrieveAttributeRequest.RetrieveAsIfPublished = true;
+        //public string GetOptionSetText(IOrganizationService orgService, string entityName, string attributeName, int optionSetValue)
+        //{
+        //    string optionsetText = string.Empty;
+        //    RetrieveAttributeRequest retrieveAttributeRequest = new RetrieveAttributeRequest();
+        //    retrieveAttributeRequest.EntityLogicalName = entityName;
+        //    retrieveAttributeRequest.LogicalName = attributeName;
+        //    retrieveAttributeRequest.RetrieveAsIfPublished = true;
 
-            if (orgService != null)
-            {
-                RetrieveAttributeResponseWrapper retrieveAttributeResponse = new RetrieveAttributeResponseWrapper(orgService.Execute(retrieveAttributeRequest));
-                OptionSetMetadata optionsetMetadata = RetrieveAttributeType(retrieveAttributeResponse);
+        //    if (orgService != null)
+        //    {
+        //        RetrieveAttributeResponseWrapper retrieveAttributeResponse = new RetrieveAttributeResponseWrapper(orgService.Execute(retrieveAttributeRequest));
+        //        OptionSetMetadata optionsetMetadata = RetrieveAttributeType(retrieveAttributeResponse);
 
-                if (optionsetMetadata != null)
-                {
-                    foreach (OptionMetadata optionMetadata in optionsetMetadata.Options)
-                    {
-                        if (optionMetadata.Value == optionSetValue)
-                        {
-                            optionsetText = optionMetadata.Label.UserLocalizedLabel.Label;
-                            return optionsetText;
-                        }
-                    }
-                }
-            }
+        //        if (optionsetMetadata != null)
+        //        {
+        //            foreach (OptionMetadata optionMetadata in optionsetMetadata.Options)
+        //            {
+        //                if (optionMetadata.Value == optionSetValue)
+        //                {
+        //                    optionsetText = optionMetadata.Label.UserLocalizedLabel.Label;
+        //                    return optionsetText;
+        //                }
+        //            }
+        //        }
+        //    }
 
-            return optionsetText;
-        }
+        //    return optionsetText;
+        //}
 
         /// <summary>
         /// Retrieves the Option set metadata options

@@ -471,40 +471,7 @@ namespace MIS.CRM.AuditHistory.BusinessProcesses
 
             return timeSpan;
         }
-
-        /// <summary>
-        /// This method gets option set label.
-        /// </summary>
-        /// <param name="entityName"> entity name </param>
-        /// <param name="fieldName"> field name </param>
-        /// <param name="optionSetValue"> option set value </param>
-        /// <param name="service"> organization service </param>
-        /// <returns> name formed </returns>
-        public static string GetOptionSetValueLabel(string entityName, string fieldName, int optionSetValue, IOrganizationService service)
-        {
-            if (service != null)
-            {
-                var attReq = new RetrieveAttributeRequest();
-                attReq.EntityLogicalName = entityName;
-                attReq.LogicalName = fieldName;
-                attReq.RetrieveAsIfPublished = true;
-
-                var attResponse = (RetrieveAttributeResponse)service.Execute(attReq);
-                var attMetadata = (EnumAttributeMetadata)attResponse.AttributeMetadata;
-                if (attMetadata != null && attMetadata.OptionSet != null &&
-                    attMetadata.OptionSet.Options != null && attMetadata.OptionSet.Options.Any())
-                {
-                    var option = attMetadata.OptionSet.Options.FirstOrDefault(x => x.Value == optionSetValue);
-                    if (option != null)
-                    {
-                        return option.Label.UserLocalizedLabel.Label;
-                    }
-                }
-            }
-
-            return null;
-        }
-
+        
         /// <summary>
         /// Get aliased value
         /// </summary>
@@ -520,38 +487,6 @@ namespace MIS.CRM.AuditHistory.BusinessProcesses
 
             return -1;
         }
-
-        /// <summary>
-        /// Get Option set value labels
-        /// </summary>
-        /// <param name="entityName">entity name</param>
-        /// <param name="fieldName">field name</param>
-        /// <param name="service">the service</param>
-        /// <returns>returns the labels</returns>
-        public static Dictionary<int, string> GetOptionSetValueLabels(string entityName, string fieldName, IOrganizationService service)
-        {
-            if (service != null)
-            {
-                Dictionary<int, string> optionSetValues = new Dictionary<int, string>();
-                var attReq = new RetrieveAttributeRequest();
-                attReq.EntityLogicalName = entityName;
-                attReq.LogicalName = fieldName;
-                attReq.RetrieveAsIfPublished = true;
-
-                var attResponse = (RetrieveAttributeResponse)service.Execute(attReq);
-                var attMetadata = (EnumAttributeMetadata)attResponse.AttributeMetadata;
-
-                attMetadata.OptionSet.Options.ToList().ForEach(optionset =>
-                    {
-                        optionSetValues.Add(optionset.Value.Value, optionset.Label.UserLocalizedLabel.Label);
-                    });
-
-                return optionSetValues;
-            }
-
-            return null;
-        }
-
         #endregion CRM Methods
 
         #region Non-CRM Methods
@@ -774,53 +709,7 @@ namespace MIS.CRM.AuditHistory.BusinessProcesses
 
             return null;
         }
-
-        /// <summary>
-        /// Retrieve Option set text
-        /// </summary>
-        /// <param name="entityName">entity name</param>
-        /// <param name="attributeName">attribute name</param>
-        /// <param name="optionSetValue">option set value</param>
-        /// <param name="orgService">the service</param>
-        /// <returns>returns the option set text</returns>
-        public static string RetrieveOptionSetText(string entityName, string attributeName, int optionSetValue, IOrganizationService orgService)
-        {
-            if (orgService == null)
-            {
-                throw new ArgumentNullException("orgService");
-            }
-
-            string optionsetText = string.Empty;
-            RetrieveAttributeRequest retrieveAttributeRequest = new RetrieveAttributeRequest();
-            retrieveAttributeRequest.EntityLogicalName = entityName;
-            retrieveAttributeRequest.LogicalName = attributeName;
-            retrieveAttributeRequest.RetrieveAsIfPublished = true;
-
-            RetrieveAttributeResponse retrieveAttributeResponse =
-              (RetrieveAttributeResponse)orgService.Execute(retrieveAttributeRequest);
-            PicklistAttributeMetadata picklistAttributeMetadata =
-              (PicklistAttributeMetadata)retrieveAttributeResponse.AttributeMetadata;
-
-            if (picklistAttributeMetadata != null)
-            {
-                OptionSetMetadata optionsetMetadata = picklistAttributeMetadata.OptionSet;
-
-                if (optionsetMetadata != null)
-                {
-                    foreach (OptionMetadata optionMetadata in optionsetMetadata.Options)
-                    {
-                        if (optionMetadata.Value == optionSetValue)
-                        {
-                            optionsetText = optionMetadata.Label.UserLocalizedLabel.Label;
-                            return optionsetText;
-                        }
-                    }
-                }
-            }
-
-            return optionsetText;
-        }
-
+        
         /// <summary>
         /// This method calculates age in weeks
         /// </summary>
@@ -868,44 +757,7 @@ namespace MIS.CRM.AuditHistory.BusinessProcesses
         {
             return new DateTime(value.Year, value.Month, 1);
         }
-
-        /// <summary>
-        /// This function returns the option set text
-        /// </summary>
-        /// <param name="orgService">org Service</param>
-        /// <param name="entityName">entity Name</param>
-        /// <param name="attributeName">attribute Name</param>
-        /// <param name="optionSetValue">option set value</param>
-        /// <returns>option set text</returns>
-        public static string GetOptionSetText(IOrganizationService orgService, string entityName, string attributeName, int optionSetValue)
-        {
-            string optionsetText = string.Empty;
-            RetrieveAttributeRequest retrieveAttributeRequest = new RetrieveAttributeRequest();
-            retrieveAttributeRequest.EntityLogicalName = entityName;
-            retrieveAttributeRequest.LogicalName = attributeName;
-            retrieveAttributeRequest.RetrieveAsIfPublished = true;
-
-            if (orgService != null)
-            {
-                RetrieveAttributeResponseWrapper retrieveAttributeResponse = new RetrieveAttributeResponseWrapper(orgService.Execute(retrieveAttributeRequest));
-                OptionSetMetadata optionsetMetadata = RetrieveAttributeType(retrieveAttributeResponse);
-
-                if (optionsetMetadata != null)
-                {
-                    foreach (OptionMetadata optionMetadata in optionsetMetadata.Options)
-                    {
-                        if (optionMetadata.Value == optionSetValue)
-                        {
-                            optionsetText = optionMetadata.Label.UserLocalizedLabel.Label;
-                            return optionsetText;
-                        }
-                    }
-                }
-            }
-
-            return optionsetText;
-        }
-
+        
         /// <summary>
         /// Serialize the data
         /// </summary>
@@ -1003,52 +855,7 @@ namespace MIS.CRM.AuditHistory.BusinessProcesses
 
             return DateTime.Today;
         }
-
-        /// <summary>
-        /// Retrieve Option set value
-        /// </summary>
-        /// <param name="entityName">entity name</param>
-        /// <param name="attributeName">attribute name</param>
-        /// <param name="optionSetName">option set name</param>
-        /// <param name="orgService">the service</param>
-        /// <returns>returns the option set value</returns>
-        public static int RetrieveOptionSetValue(string entityName, string attributeName, string optionSetName, IOrganizationService orgService)
-        {
-            if (orgService == null)
-            {
-                throw new ArgumentNullException("orgService");
-            }
-
-            int optionsetValue = 0;
-            RetrieveAttributeRequest retrieveAttributeRequest = new RetrieveAttributeRequest();
-            retrieveAttributeRequest.EntityLogicalName = entityName;
-            retrieveAttributeRequest.LogicalName = attributeName;
-            retrieveAttributeRequest.RetrieveAsIfPublished = true;
-
-            RetrieveAttributeResponse retrieveAttributeResponse =
-              (RetrieveAttributeResponse)orgService.Execute(retrieveAttributeRequest);
-            PicklistAttributeMetadata picklistAttributeMetadata =
-              (PicklistAttributeMetadata)retrieveAttributeResponse.AttributeMetadata;
-
-            if (picklistAttributeMetadata != null)
-            {
-                OptionSetMetadata optionsetMetadata = picklistAttributeMetadata.OptionSet;
-                if (optionsetMetadata != null)
-                {
-                    foreach (OptionMetadata optionMetadata in optionsetMetadata.Options)
-                    {
-                        if (optionMetadata.Label.UserLocalizedLabel.Label == optionSetName)
-                        {
-                            optionsetValue = optionMetadata.Value.Value;
-                            return optionsetValue;
-                        }
-                    }
-                }
-            }
-
-            return optionsetValue;
-        }
-
+        
         /// <summary>
         /// Retrieves the Option set metadata options
         /// </summary>
